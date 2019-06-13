@@ -5,9 +5,9 @@ import InputBase from '@material-ui/core/InputBase';
 import style from './style.js';
 
 
-const Input = props => (
-  <InputBase {...props}/>
-)
+function Input(props) {
+  return  <InputBase {...props} />
+}
 
 export default compose(
   withStyles(style)

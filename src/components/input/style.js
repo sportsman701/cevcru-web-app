@@ -1,4 +1,5 @@
 import { fade } from '@material-ui/core/styles';
+import colors from 'helpers/colors';
 
 
 export default theme => ({
@@ -30,7 +31,7 @@ export default theme => ({
       '"Segoe UI Symbol"',
     ].join(','),
     '&:focus': {
-      borderColor: '#4A90E2' // theme.palette.primary.main,
+      borderColor: colors.input.focus.border
     },
   },
 })
