@@ -1,10 +1,7 @@
 import React from 'react';
 import { Router, Route } from 'react-router-dom';
 
-import { IntlProvider , addLocaleData } from "react-intl";
-import localeEn from 'react-intl/locale-data/en';
-import localeFr from 'react-intl/locale-data/fr';
-import localeEs from 'react-intl/locale-data/es';
+import { IntlProvider } from "react-intl";
 
 import Container from '@material-ui/core/Container';
 
@@ -16,11 +13,6 @@ import es from 'localization/es.json'
 import fr from 'localization/fr.json'
 import './App.css'
 
-addLocaleData([
-  ...localeEn,
-  ...localeFr,
-  ...localeEs
-]);
 
 const languages = { en, es, fr };
 

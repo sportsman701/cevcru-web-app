@@ -40,7 +40,7 @@
   "login.you_are_almost_there":
     "You're almost there!<br/>Verify your email address to get started.",
   "login.to_keep_your_financial_information_secure":
-    "To keep your financial information secure, a code has been sent to {{email}} and your {{Whatsapp}}",
+    "To keep your financial information secure, a code has been sent to {email} and your {Whatsapp}",
   "login.enter_verification_code":
     "Enter Verification Code",
   "login.didt_get_the_email":
@@ -94,7 +94,7 @@
   "login.need_a_helping_hand":
     "Need a helping hand?",
   "login.mail_us_at_or_whatsapp":
-    "mail_us_at:{{mail}} or Whatsapp {{number}}",
+    "mail_us_at:{mail} or Whatsapp {number}",
   "login.tell_us_about_your_industry":
     "Tell us about your industry",
   "login.help_us_learn_about_your_business":

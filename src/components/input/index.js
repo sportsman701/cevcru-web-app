@@ -1,14 +1,10 @@
 import React from 'react';
-import { compose } from 'redux';
-import { withStyles } from '@material-ui/core/styles';
 import InputBase from '@material-ui/core/InputBase';
-import style from './style.js';
-
+import useStyles from './style';
 
 function Input(props) {
-  return  <InputBase {...props} />
+  const classes = useStyles()
+  return <InputBase {...props} className={classes.root}/>
 }
 
-export default compose(
-  withStyles(style)
-)(Input)
+export default Input;

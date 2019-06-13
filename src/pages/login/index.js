@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react'
 
-import Paper from '@material-ui/core/Paper';
+import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import makeStyles from '@material-ui/styles/makeStyles';
-import { FormattedMessage } from 'react-intl';
 import cx from 'classnames';
 
-import useWidth from 'hooks/useWidth';
-import colors from 'helpers/colors';
+import Input from 'components/input';
+import Password from 'components/input/password';
+import useGlobalStyles from 'hooks/styles';
+import useWidth from 'hooks/width';
+import useIntl from 'hooks/intl';
 
 import logo from 'resources/logo/logo.svg';
 import logoHorizontalMobile from 'resources/logo/logo.svg';
@@ -18,59 +20,8 @@ import image2 from 'resources/registration/2.svg';
 import image3 from 'resources/registration/3.svg';
 import image4 from 'resources/registration/4.svg';
 
+import useStyles from './style';
 
-const useStyles = makeStyles({
-  root: {
-    height: '100vh',
-    display: 'flex',
-  },
-  mainPanel: {
-    margin: 'auto'
-  },
-  leftPanel: {
-    backgroundColor: colors.primary,
-    boxShadow: '#00000024 13px 4px 20px 0px'
-  },
-  rightPanel: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: '30px'
-  },
-  loginTitle: {
-    fontSize: '26px',
-    fontWeight: 'bolder',
-    marginTop:  '2em',
-    color: 'white'
-  },
-  imageTitle: {
-    fontSize: '26px',
-    fontWeight: 'bolder',
-    color: colors.primary,
-    margin: '30px',
-    width: '60%',
-    textAlign: 'center'
-  },
-  image: {
-    height: '250px'
-  },
-  carouselIndicator: {
-    borderRadius: '100%',
-    backgroundColor: colors.carouselIndicator.normal,
-    width: '10px',
-    height: '10px',
-    margin: '0 7px',
-    cursor: 'pointer',
-    transition: 'background-color ease 0.5s',
-
-    '&.active': {
-      backgroundColor: colors.primary
-    },
-    '&:hover': {
-      backgroundColor: colors.carouselIndicator.hover
-    }
-  }
-});
 
 const carousel = [
   { image: image1, text: 'login.review_your_business_performance' },
@@ -81,7 +32,9 @@ const carousel = [
 
 function Login(props) {
   const width = useWidth();
-  const classes = useStyles(props);
+  const translate = useIntl()
+  const classes = useStyles();
+  const globalClasses = useGlobalStyles();
   const [ bullet, setBullet ] = useState(0);
 
   useEffect(() => {
@@ -100,13 +53,23 @@ function Login(props) {
           className={classes.leftPanel}
         >
           <p className={classes.loginTitle}>
-            <FormattedMessage id={'login.log_into_your_business_manager'} />
+            { translate('login.log_into_your_business_manager') }
           </p>
+          <Box display='flex' flexDirection='column'>
+            <FormControl error>
+              <Input placeholder={translate('login.email_address')} />
+            </FormControl>
+            <FormControl>
+              <Password placeholder={translate('login.password')} />
+              <FormHelperText id="password-helper"></FormHelperText>
+            </FormControl>
+            {/* <Input placeholder={translate('login.email_address')} /> */}
+          </Box>
         </Grid>
         <Grid className={classes.rightPanel} item sm={6}>
           <img alt="" src={logo}/>
           <p className={classes.imageTitle}>
-            <FormattedMessage id={carousel[bullet].text} />
+            { translate(carousel[bullet].text) }
           </p>
           <img
             className={classes.image}
