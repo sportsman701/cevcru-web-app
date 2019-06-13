@@ -14,7 +14,7 @@ import Login from 'pages/login';
 import en from 'localization/en.json'
 import es from 'localization/es.json'
 import fr from 'localization/fr.json'
-
+import './App.css'
 
 addLocaleData([
   ...localeEn,
@@ -27,7 +27,7 @@ const languages = { en, es, fr };
 function App() {
   return (
     <IntlProvider locale='en' messages={languages['en']}>
-      <Container>
+      <Container className='App'>
         <Router history={history}>
           <Route path='/' exact component={Login} />
         </Router>

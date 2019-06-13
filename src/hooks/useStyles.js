@@ -4,6 +4,11 @@ import colors from 'helpers/colors';
 
 export default makeStyles({
   loginPictureTitle: {
-    color: colors.primary
+    fontFamily: 'Lato',
+    fontSize: '26px',
+    fontWeight: 'bolder',
+    color: colors.primary,
+    margin: '30px',
+    textAlign: 'center'
   }
 });

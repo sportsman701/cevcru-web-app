@@ -1,3 +1,146 @@
 {
-
+  "login.review_your_business_performance":
+    "Review your business performance",
+  "login.create_and_send_professional_invoices":
+    "Create and send professional invoices",
+  "login.manage_your_inventory_and_low_stock_list":
+    "Manage your inventory and low stock list",
+  "login.organize_your_customer_information":
+    "Organize your customer information",
+  "login.setup_your_business_manager":
+    "Setup your Business Manager",
+  "login.log_into_your_business_manager":
+    "Log into your Business Manager",
+  "login.reset_your_account_password":
+    "Reset your Account Password",
+  "login.add_your_contact_information_to_create_your_account":
+    "Add your contact information to create your account",
+  "login.email_address":
+    "Email address",
+  "login.password":
+    "Password",
+  "login.confirm_password":
+    "Confirm password",
+  "login.get_started":
+    "Get Started",
+  "login.forgot_password":
+    "Forgot Password?",
+  "login.login_with_google":
+    "Log in with Google",
+  "login.dont_have_an_account":
+    "Don't have an account?",
+  "login.already_have_an_account":
+    "Already have an account?",
+  "login.log_in":
+    "LOG IN",
+  "login.create_one":
+    "CREATE ONE",
+  "login.by_clicking_get_started":
+    "By clicking get started, you agree to the terms of service and privacy policies",
+  "login.you_are_almost_there":
+    "You're almost there!<br/>Verify your email address to get started.",
+  "login.to_keep_your_financial_information_secure":
+    "To keep your financial information secure, a code has been sent to {{email}} and your {{Whatsapp}}",
+  "login.enter_verification_code":
+    "Enter Verification Code",
+  "login.didt_get_the_email":
+    "Didn't get the email?",
+  "login.resend_email":
+    "Resend email",
+  "login.we_ve_sent_a_verification_email":
+    "We've sent a verification email",
+  "login.verification_code_is_incorrect":
+    "Verification code is incorrect",
+  "login.welcome_to_vencru":
+    "Welcome to Vencru",
+  "login.your_business_manager_is_just_ahead":
+    "Your better business manager is just ahead",
+  "login.setup_my_business":
+    "Setup My Business",
+  "login.send_reset_token":
+    "Send Resend Token",
+  "login.log_in_to_your_account":
+    "Log in to your account",
+  "login.create_your_business_card":
+    "Create your business card",
+  "login.creating_your_business_card":
+    "Creating your business card will make sending invoices and campaigns easier.",
+  "login.first_name":
+    "First Name",
+  "login.last_name":
+    "Last Name",
+  "login.company":
+    "Company",
+  "login.phone_number":
+    "Phone Number",
+  "login.address_street":
+    "Address (street)",
+  "login.address_city":
+    "Address (city)",
+  "login.address_country":
+    "Address (country)",
+  "login.my_business_is_incorporated_llc":
+    "My Business is incorporated/LLC",
+  "login.continue":
+    "Continue",
+  "login.wanted_creative_agency":
+    "Wanted creative agency",
+  "login.setup_your_business":
+    "Setup your business",
+  "login.about_your_industry":
+    "About your industry",
+  "login.about_your_business":
+    "About your business",
+  "login.need_a_helping_hand":
+    "Need a helping hand?",
+  "login.mail_us_at_or_whatsapp":
+    "mail_us_at:{{mail}} or Whatsapp {{number}}",
+  "login.tell_us_about_your_industry":
+    "Tell us about your industry",
+  "login.help_us_learn_about_your_business":
+    "Help us learn about your business to better serve you.",
+  "login.choose_your_industry":
+    "Choose your industry",
+  "login.how_did_you_hear_about_vencru":
+    "How did you hear about Vencru",
+  "login.friend":
+    "Friend",
+  "login.website":
+    "Website",
+  "login.instagram_facebook":
+    "Instagram/Facebook",
+  "login.twitter":
+    "Twitter",
+  "login.linkedin":
+    "LinkedIn",
+  "login.google":
+    "Google",
+  "login.appstore":
+    "App store",
+  "login.other":
+    "Other",
+  "login.enter_the_code_for_your_referral":
+    "Enter the code for your referral (Optional)",
+  "login.enter_referral_code":
+    "Enter referral code",
+  "login.enter_your_referees_code":
+    "Enter your referee's code so you both earn points towards gold status!",
+  "login.previous_step":
+    "Previous Step",
+  "login.tell_us_about_your_business":
+    "Tell us about your business",
+  "login.what_is_your_team_size":
+    "What is your team size? (Includes employees and contractors)",
+  "login.just_me":
+    "Just me",
+  "login.choose_currency":
+    "Choose currency",
+  "login.Nigerian_naira":
+    "Nigerian Naira",
+  "login.do_you_accept_online_payments":
+    "Do you accept online payments (eg. Paypal, Paystack, Flutterwave etc.)",
+  "login.yes":
+    "Yes",
+  "login.no":
+    "No"
 }
