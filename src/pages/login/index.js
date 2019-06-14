@@ -9,6 +9,7 @@ import cx from 'classnames';
 import Input from 'components/input';
 import Password from 'components/input/password';
 import Button from 'components/button';
+import Link from 'components/link';
 import useGlobalStyles from 'hooks/styles';
 import useWidth from 'hooks/width';
 import useIntl from 'hooks/intl';
@@ -16,6 +17,7 @@ import useIntl from 'hooks/intl';
 import logo from 'resources/logo/logo.svg';
 import logoHorizontalMobile from 'resources/logo/logo.svg';
 import logoVerticalMobile from 'resources/logo/logo.svg';
+import google from 'resources/registration/google.svg';
 import image1 from 'resources/registration/1.svg';
 import image2 from 'resources/registration/2.svg';
 import image3 from 'resources/registration/3.svg';
@@ -65,7 +67,17 @@ function Login(props) {
               {/* <FormHelperText id="password-helper"></FormHelperText> */}
             </FormControl>
             <FormControl>
-              <Button outlined>{ translate('login.get_started') }</Button>
+              <Button inverse>{ translate('login.get_started') }</Button>
+            </FormControl>
+            <Box py={3}>
+              <Link inverse>
+                { translate('login.forgot_password') }
+              </Link>
+            </Box>
+            <FormControl>
+              <Button icon={google} inverse grayText>
+                { translate('login.login_with_google') }
+              </Button>
             </FormControl>
           </Box>
         </Grid>

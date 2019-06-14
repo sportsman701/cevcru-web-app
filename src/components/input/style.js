@@ -8,7 +8,7 @@ export default makeStyles({
     },
     '& input': {
       borderRadius: 4,
-      backgroundColor: colors.white.normal,
+      backgroundColor: colors.inverse.normal,
       border: '1px solid #ced4da',
       fontSize: 16,
       width: '100%',
