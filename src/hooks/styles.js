@@ -12,23 +12,32 @@ export default makeStyles({
     }
   },
 
+  textTitle: {
+    fontSize: '25px',
+    fontWeight: 'bolder'
+  },
+
+  textPrimary: {
+    color: colors.text.primary.primary
+  },
+
   textNormal: {
-    color: colors.text.textNormal
+    color: colors.text.primary.normal
   },
 
   textLight: {
-    color: colors.text.light
+    color: colors.text.primary.light
   },
 
   textGray: {
-    color: colors.text.gray
+    color: colors.text.primary.gray
   },
 
-  textPrimaryNormal: {
-    color: colors.text.primaryNormal
+  textInverseNormal: {
+    color: colors.text.inverse.normal
   },
 
-  texrtPrimaryHighlight: {
-    color: colors.text.primaryHighlight
+  textInverseHighlight: {
+    color: colors.text.inverse.highlight
   }
 });

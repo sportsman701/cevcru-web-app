@@ -6,9 +6,11 @@ export default makeStyles(theme => ({
     height: '100vh',
     display: 'flex',
   },
+
   mainPanel: {
     margin: 'auto'
   },
+
   leftPanel: {
     backgroundColor: colors.primary.normal,
     boxShadow: '#00000024 13px 4px 20px 0px',
@@ -17,6 +19,7 @@ export default makeStyles(theme => ({
     alignItems: 'center',
     padding: '30px'
   },
+
   passwordPanel: {
     width: '50%',
     margin: '0',
@@ -24,32 +27,21 @@ export default makeStyles(theme => ({
       padding: 0
     }
   },
+
   rightPanel: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     padding: '30px'
   },
-  loginTitle: {
-    fontSize: '26px',
-    fontWeight: 'bolder',
-    margin:  '4em 0 2em',
-    color: colors.text.primaryHighlight
-  },
-  imageTitle: {
-    fontSize: '26px',
-    fontWeight: 'bolder',
-    color: colors.primary.normal,
-    margin: '30px',
-    width: '60%',
-    textAlign: 'center'
-  },
+
   image: {
     height: '250px'
   },
+
   carouselIndicator: {
     borderRadius: '100%',
-    backgroundColor: colors.text.primaryNormal,
+    backgroundColor: colors.text.inverse.normal,
     width: '10px',
     height: '10px',
     margin: '0 7px',

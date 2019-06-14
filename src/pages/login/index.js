@@ -56,7 +56,7 @@ function Login(props) {
           item sm={6}
           className={classes.leftPanel}
         >
-          <p className={classes.loginTitle}>
+          <p className={cx(globalClasses.textTitle, globalClasses.textInverseHighlight)}>
             { trans('login.log_into_your_business_manager') }
           </p>
           <Box className={cx(classes.passwordPanel, globalClasses.formPanel)}>
@@ -83,14 +83,14 @@ function Login(props) {
               </Button>
             </FormControl>
             <Box py={3} display='flex' justifyContent='space-between'>
-              <span className={cx(globalClasses.textPrimaryNormal)}>
+              <span className={cx(globalClasses.textInverseNormal)}>
                 { trans('login.dont_have_an_account') }
               </span>
               <Link inverse>
                 { trans('login.create_one') }
               </Link>
             </Box>
-            <small className={cx(globalClasses.texrtPrimaryHighlight)}>
+            <small className={cx(globalClasses.textInverseHighlight)}>
               <FormattedMessage
                 id='login.by_clicking_get_started'
                 values={{
@@ -112,7 +112,10 @@ function Login(props) {
         </Grid>
         <Grid className={classes.rightPanel} item sm={6}>
           <img alt="" src={logo}/>
-          <p className={classes.imageTitle}>
+          <p className={cx(
+            globalClasses.textTitle,
+            globalClasses.textPrimary
+          )}>
             { trans(carousel[bullet].text) }
           </p>
           <img

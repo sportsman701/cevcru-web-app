@@ -7,7 +7,7 @@ export default makeStyles({
     backgroundColor: colors.primary.normal,
     transition: 'background-color ease .5s',
     boxShadow: 'none',
-    color: colors.inverse.normal,
+    color: colors.inverse.highlight,
 
     '&:hover': {
       backgroundColor: colors.primary.hover
@@ -27,12 +27,12 @@ export default makeStyles({
   },
 
   grayText: {
-    color: `${colors.text.gray} !important`
+    color: `${colors.text.primary.gray} !important`
   },
 
   inverse: {
     backgroundColor: colors.inverse.normal,
-    color: colors.primary.normal,
+    color: colors.text.primary.primary,
 
     '&:hover': {
       backgroundColor: colors.inverse.hover

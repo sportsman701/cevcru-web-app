@@ -12,12 +12,17 @@ const colors = {
   },
   
   text: {
-    normal: '#8CA0B3',
-    light: '#DADADA',
-    gray: '#666',
-    placeholder: '#DFDFDF',
-    primaryNormal: '#abc4e8',
-    primaryHighlight: 'white',
+    primary: {
+      normal: '#8CA0B3',
+      primary: '#2D74DA',
+      light: '#DADADA',
+      gray: '#666',
+      placeholder: '#DFDFDF',
+    },
+    inverse: {
+      normal: '#abc4e8',
+      highlight: 'white',
+    }
   },
 
   link: {
