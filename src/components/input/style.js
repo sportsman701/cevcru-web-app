@@ -13,7 +13,7 @@ export default makeStyles({
       fontSize: 16,
       width: '100%',
       padding: '10px 12px',
-      paddingRight: props => props.adornment ? '45px' : '12px',
+      paddingRight: ({ adornment }) => adornment ? '45px' : '12px',
       transition: 'border-color ease .5s',
 
       '&:focus': {

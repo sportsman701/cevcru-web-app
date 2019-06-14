@@ -36,7 +36,11 @@
   "login.create_one":
     "CREATE ONE",
   "login.by_clicking_get_started":
-    "By clicking get started, you agree to the terms of service and privacy policies",
+    "By clicking Get Started, you agree to the {newline}{terms} and {privacy}",
+  "login.terms_of_service":
+    "terms of service",
+  "login.privacy_policies":
+    "privacy policies",
   "login.you_are_almost_there":
     "You're almost there!<br/>Verify your email address to get started.",
   "login.to_keep_your_financial_information_secure":

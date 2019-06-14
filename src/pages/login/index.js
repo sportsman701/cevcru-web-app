@@ -5,6 +5,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import cx from 'classnames';
+import { FormattedMessage } from 'react-intl'
 
 import Input from 'components/input';
 import Password from 'components/input/password';
@@ -15,8 +16,8 @@ import useWidth from 'hooks/width';
 import useIntl from 'hooks/intl';
 
 import logo from 'resources/logo/logo.svg';
-import logoHorizontalMobile from 'resources/logo/logo.svg';
 import logoVerticalMobile from 'resources/logo/logo.svg';
+import logoHorizontalMobile from 'resources/logo/logo.svg';
 import google from 'resources/registration/google.svg';
 import image1 from 'resources/registration/1.svg';
 import image2 from 'resources/registration/2.svg';
@@ -35,7 +36,7 @@ const carousel = [
 
 function Login(props) {
   const width = useWidth();
-  const translate = useIntl()
+  const trans = useIntl();
   const classes = useStyles();
   const globalClasses = useGlobalStyles();
   const [ bullet, setBullet ] = useState(0);
@@ -56,35 +57,63 @@ function Login(props) {
           className={classes.leftPanel}
         >
           <p className={classes.loginTitle}>
-            { translate('login.log_into_your_business_manager') }
+            { trans('login.log_into_your_business_manager') }
           </p>
           <Box className={cx(classes.passwordPanel, globalClasses.formPanel)}>
             <FormControl error>
-              <Input placeholder={translate('login.email_address')} />
+              <Input placeholder={trans('login.email_address')} />
             </FormControl>
             <FormControl>
-              <Password placeholder={translate('login.password')} />
+              <Password placeholder={trans('login.password')} />
               {/* <FormHelperText id="password-helper"></FormHelperText> */}
             </FormControl>
             <FormControl>
-              <Button inverse>{ translate('login.get_started') }</Button>
+              <Button inverse>
+                {trans('login.get_started')}
+              </Button>
             </FormControl>
-            <Box py={3}>
+            <Box py={2}>
               <Link inverse>
-                { translate('login.forgot_password') }
+                {trans('login.forgot_password')}
               </Link>
             </Box>
             <FormControl>
               <Button icon={google} inverse grayText>
-                { translate('login.login_with_google') }
+                { trans('login.login_with_google') }
               </Button>
             </FormControl>
+            <Box py={3} display='flex' justifyContent='space-between'>
+              <span className={cx(globalClasses.textPrimaryNormal)}>
+                { trans('login.dont_have_an_account') }
+              </span>
+              <Link inverse>
+                { trans('login.create_one') }
+              </Link>
+            </Box>
+            <small className={cx(globalClasses.texrtPrimaryHighlight)}>
+              <FormattedMessage
+                id='login.by_clicking_get_started'
+                values={{
+                  newline: <br/>,
+                  terms: (
+                    <Link inverse>
+                      {trans('login.terms_of_service')}
+                    </Link>
+                  ),
+                  privacy: (
+                    <Link inverse>
+                      {trans('login.privacy_policies')}
+                    </Link>
+                  )
+                }}
+              />
+            </small>
           </Box>
         </Grid>
         <Grid className={classes.rightPanel} item sm={6}>
           <img alt="" src={logo}/>
           <p className={classes.imageTitle}>
-            { translate(carousel[bullet].text) }
+            { trans(carousel[bullet].text) }
           </p>
           <img
             className={classes.image}

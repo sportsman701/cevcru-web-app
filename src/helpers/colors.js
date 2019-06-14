@@ -29,7 +29,7 @@ const colors = {
 
     inverse: {
       normal: '#87d0f9',
-      hover: '#67c3f7',
+      hover: '#d0e5f2',
       active: '#35B2F9'
     }
   }
