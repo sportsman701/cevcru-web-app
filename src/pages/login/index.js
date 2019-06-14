@@ -16,8 +16,8 @@ import useWidth from 'hooks/width';
 import useIntl from 'hooks/intl';
 
 import logo from 'resources/logo/logo.svg';
-import logoVerticalMobile from 'resources/logo/logo.svg';
-import logoHorizontalMobile from 'resources/logo/logo.svg';
+import logoVerticalMobile from 'resources/logo/logo-vertical-mobile.svg';
+import logoHorizontalMobile from 'resources/logo/logo-horizontal-mobile.svg';
 import google from 'resources/registration/google.svg';
 import image1 from 'resources/registration/1.svg';
 import image2 from 'resources/registration/2.svg';
@@ -111,8 +111,9 @@ function Login(props) {
           </Box>
         </Grid>
         <Grid className={classes.rightPanel} item sm={6}>
-          <img alt="" src={logo}/>
+          <img alt="" src={width === 'xs' ? logoHorizontalMobile : logo}/>
           <p className={cx(
+            classes.imageTitle,
             globalClasses.textTitle,
             globalClasses.textPrimary
           )}>

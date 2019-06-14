@@ -17,26 +17,31 @@ export default makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: '30px'
+    padding: '60px',
   },
-
+  
   passwordPanel: {
-    width: '50%',
+    width: '55%',
     margin: '0',
     [theme.breakpoints.down('sm')]: {
       padding: 0
     }
   },
-
+  
   rightPanel: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: '30px'
+    padding: '30px',
+    margin: 'auto'
   },
 
   image: {
     height: '250px'
+  },
+
+  imageTitle: {
+    width: '50%',
   },
 
   carouselIndicator: {
