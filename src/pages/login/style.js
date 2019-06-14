@@ -10,7 +10,7 @@ export default makeStyles(theme => ({
     margin: 'auto'
   },
   leftPanel: {
-    backgroundColor: colors.primary,
+    backgroundColor: colors.primary.normal,
     boxShadow: '#00000024 13px 4px 20px 0px',
     display: 'flex',
     flexDirection: 'column',
@@ -34,12 +34,12 @@ export default makeStyles(theme => ({
     fontSize: '26px',
     fontWeight: 'bolder',
     margin:  '4em 0 2em',
-    color: 'white'
+    color: colors.text.primaryHighlight
   },
   imageTitle: {
     fontSize: '26px',
     fontWeight: 'bolder',
-    color: colors.primary,
+    color: colors.primary.normal,
     margin: '30px',
     width: '60%',
     textAlign: 'center'
@@ -49,7 +49,7 @@ export default makeStyles(theme => ({
   },
   carouselIndicator: {
     borderRadius: '100%',
-    backgroundColor: colors.carouselIndicator.normal,
+    backgroundColor: colors.text.primaryNormal,
     width: '10px',
     height: '10px',
     margin: '0 7px',
@@ -57,10 +57,10 @@ export default makeStyles(theme => ({
     transition: 'background-color ease 0.5s',
 
     '&.active': {
-      backgroundColor: colors.primary
+      backgroundColor: colors.primary.normal
     },
     '&:hover': {
-      backgroundColor: colors.carouselIndicator.hover
+      backgroundColor: colors.primary.hover
     }
   }
 }));

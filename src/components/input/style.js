@@ -8,7 +8,7 @@ export default makeStyles({
     },
     '& input': {
       borderRadius: 4,
-      backgroundColor: 'white',
+      backgroundColor: colors.white.normal,
       border: '1px solid #ced4da',
       fontSize: 16,
       width: '100%',
@@ -17,7 +17,7 @@ export default makeStyles({
       transition: 'border-color ease .5s',
 
       '&:focus': {
-        borderColor: colors.input.focus.border
+        borderColor: colors.primary.normal
       }
     },
     '& .adornment': {

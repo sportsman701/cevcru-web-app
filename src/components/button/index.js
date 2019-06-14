@@ -5,12 +5,13 @@ import cx from 'classnames';
 
 function CustomButton(props) {
   const classes = useStyles();
-  const variant = props.outlined ? 'outlined' : 'contained'
+  const variant = props.outlined ? 'outlined' : 'contained';
+  const { outlined, ...other} = props;
 
   return (
     <Button
       variant={variant}
-      {...props}
+      {...other}
       classes={{label: classes.label}}
       className={cx(classes.root, classes[variant])}
     >

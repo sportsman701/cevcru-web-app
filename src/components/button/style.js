@@ -1,17 +1,16 @@
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import color from 'color';
 import colors from 'helpers/colors';
 
 export default makeStyles({
   root: {
     padding: '12px',
-    backgroundColor: colors.primary,
+    backgroundColor: colors.primary.normal,
     transition: 'background-color ease .5s',
     boxShadow: 'none',
-    color: 'white',
+    color: colors.white.normal,
 
     '&:hover': {
-      backgroundColor: color(colors.primary).lighten(0.1).string()
+      backgroundColor: colors.primary.hover
     },
 
     '&:focus': {
@@ -24,11 +23,11 @@ export default makeStyles({
   },
 
   outlined: {
-    backgroundColor: 'white',
-    color: colors.primary,
+    backgroundColor: colors.white.normal,
+    color: colors.primary.normal,
 
     '&:hover': {
-      backgroundColor: color('white').darken(0.1).string()
+      backgroundColor: colors.white.hover
     }
   }
 })
