@@ -7,7 +7,7 @@ export default makeStyles({
     backgroundColor: colors.primary.normal,
     transition: 'background-color ease .5s',
     boxShadow: 'none',
-    color: colors.inverse.highlight,
+    color: colors.text.inverse.highlight,
 
     '&:hover': {
       backgroundColor: colors.primary.hover
@@ -31,6 +31,7 @@ export default makeStyles({
   },
 
   inverse: {
+    border: `2px solid ${colors.primary.normal}`,
     backgroundColor: colors.inverse.normal,
     color: colors.text.primary.primary,
 

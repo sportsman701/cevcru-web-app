@@ -12,8 +12,9 @@ import Password from 'components/input/password';
 import Button from 'components/button';
 import Link from 'components/link';
 import useGlobalStyles from 'hooks/styles';
-import useWidth from 'hooks/width';
+import useMedia from 'hooks/media';
 import useIntl from 'hooks/intl';
+import { media, mediaUp, mediaOnly, mediaSmallerThan } from 'helpers/media';
 
 import logo from 'resources/logo/logo.svg';
 import logoVerticalMobile from 'resources/logo/logo-vertical-mobile.svg';
@@ -35,7 +36,7 @@ const carousel = [
 ];
 
 function Login(props) {
-  const width = useWidth();
+  const width = useMedia();
   const trans = useIntl();
   const classes = useStyles();
   const globalClasses = useGlobalStyles();
@@ -51,15 +52,19 @@ function Login(props) {
 
   return (
     <Box className={classes.root}>
-      <Grid container className={classes.mainPanel}>
-        <Grid
-          item sm={6}
-          className={classes.leftPanel}
+      <Grid container className={cx(classes.mainPanel, 'show2Form')}>
+        <Grid item xs={12} md={6} className={classes.leftPanel}
         >
-          <p className={cx(globalClasses.textTitle, globalClasses.textInverseHighlight)}>
+          <p className={cx(
+            globalClasses.textTitle,
+            globalClasses.textInverseHighlight
+          )}>
             { trans('login.log_into_your_business_manager') }
           </p>
-          <Box className={cx(classes.passwordPanel, globalClasses.formPanel)}>
+          <Box className={cx(
+            classes.passwordPanel,
+            globalClasses.formPanel
+          )}>
             <FormControl error>
               <Input placeholder={trans('login.email_address')} />
             </FormControl>
@@ -110,13 +115,14 @@ function Login(props) {
             </small>
           </Box>
         </Grid>
-        <Grid className={classes.rightPanel} item sm={6}>
-          <img alt="" src={width === 'xs' ? logoHorizontalMobile : logo}/>
+        <Grid className={classes.rightPanel} item xs={12} md={6}>
+          <img alt="" src={mediaUp(width, media.md) ? logo: logoHorizontalMobile} />
           <p className={cx(
-            classes.imageTitle,
-            globalClasses.textTitle,
-            globalClasses.textPrimary
-          )}>
+              globalClasses.textPrimary,
+              classes.imageTitle,
+              globalClasses.textTitle,
+            )
+          }>
             { trans(carousel[bullet].text) }
           </p>
           <img
@@ -124,7 +130,7 @@ function Login(props) {
             alt=""
             src={carousel[bullet].image}
           />
-          <Box display='flex' pt={8}>
+          <Box display='flex' pt={mediaUp(width, media.md) ? 8 : 4}>
             {Array(4).fill(0).map((item, key) => (
               <div
                 key={key}
@@ -136,6 +142,36 @@ function Login(props) {
               />
             ))}
           </Box>
+          {mediaSmallerThan(width, media.md) && (
+            <>
+              <Box my={4} width={250} className={cx(globalClasses.formPanel)}>
+                <FormControl>
+                  <Button>{trans('login.sign_up')}</Button>
+                </FormControl>
+                <FormControl>
+                  <Button inverse>{trans('login.log_in')}</Button>
+                </FormControl>
+              </Box>
+              <small className={cx(globalClasses.textGray)}>
+                <FormattedMessage
+                  id='login.by_clicking_get_started'
+                  values={{
+                    newline: <br/>,
+                    terms: (
+                      <Link>
+                        {trans('login.terms_of_service')}
+                      </Link>
+                    ),
+                    privacy: (
+                      <Link>
+                        {trans('login.privacy_policies')}
+                      </Link>
+                    )
+                  }}
+                />
+              </small>
+            </>
+          )}
         </Grid>
       </Grid>
     </Box>

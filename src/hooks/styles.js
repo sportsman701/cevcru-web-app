@@ -2,7 +2,7 @@ import { makeStyles  } from '@material-ui/styles';
 import colors from 'helpers/colors';
 
 
-export default makeStyles({
+export default makeStyles(theme => ({
   formPanel: {
     display: 'flex',
     flexDirection: 'column',
@@ -14,7 +14,11 @@ export default makeStyles({
 
   textTitle: {
     fontSize: '25px',
-    fontWeight: 'bolder'
+    fontWeight: 'bolder',
+
+    [theme.breakpoints.only('xs')]: {
+      fontSize: '18px'
+    }
   },
 
   textPrimary: {
@@ -40,4 +44,4 @@ export default makeStyles({
   textInverseHighlight: {
     color: colors.text.inverse.highlight
   }
-});
+}));

@@ -1,7 +1,7 @@
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/styles';
 
-export default function useWidth() {
+export default function useMedia() {
   const theme = useTheme();
   const keys = [...theme.breakpoints.keys].reverse();
   

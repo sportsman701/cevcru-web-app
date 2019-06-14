@@ -31,6 +31,8 @@
     "Don't have an account?",
   "login.already_have_an_account":
     "Already have an account?",
+  "login.sign_up":
+    "SIGN UP",
   "login.log_in":
     "LOG IN",
   "login.create_one":

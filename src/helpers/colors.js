@@ -1,7 +1,7 @@
 const colors = {
   primary: {
     normal: '#2D74DA',
-    hover: '#3b7cdb',
+    hover: '#4684dd',
     active: '#1055b7'
   },
 
@@ -16,7 +16,7 @@ const colors = {
       normal: '#8CA0B3',
       primary: '#2D74DA',
       light: '#DADADA',
-      gray: '#666',
+      gray: '#777',
       placeholder: '#DFDFDF',
     },
     inverse: {

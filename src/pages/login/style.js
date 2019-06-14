@@ -14,17 +14,28 @@ export default makeStyles(theme => ({
   leftPanel: {
     backgroundColor: colors.primary.normal,
     boxShadow: '#00000024 13px 4px 20px 0px',
-    display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     padding: '60px',
+    display: 'none',
+
+    [theme.breakpoints.up('md')]: {
+      display: 'flex'
+    },
+
+    '.showForm &': {
+      display: 'flex'
+    }
   },
   
   passwordPanel: {
     width: '55%',
     margin: '0',
+    [theme.breakpoints.only('md')]: {
+      width: '70%'
+    },
     [theme.breakpoints.down('sm')]: {
-      padding: 0
+      width: '100%'
     }
   },
   
@@ -33,7 +44,13 @@ export default makeStyles(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     padding: '30px',
-    margin: 'auto'
+    margin: 'auto',
+
+    '.showForm &': {
+      [theme.breakpoints.down('sm')]: {
+        display: 'none'
+      }
+    }
   },
 
   image: {
@@ -42,6 +59,12 @@ export default makeStyles(theme => ({
 
   imageTitle: {
     width: '50%',
+    [theme.breakpoints.only('md')]: {
+      width: '70%'
+    },
+    [theme.breakpoints.down('sm')]: {
+      width: '100%'
+    }
   },
 
   carouselIndicator: {
