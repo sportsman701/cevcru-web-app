@@ -8,6 +8,7 @@ import cx from 'classnames';
 
 import Input from 'components/input';
 import Password from 'components/input/password';
+import Button from 'components/button';
 import useGlobalStyles from 'hooks/styles';
 import useWidth from 'hooks/width';
 import useIntl from 'hooks/intl';
@@ -55,15 +56,17 @@ function Login(props) {
           <p className={classes.loginTitle}>
             { translate('login.log_into_your_business_manager') }
           </p>
-          <Box display='flex' flexDirection='column'>
+          <Box className={cx(classes.passwordPanel, globalClasses.formPanel)}>
             <FormControl error>
               <Input placeholder={translate('login.email_address')} />
             </FormControl>
             <FormControl>
               <Password placeholder={translate('login.password')} />
-              <FormHelperText id="password-helper"></FormHelperText>
+              {/* <FormHelperText id="password-helper"></FormHelperText> */}
             </FormControl>
-            {/* <Input placeholder={translate('login.email_address')} /> */}
+            <FormControl>
+              <Button outlined>{ translate('login.get_started') }</Button>
+            </FormControl>
           </Box>
         </Grid>
         <Grid className={classes.rightPanel} item sm={6}>

@@ -3,7 +3,12 @@ import colors from 'helpers/colors';
 
 
 export default makeStyles({
-  formControl: {
-    color: 'red'
+  formPanel: {
+    display: 'flex',
+    flexDirection: 'column',
+
+    '& .MuiFormControl-root': {
+      margin: '0.5em 0'
+    }
   }
 });

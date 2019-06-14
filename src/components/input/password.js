@@ -8,7 +8,7 @@ import useStyles from './style';
 
 function Password(props) {
   const [ showPassword, setShowPassword ] = useState(false);
-  const classes = useStyles(true);
+  const classes = useStyles({ adornment: true });
 
   function handleClickShowPassword() {
     setShowPassword(!showPassword)

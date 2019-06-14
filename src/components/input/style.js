@@ -12,22 +12,10 @@ export default makeStyles({
       border: '1px solid #ced4da',
       fontSize: 16,
       width: '100%',
-      padding: '7px 12px',
-      paddingRight: adorment => adorment ? '45px' : 'inherit',
+      padding: '10px 12px',
+      paddingRight: props => props.adornment ? '45px' : '12px',
       transition: 'border-color ease .5s',
-      // Use the system font instead of the default Roboto font.
-      fontFamily: [
-        '-apple-system',
-        'BlinkMacSystemFont',
-        '"Segoe UI"',
-        'Roboto',
-        '"Helvetica Neue"',
-        'Arial',
-        'sans-serif',
-        '"Apple Color Emoji"',
-        '"Segoe UI Emoji"',
-        '"Segoe UI Symbol"',
-      ].join(','),
+
       '&:focus': {
         borderColor: colors.input.focus.border
       }

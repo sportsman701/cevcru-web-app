@@ -18,7 +18,7 @@ export default makeStyles(theme => ({
     padding: '30px'
   },
   passwordPanel: {
-    padding: '10px',
+    width: '50%',
     margin: '0',
     [theme.breakpoints.down('sm')]: {
       padding: 0
@@ -33,7 +33,7 @@ export default makeStyles(theme => ({
   loginTitle: {
     fontSize: '26px',
     fontWeight: 'bolder',
-    marginTop:  '2em',
+    margin:  '4em 0 2em',
     color: 'white'
   },
   imageTitle: {
