@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import cx from 'classnames';
@@ -11,6 +12,7 @@ import Welcome from './containers/welcome';
 import Input from 'components/input';
 import Password from 'components/input/password';
 import Button from 'components/button';
+import Select from 'components/select';
 import Link from 'components/link';
 import useGlobalStyles from 'hooks/styles';
 import {
@@ -73,6 +75,12 @@ function Register(props) {
               <Password placeholder={trans('login.confirm_password')} />
               {/* <FormHelperText id="password-helper"></FormHelperText> */}
             </FormControl>
+            <FormControl className={classes.phone}>
+              <Select>
+                <MenuItem value={10}>NG</MenuItem>
+              </Select>
+              <Input placeholder={'+234 (0) 123-456-7890'} />
+            </FormControl>
             <FormControl>
               <Button inverse={mediaUp(media.md)}>
                 {trans('login.get_started')}
@@ -104,7 +112,7 @@ function Register(props) {
               classes.termPrivacy,
               mediaUp(media.md) ?
                 globalClasses.textInverseHighlight
-                : globalClasses.textNormal
+                : globalClasses.textGray
             )}>
               <FormattedMessage
                 id='login.by_clicking_get_started'

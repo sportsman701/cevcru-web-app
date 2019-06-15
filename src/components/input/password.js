@@ -9,7 +9,7 @@ import useStyles from './style';
 function Password(props) {
   const [ showPassword, setShowPassword ] = useState(false);
   const { icon } = props;
-  const classes = useStyles({ adornment: true });
+  const classes = useStyles({ adornment: icon && true });
 
   function handleClickShowPassword() {
     setShowPassword(!showPassword)
@@ -20,6 +20,7 @@ function Password(props) {
       {...props}
       type={showPassword ? 'text' : 'password'}
       className={classes.root}
+      classes={{input: classes.input}}
       endAdornment={ icon ?
         <InputAdornment position="end" className='adornment'>
           <IconButton aria-label="Toggle password visibility" onClick={handleClickShowPassword}>

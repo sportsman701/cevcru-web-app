@@ -4,7 +4,7 @@ import useStyles from './style';
 
 function Input(props) {
   const classes = useStyles(props);
-  return <InputBase {...props} className={classes.root}/>
+  return <InputBase {...props} className={classes.root} classes={{input: classes.input}}/>
 }
 
 export default Input;

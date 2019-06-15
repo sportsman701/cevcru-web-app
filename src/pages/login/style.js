@@ -54,11 +54,26 @@ export default makeStyles(theme => ({
     }
   },
   
+  phone: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+
+    '&>div:first-child': {
+      marginRight: '10px',
+      width: '100px'
+    },
+
+    '&>div:last-child': {
+
+    }
+  },
+
   passwordPanel: {
-    width: '55%',
+    width: '65%',
     margin: '0',
     [theme.breakpoints.only('md')]: {
-      width: '70%'
+      width: '80%'
     },
     [theme.breakpoints.down('sm')]: {
       width: '100%'
@@ -66,7 +81,13 @@ export default makeStyles(theme => ({
   },
   
   signupDescription: {
-    marginTop: 0,
+    margin: '0 auto',
+    marginBottom: '10px',
+    width: '70%',
+
+    [theme.breakpoints.only('md')]: {
+      width: '100%'
+    },
 
     [theme.breakpoints.only('sm')]: {
       margin: '0 auto 15px',
