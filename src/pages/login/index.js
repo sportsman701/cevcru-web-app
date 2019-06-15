@@ -21,7 +21,6 @@ import useIntl from 'hooks/intl';
 
 import logo from 'resources/logo/logo.svg';
 import logoVerticalMobile from 'resources/logo/logo-vertical-mobile.svg';
-import logoHorizontalMobile from 'resources/logo/logo-horizontal-mobile.svg';
 import google from 'resources/registration/google.svg';
 import image1 from 'resources/registration/1.svg';
 import image2 from 'resources/registration/2.svg';
@@ -59,9 +58,14 @@ function Login(props) {
       <Grid container className={cx(classes.mainPanel, 'showForm')}>
         <Grid item xs={12} md={6} className={classes.leftPanel}
         >
+          { mediaSmallerThan(media.md) && (
+            <img alt="" src={logoVerticalMobile} />
+          )}
           <p className={cx(
             globalClasses.textTitle,
-            globalClasses.textInverseHighlight
+            mediaUp(media.md) ?
+              globalClasses.textInverseHighlight
+              : globalClasses.textContrast
           )}>
             { trans('login.log_into_your_business_manager') }
           </p>
@@ -77,50 +81,60 @@ function Login(props) {
               {/* <FormHelperText id="password-helper"></FormHelperText> */}
             </FormControl>
             <FormControl>
-              <Button inverse>
-                {trans('login.get_started')}
+              <Button inverse={mediaUp(media.md)}>
+                {trans(mediaUp(media.md) ? 'login.get_started' : 'login.sign_in')}
               </Button>
             </FormControl>
             <Box py={2}>
-              <Link inverse>
+              <Link inverse={mediaUp(media.md)}>
                 {trans('login.forgot_password')}
               </Link>
             </Box>
             <FormControl>
-              <Button icon={google} inverse grayText>
+              <Button icon={google} grayText>
                 { trans('login.login_with_google') }
               </Button>
             </FormControl>
-            <Box py={3} display='flex' justifyContent='space-between'>
-              <span className={cx(globalClasses.textInverseNormal)}>
+            <Box
+              py={3}
+              display='flex'
+              justifyContent={mediaUp(media.md) ? 'space-between' : 'space-evenly'}>
+              <span className={
+                mediaUp(media.md) ?
+                  globalClasses.textInverseNormal
+                  : globalClasses.textGray
+                }
+              >
                 { trans('login.dont_have_an_account') }
               </span>
-              <Link inverse>
-                { trans('login.create_one') }
+              <Link inverse={mediaUp(media.md)}>
+                { trans(mediaUp(media.md) ? 'login.create_one' : 'login.sign_up') }
               </Link>
             </Box>
-            <small className={cx(globalClasses.textInverseHighlight)}>
-              <FormattedMessage
-                id='login.by_clicking_get_started'
-                values={{
-                  newline: <br/>,
-                  terms: (
-                    <Link inverse>
-                      {trans('login.terms_of_service')}
-                    </Link>
-                  ),
-                  privacy: (
-                    <Link inverse>
-                      {trans('login.privacy_policies')}
-                    </Link>
-                  )
-                }}
-              />
-            </small>
+            { mediaUp(media.md) && (
+              <small className={cx(globalClasses.textInverseHighlight)}>
+                <FormattedMessage
+                  id='login.by_clicking_get_started'
+                  values={{
+                    newline: <br/>,
+                    terms: (
+                      <Link inverse>
+                        {trans('login.terms_of_service')}
+                      </Link>
+                    ),
+                    privacy: (
+                      <Link inverse>
+                        {trans('login.privacy_policies')}
+                      </Link>
+                    )
+                  }}
+                />
+              </small>
+            )}
           </Box>
         </Grid>
         <Grid className={classes.rightPanel} item xs={12} md={6}>
-          <img alt="" src={mediaUp(media.md) ? logo: logoHorizontalMobile} />
+          <img alt="" src={logo} />
           <p className={cx(
               globalClasses.textPrimary,
               classes.imageTitle,

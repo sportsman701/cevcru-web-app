@@ -14,7 +14,7 @@ export default makeStyles({
       width: '100%',
       padding: '10px 12px',
       paddingRight: ({ adornment }) => adornment ? '45px' : '12px',
-      transition: 'border-color ease .5s',
+      transition: 'all ease .5s',
 
       '&:focus': {
         borderColor: colors.primary.normal

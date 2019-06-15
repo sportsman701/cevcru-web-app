@@ -13,7 +13,12 @@ function CustomButton(props) {
       variant={variant}
       {...other}
       classes={{label: classes.label}}
-      className={cx(classes.root, { [classes.inverse]: props.inverse, [classes.grayText]: props.grayText })}
+      className={cx(
+        classes.root, {
+          [classes.inverse]: props.inverse,
+          [classes.grayText]: props.grayText
+        }
+      )}
     >
       { props.icon && <img src={props.icon} className={classes.icon} alt=""/> }
       { props.children }

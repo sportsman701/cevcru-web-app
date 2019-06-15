@@ -18,32 +18,32 @@ function useMedia() {
   );
 }
 
-export function useMediaOnly(size) {
+export function useMediaOnly() {
   const width = useMedia();
   return size => media[width] === size;
 }
 
-export function useMediaNot(size) {
+export function useMediaNot() {
   const width = useMedia();
   return size => media[width] !== size;
 }
 
-export function useMediaUp(size) {
+export function useMediaUp() {
   const width = useMedia();
   return size => media[width] >= size;
 }
 
-export function useMediaDown(size) {
+export function useMediaDown() {
   const width = useMedia();
   return size => media[width] <= size;
 }
 
-export function useMediaLargerThan(size) {
+export function useMediaLargerThan() {
   const width = useMedia();
   return size => media[width] > size;
 }
 
-export function useMediaSmallerThan(size) {
+export function useMediaSmallerThan() {
   const width = useMedia();
   return size => media[width] < size;
 }

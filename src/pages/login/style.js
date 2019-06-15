@@ -19,12 +19,14 @@ export default makeStyles(theme => ({
     padding: '60px',
     margin: 'auto',
     display: 'none',
+    transition: 'all ease .5s',
 
     [theme.breakpoints.up('md')]: {
       display: 'flex'
     },
 
     [theme.breakpoints.down('sm')]: {
+      backgroundColor: colors.inverse.normal,
       borderRadius: '7px',
     },
 
@@ -35,7 +37,7 @@ export default makeStyles(theme => ({
 
     [theme.breakpoints.only('xs')]: {
       maxWidth: '350px',
-      padding: '15px'
+      padding: '20px 15px'
     },
 
     '.showForm &': {
@@ -94,7 +96,7 @@ export default makeStyles(theme => ({
     height: '10px',
     margin: '0 7px',
     cursor: 'pointer',
-    transition: 'background-color ease 0.5s',
+    transition: 'all ease 0.5s',
 
     '&.active': {
       backgroundColor: colors.primary.normal

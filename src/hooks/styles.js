@@ -25,6 +25,10 @@ export default makeStyles(theme => ({
     color: colors.text.primary.primary
   },
 
+  textContrast: {
+    color: colors.text.primary.contrast
+  },
+
   textNormal: {
     color: colors.text.primary.normal
   },
