@@ -21,6 +21,7 @@ import useIntl from 'hooks/intl';
 
 import logo from 'resources/logo/logo.svg';
 import logoVerticalMobile from 'resources/logo/logo-vertical-mobile.svg';
+import logoHorizontallMobile from 'resources/logo/logo-horizontal-mobile.svg';
 import google from 'resources/registration/google.svg';
 import image1 from 'resources/registration/1.svg';
 import image2 from 'resources/registration/2.svg';
@@ -54,10 +55,9 @@ function Login(props) {
   }, [bullet]);
 
   return (
-    <Box className={classes.root}>
-      <Grid container className={cx(classes.mainPanel, 'showForm')}>
-        <Grid item xs={12} md={6} className={classes.leftPanel}
-        >
+    <Box className={cx(classes.root, 'showForm')}>
+      <Grid container className={classes.mainPanel}>
+        <Grid item xs={12} md={6} className={classes.leftPanel}>
           { mediaSmallerThan(media.md) && (
             <img alt="" src={logoVerticalMobile} />
           )}
@@ -85,26 +85,22 @@ function Login(props) {
                 {trans(mediaUp(media.md) ? 'login.get_started' : 'login.sign_in')}
               </Button>
             </FormControl>
-            <Box py={2}>
+            <Box className={classes.forgotPassword}>
               <Link inverse={mediaUp(media.md)}>
                 {trans('login.forgot_password')}
               </Link>
             </Box>
-            <FormControl>
+            <FormControl className={classes.loginWithGoogle}>
               <Button icon={google} grayText>
                 { trans('login.login_with_google') }
               </Button>
             </FormControl>
-            <Box
-              py={3}
-              display='flex'
-              justifyContent={mediaUp(media.md) ? 'space-between' : 'space-evenly'}>
+            <Box className={classes.dontHaveAccount}>
               <span className={
                 mediaUp(media.md) ?
                   globalClasses.textInverseNormal
                   : globalClasses.textGray
-                }
-              >
+              }>
                 { trans('login.dont_have_an_account') }
               </span>
               <Link inverse={mediaUp(media.md)}>
@@ -112,7 +108,10 @@ function Login(props) {
               </Link>
             </Box>
             { mediaUp(media.md) && (
-              <small className={cx(globalClasses.textInverseHighlight)}>
+              <small className={cx(
+                globalClasses.textInverseHighlight,
+                classes.termPrivacy
+              )}>
                 <FormattedMessage
                   id='login.by_clicking_get_started'
                   values={{
@@ -134,7 +133,7 @@ function Login(props) {
           </Box>
         </Grid>
         <Grid className={classes.rightPanel} item xs={12} md={6}>
-          <img alt="" src={logo} />
+          <img alt="" src={mediaUp(media.md) ? logo : logoHorizontallMobile} />
           <p className={cx(
               globalClasses.textPrimary,
               classes.imageTitle,

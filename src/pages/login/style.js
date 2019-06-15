@@ -5,10 +5,19 @@ export default makeStyles(theme => ({
   root: {
     height: '100vh',
     display: 'flex',
+
+    '&.showForm': {
+      [theme.breakpoints.down('sm')]: {
+        position: 'absolute',
+        left: '0',
+        width: '100%',
+        backgroundColor: colors.primary.normal
+      }
+    }
   },
 
   mainPanel: {
-    margin: 'auto 20px'
+    margin: 'auto 40px'
   },
 
   leftPanel: {
@@ -56,6 +65,35 @@ export default makeStyles(theme => ({
     }
   },
   
+  forgotPassword: {
+    margin: '10px 0',
+
+    [theme.breakpoints.down('sm')]: {
+      order: 2
+    }
+  },
+
+  loginWithGoogle: {
+    [theme.breakpoints.down('sm')]: {
+      order: 3
+    }
+  },
+
+  dontHaveAccount: {
+    margin: '10px 0',
+    display: 'flex',
+    justifyContent: 'space-between',
+
+    [theme.breakpoints.down('sm')]: {
+      justifyContent: 'space-evenly',
+      order: 1
+    }
+  },
+
+  termPrivacy: {
+    margin: '20px auto'
+  },
+
   rightPanel: {
     display: 'flex',
     flexDirection: 'column',
