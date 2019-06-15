@@ -104,7 +104,10 @@ function Register(props) {
               }>
                 { trans('login.already_have_an_account') }
               </span>
-              <Link inverse={mediaUp(media.md)}>
+              <Link
+                target='/login/account'
+                inverse={mediaUp(media.md)}
+              >
                 { trans('login.log_in') }
               </Link>
             </Box>
@@ -119,12 +122,18 @@ function Register(props) {
                 values={{
                   newline: <br/>,
                   terms: (
-                    <Link inverse={mediaUp(media.md)}>
+                    <Link
+                      target='/service-terms'
+                      inverse={mediaUp(media.md)}
+                    >
                       {trans('login.terms_of_service')}
                     </Link>
                   ),
                   privacy: (
-                    <Link inverse={mediaUp(media.md)}>
+                    <Link
+                      target='/privacy-policies'
+                      inverse={mediaUp(media.md)}
+                    >
                       {trans('login.privacy_policies')}
                     </Link>
                   )

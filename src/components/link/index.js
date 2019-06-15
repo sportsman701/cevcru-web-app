@@ -1,16 +1,30 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 import cx from 'classnames';
 import useStyles from './style';
 
-function Link(props) {
-  const { className } = props;
+function LinkComponent(props) {
+  const { inverse, className, target, external, ...other } = props;
   const classes = useStyles(props);
+  const style = cx(
+    className,
+    classes.root,
+    {[classes.inverse]: props.inverse},
+  );
 
-  return (
-    <span className={cx(classes.root, {[classes.inverse]: props.inverse}, className)}>
+  return external ? (
+    <a href={target} className={style}>
       {props.children}
-    </span>
+    </a>
+  ) : (
+    <Link 
+      {...other}
+      to={target || '#'}
+      className={style}
+    >
+      {props.children}
+    </Link >
   )
 }
 
-export default Link;
+export default LinkComponent;

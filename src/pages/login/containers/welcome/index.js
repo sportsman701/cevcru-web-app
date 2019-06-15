@@ -53,11 +53,10 @@ function Welcome(props) {
     <Grid className={classes.root} item xs={12} md={6}>
       <img alt="" src={mediaUp(media.md) ? logo : logoHorizontallMobile} />
       <p className={cx(
-          globalClasses.textPrimary,
-          classes.imageTitle,
-          globalClasses.textTitle,
-        )
-      }>
+        globalClasses.textPrimary,
+        classes.imageTitle,
+        globalClasses.textTitle
+      )}>
         { trans(carousel[bullet].text) }
       </p>
       <img
@@ -79,12 +78,21 @@ function Welcome(props) {
       </Box>
       {mediaSmallerThan(media.md) && (
         <>
-          <Box my={4} width='100%' maxWidth={250} className={cx(globalClasses.formPanel)}>
+          <Box
+            my={4}
+            width='100%'
+            maxWidth={250}
+            className={cx(globalClasses.formPanel)}
+          >
             <FormControl>
-              <Button>{trans('login.sign_up')}</Button>
+              <Button onClick={props.openSignUp}>
+                {trans('login.sign_up')}
+              </Button>
             </FormControl>
             <FormControl>
-              <Button inverse>{trans('login.log_in')}</Button>
+              <Button onClick={props.openLogin} inverse>
+                {trans('login.log_in')}
+              </Button>
             </FormControl>
           </Box>
           <small className={cx(globalClasses.textGray)}>
@@ -93,12 +101,12 @@ function Welcome(props) {
               values={{
                 newline: <br/>,
                 terms: (
-                  <Link>
+                  <Link target='/service-terms'>
                     {trans('login.terms_of_service')}
                   </Link>
                 ),
                 privacy: (
-                  <Link>
+                  <Link target='/privacy-policies'>
                     {trans('login.privacy_policies')}
                   </Link>
                 )

@@ -22,7 +22,7 @@ function App() {
     <IntlProvider locale='en' messages={languages['en']}>
       <Container className='App'>
         <Router history={history}>
-          <Route path='/login' component={Login} />
+          <Route path='/login/:account?' component={Login} />
           <Route path='/register' component={Register} />
         </Router>
       </Container>

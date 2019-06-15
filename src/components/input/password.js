@@ -8,7 +8,7 @@ import useStyles from './style';
 
 function Password(props) {
   const [ showPassword, setShowPassword ] = useState(false);
-  const { icon } = props;
+  const { icon, ...other } = props;
   const classes = useStyles({ adornment: icon && true });
 
   function handleClickShowPassword() {
@@ -17,7 +17,7 @@ function Password(props) {
 
   return (
     <InputBase
-      {...props}
+      {...other}
       type={showPassword ? 'text' : 'password'}
       className={classes.root}
       classes={{input: classes.input}}

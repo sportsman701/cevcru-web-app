@@ -3,6 +3,7 @@ import colors from 'helpers/colors';
 
 export default makeStyles({
   root: {
+    textDecoration: 'none',
     transition: 'all ease .5s',
     color: colors.link.primary.normal,
     cursor: 'pointer',

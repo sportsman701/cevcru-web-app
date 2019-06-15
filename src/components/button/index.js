@@ -20,7 +20,13 @@ function CustomButton(props) {
         }
       )}
     >
-      { props.icon && <img src={props.icon} className={classes.icon} alt=""/> }
+      { props.icon && (
+        <img
+          src={props.icon}
+          className={classes.icon}
+          alt=""
+        />
+      )}
       { props.children }
     </Button>
   )

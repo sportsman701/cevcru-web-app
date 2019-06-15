@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-
+import { withRouter } from "react-router";
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Grid from '@material-ui/core/Grid';
@@ -32,9 +32,19 @@ function Login(props) {
   const globalClasses = useGlobalStyles();
   const mediaUp = useMediaUp();
   const mediaSmallerThan = useMediaSmallerThan();
+  const [ showAccount, setShowAccount ] = useState(false);
+  const { history, match } = props;
+
+  useEffect(() => {
+    setShowAccount(!!match.params.account);
+  }, [match.params.account])
+
+  const openSignUp = () => history.push('/register')
+
+  const openLogin = () => history.push('/login/account')
 
   return (
-    <Box className={cx(classes.root, 'showAccount')}>
+    <Box className={cx(classes.root, {showAccount})}>
       <Grid container className={classes.mainPanel}>
         <Grid item xs={12} md={6} className={classes.account}>
           { mediaSmallerThan(media.md) && (
@@ -65,6 +75,7 @@ function Login(props) {
               </Button>
             </FormControl>
             <Link
+              target='/forgot-password'
               inverse={mediaUp(media.md)}
               className={classes.forgotPassword}
             >
@@ -83,7 +94,10 @@ function Login(props) {
               }>
                 { trans('login.dont_have_an_account') }
               </span>
-              <Link inverse={mediaUp(media.md)}>
+              <Link
+                target='/register'
+                inverse={mediaUp(media.md)}
+              >
                 { trans(mediaUp(media.md) ? 'login.create_one' : 'login.sign_up') }
               </Link>
             </Box>
@@ -97,12 +111,12 @@ function Login(props) {
                   values={{
                     newline: <br/>,
                     terms: (
-                      <Link inverse>
+                      <Link target='/service-terms' inverse external>
                         {trans('login.terms_of_service')}
                       </Link>
                     ),
                     privacy: (
-                      <Link inverse>
+                      <Link target='/privacy-policies' inverse external>
                         {trans('login.privacy_policies')}
                       </Link>
                     )
@@ -112,10 +126,13 @@ function Login(props) {
             )}
           </Box>
         </Grid>
-        <Welcome/>
+        <Welcome
+          openSignUp={openSignUp}
+          openLogin={openLogin}
+        />
       </Grid>
     </Box>
   )
 }
 
-export default Login;
+export default withRouter(Login);
