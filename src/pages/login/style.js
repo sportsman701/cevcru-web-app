@@ -8,7 +8,7 @@ export default makeStyles(theme => ({
   },
 
   mainPanel: {
-    margin: 'auto'
+    margin: 'auto 20px'
   },
 
   leftPanel: {
@@ -17,10 +17,25 @@ export default makeStyles(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     padding: '60px',
+    margin: 'auto',
     display: 'none',
 
     [theme.breakpoints.up('md')]: {
       display: 'flex'
+    },
+
+    [theme.breakpoints.down('sm')]: {
+      borderRadius: '7px',
+    },
+
+    [theme.breakpoints.only('sm')]: {
+      maxWidth: '400px',
+      padding: '30px'
+    },
+
+    [theme.breakpoints.only('xs')]: {
+      maxWidth: '350px',
+      padding: '15px'
     },
 
     '.showForm &': {
@@ -46,6 +61,10 @@ export default makeStyles(theme => ({
     padding: '30px',
     margin: 'auto',
 
+    [theme.breakpoints.only('xs')]: {
+      padding: '30px 0'
+    },
+
     '.showForm &': {
       [theme.breakpoints.down('sm')]: {
         display: 'none'
@@ -54,7 +73,8 @@ export default makeStyles(theme => ({
   },
 
   image: {
-    height: '250px'
+    width: '100%',
+    maxHeight: '250px'
   },
 
   imageTitle: {

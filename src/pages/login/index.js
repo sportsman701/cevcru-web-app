@@ -12,9 +12,12 @@ import Password from 'components/input/password';
 import Button from 'components/button';
 import Link from 'components/link';
 import useGlobalStyles from 'hooks/styles';
-import useMedia from 'hooks/media';
+import {
+  media,
+  useMediaUp,
+  useMediaSmallerThan
+} from 'hooks/media';
 import useIntl from 'hooks/intl';
-import { media, mediaUp, mediaOnly, mediaSmallerThan } from 'helpers/media';
 
 import logo from 'resources/logo/logo.svg';
 import logoVerticalMobile from 'resources/logo/logo-vertical-mobile.svg';
@@ -36,10 +39,11 @@ const carousel = [
 ];
 
 function Login(props) {
-  const width = useMedia();
   const trans = useIntl();
   const classes = useStyles();
   const globalClasses = useGlobalStyles();
+  const mediaUp = useMediaUp();
+  const mediaSmallerThan = useMediaSmallerThan();
   const [ bullet, setBullet ] = useState(0);
 
   useEffect(() => {
@@ -52,7 +56,7 @@ function Login(props) {
 
   return (
     <Box className={classes.root}>
-      <Grid container className={cx(classes.mainPanel, 'show2Form')}>
+      <Grid container className={cx(classes.mainPanel, 'showForm')}>
         <Grid item xs={12} md={6} className={classes.leftPanel}
         >
           <p className={cx(
@@ -116,7 +120,7 @@ function Login(props) {
           </Box>
         </Grid>
         <Grid className={classes.rightPanel} item xs={12} md={6}>
-          <img alt="" src={mediaUp(width, media.md) ? logo: logoHorizontalMobile} />
+          <img alt="" src={mediaUp(media.md) ? logo: logoHorizontalMobile} />
           <p className={cx(
               globalClasses.textPrimary,
               classes.imageTitle,
@@ -130,7 +134,7 @@ function Login(props) {
             alt=""
             src={carousel[bullet].image}
           />
-          <Box display='flex' pt={mediaUp(width, media.md) ? 8 : 4}>
+          <Box display='flex' pt={mediaUp(media.md) ? 8 : 4}>
             {Array(4).fill(0).map((item, key) => (
               <div
                 key={key}
@@ -142,9 +146,9 @@ function Login(props) {
               />
             ))}
           </Box>
-          {mediaSmallerThan(width, media.md) && (
+          {mediaSmallerThan(media.md) && (
             <>
-              <Box my={4} width={250} className={cx(globalClasses.formPanel)}>
+              <Box my={4} width='100%' maxWidth={250} className={cx(globalClasses.formPanel)}>
                 <FormControl>
                   <Button>{trans('login.sign_up')}</Button>
                 </FormControl>
