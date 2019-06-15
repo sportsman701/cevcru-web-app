@@ -13,7 +13,7 @@
     "Log into your Business Manager",
   "login.reset_your_account_password":
     "Reset your Account Password",
-  "login.add_your_contact_information_to_create_your_account":
+  "login.add_your_contact_information":
     "Add your contact information to create your account",
   "login.email_address":
     "Email address",
@@ -39,6 +39,8 @@
     "LOG IN",
   "login.create_one":
     "CREATE ONE",
+  "login.or":
+    "OR",
   "login.by_clicking_get_started":
     "By clicking Get Started, you agree to the {newline}{terms} and {privacy}",
   "login.terms_of_service":

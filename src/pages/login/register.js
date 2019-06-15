@@ -26,7 +26,7 @@ import google from 'resources/registration/google.svg';
 import useStyles from './style';
 
 
-function Login(props) {
+function Register(props) {
   const trans = useIntl();
   const classes = useStyles();
   const globalClasses = useGlobalStyles();
@@ -46,30 +46,43 @@ function Login(props) {
               globalClasses.textInverseHighlight
               : globalClasses.textContrast
           )}>
-            { trans('login.log_into_your_business_manager') }
+            { trans('login.setup_your_business_manager') }
           </p>
           <Box className={cx(
             classes.passwordPanel,
             globalClasses.formPanel
           )}>
+            {mediaUp(media.sm) && (
+              <p className={cx(
+                classes.signupDescription,
+                mediaUp(media.md) ?
+                  globalClasses.textInverseNormal
+                  : globalClasses.textNormal
+              )}>
+                {trans('login.add_your_contact_information')}
+              </p>
+            )}
             <FormControl error>
               <Input placeholder={trans('login.email_address')} />
             </FormControl>
             <FormControl>
-              <Password icon placeholder={trans('login.password')} />
+              <Password placeholder={trans('login.password')} />
+              {/* <FormHelperText id="password-helper"></FormHelperText> */}
+            </FormControl>
+            <FormControl>
+              <Password placeholder={trans('login.confirm_password')} />
               {/* <FormHelperText id="password-helper"></FormHelperText> */}
             </FormControl>
             <FormControl>
               <Button inverse={mediaUp(media.md)}>
-                {trans(mediaUp(media.md) ? 'login.get_started' : 'login.sign_in')}
+                {trans('login.get_started')}
               </Button>
             </FormControl>
-            <Link
-              inverse={mediaUp(media.md)}
-              className={classes.forgotPassword}
-            >
-              {trans('login.forgot_password')}
-            </Link>
+            {mediaUp(media.md) && (
+              <p className={globalClasses.textInverseNormal}>
+                {trans('login.or')}
+              </p>
+            )}
             <FormControl className={classes.loginWithGoogle}>
               <Button icon={google} grayText>
                 { trans('login.login_with_google') }
@@ -81,35 +94,35 @@ function Login(props) {
                   globalClasses.textInverseNormal
                   : globalClasses.textGray
               }>
-                { trans('login.dont_have_an_account') }
+                { trans('login.already_have_an_account') }
               </span>
               <Link inverse={mediaUp(media.md)}>
-                { trans(mediaUp(media.md) ? 'login.create_one' : 'login.sign_up') }
+                { trans('login.log_in') }
               </Link>
             </Box>
-            { mediaUp(media.md) && (
-              <small className={cx(
-                globalClasses.textInverseHighlight,
-                classes.termPrivacy
-              )}>
-                <FormattedMessage
-                  id='login.by_clicking_get_started'
-                  values={{
-                    newline: <br/>,
-                    terms: (
-                      <Link inverse>
-                        {trans('login.terms_of_service')}
-                      </Link>
-                    ),
-                    privacy: (
-                      <Link inverse>
-                        {trans('login.privacy_policies')}
-                      </Link>
-                    )
-                  }}
-                />
-              </small>
-            )}
+            <small className={cx(
+              classes.termPrivacy,
+              mediaUp(media.md) ?
+                globalClasses.textInverseHighlight
+                : globalClasses.textNormal
+            )}>
+              <FormattedMessage
+                id='login.by_clicking_get_started'
+                values={{
+                  newline: <br/>,
+                  terms: (
+                    <Link inverse={mediaUp(media.md)}>
+                      {trans('login.terms_of_service')}
+                    </Link>
+                  ),
+                  privacy: (
+                    <Link inverse={mediaUp(media.md)}>
+                      {trans('login.privacy_policies')}
+                    </Link>
+                  )
+                }}
+              />
+            </small>
           </Box>
         </Grid>
         <Welcome/>
@@ -118,4 +131,4 @@ function Login(props) {
   )
 }
 
-export default Login;
+export default Register;

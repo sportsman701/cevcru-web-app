@@ -7,6 +7,7 @@ import Container from '@material-ui/core/Container';
 
 import { history } from './redux/store'
 import Login from 'pages/login';
+import Register from 'pages/login/register'
 
 import en from 'localization/en.json'
 import es from 'localization/es.json'
@@ -21,7 +22,8 @@ function App() {
     <IntlProvider locale='en' messages={languages['en']}>
       <Container className='App'>
         <Router history={history}>
-          <Route path='/' exact component={Login} />
+          <Route path='/login' component={Login} />
+          <Route path='/register' component={Register} />
         </Router>
       </Container>
     </IntlProvider>

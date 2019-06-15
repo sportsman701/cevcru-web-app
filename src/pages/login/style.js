@@ -6,7 +6,7 @@ export default makeStyles(theme => ({
     height: '100vh',
     display: 'flex',
 
-    '&.showForm': {
+    '&.showAccount': {
       [theme.breakpoints.down('sm')]: {
         position: 'absolute',
         left: '0',
@@ -20,7 +20,7 @@ export default makeStyles(theme => ({
     margin: 'auto 40px'
   },
 
-  leftPanel: {
+  account: {
     backgroundColor: colors.primary.normal,
     boxShadow: '#00000024 13px 4px 20px 0px',
     flexDirection: 'column',
@@ -49,7 +49,7 @@ export default makeStyles(theme => ({
       padding: '20px 15px'
     },
 
-    '.showForm &': {
+    '.showAccount &': {
       display: 'flex'
     }
   },
@@ -65,6 +65,15 @@ export default makeStyles(theme => ({
     }
   },
   
+  signupDescription: {
+    marginTop: 0,
+
+    [theme.breakpoints.only('sm')]: {
+      margin: '0 auto 15px',
+      width: '70%'
+    }
+  },
+
   forgotPassword: {
     margin: '10px 0',
 
@@ -91,56 +100,10 @@ export default makeStyles(theme => ({
   },
 
   termPrivacy: {
-    margin: '20px auto'
-  },
-
-  rightPanel: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: '30px',
-    margin: 'auto',
-
-    [theme.breakpoints.only('xs')]: {
-      padding: '30px 0'
-    },
-
-    '.showForm &': {
-      [theme.breakpoints.down('sm')]: {
-        display: 'none'
-      }
-    }
-  },
-
-  image: {
-    width: '100%',
-    maxHeight: '250px'
-  },
-
-  imageTitle: {
-    width: '50%',
-    [theme.breakpoints.only('md')]: {
-      width: '70%'
-    },
+    margin: '20px auto',
+    
     [theme.breakpoints.down('sm')]: {
-      width: '100%'
-    }
-  },
-
-  carouselIndicator: {
-    borderRadius: '100%',
-    backgroundColor: colors.text.inverse.normal,
-    width: '10px',
-    height: '10px',
-    margin: '0 7px',
-    cursor: 'pointer',
-    transition: 'all ease 0.5s',
-
-    '&.active': {
-      backgroundColor: colors.primary.normal
-    },
-    '&:hover': {
-      backgroundColor: colors.primary.hover
+      order: 1
     }
   }
 }));

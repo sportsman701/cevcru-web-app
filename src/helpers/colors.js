@@ -17,7 +17,7 @@ const colors = {
       primary: '#2D74DA',
       light: '#ECF0F3',
       gray: '#777',
-      contrast: 'black',
+      contrast: '#5a5a5a',
       placeholder: '#DFDFDF',
     },
     inverse: {
