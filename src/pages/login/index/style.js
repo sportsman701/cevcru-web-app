@@ -6,13 +6,11 @@ export default makeStyles(theme => ({
     height: '100vh',
     display: 'flex',
 
-    '&.showAccount': {
-      [theme.breakpoints.down('sm')]: {
-        position: 'absolute',
-        left: '0',
-        width: '100%',
-        backgroundColor: colors.primary.normal
-      }
+    '&.blueScreen': {
+      position: 'absolute',
+      left: '0',
+      width: '100%',
+      backgroundColor: colors.primary.normal
     }
   },
 
@@ -29,6 +27,17 @@ export default makeStyles(theme => ({
     margin: 'auto',
     display: 'none',
     transition: 'all ease .5s',
+
+    '.showAccount &': {
+      display: 'flex'
+    },
+
+    '&.keepMobileStyle': {
+      backgroundColor: colors.inverse.normal,
+      borderRadius: '7px',
+      maxWidth: '350px',
+      padding: '20px 15px'
+    },
 
     [theme.breakpoints.up('md')]: {
       display: 'flex'
@@ -47,10 +56,6 @@ export default makeStyles(theme => ({
     [theme.breakpoints.only('xs')]: {
       maxWidth: '350px',
       padding: '20px 15px'
-    },
-
-    '.showAccount &': {
-      display: 'flex'
     }
   },
   
@@ -72,6 +77,11 @@ export default makeStyles(theme => ({
   passwordPanel: {
     width: '65%',
     margin: '0',
+
+    '.keepMobileStyle &': {
+      width: '100%'
+    },
+
     [theme.breakpoints.only('md')]: {
       width: '80%'
     },
@@ -113,6 +123,11 @@ export default makeStyles(theme => ({
     margin: '10px 0',
     display: 'flex',
     justifyContent: 'space-between',
+    
+    '.keepMobileStyle &': {
+      justifyContent: 'space-evenly',
+      order: 0
+    },
 
     [theme.breakpoints.down('sm')]: {
       justifyContent: 'space-evenly',

@@ -21,6 +21,11 @@ export default makeStyles(theme => ({
     }
   },
 
+  textSubTitle: {
+    fontSize: '18px',
+    fontWeight: 'bolder'
+  },
+
   textPrimary: {
     color: colors.text.primary.primary
   },

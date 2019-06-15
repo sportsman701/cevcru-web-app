@@ -6,8 +6,10 @@ import { IntlProvider } from "react-intl";
 import Container from '@material-ui/core/Container';
 
 import { history } from './redux/store'
-import Login from 'pages/login';
-import Register from 'pages/login/register'
+
+import Login from 'pages/login/index/index';
+import Register from 'pages/login/index/register'
+import ResetPassword from 'pages/login/index/reset-pwd'
 
 import en from 'localization/en.json'
 import es from 'localization/es.json'
@@ -24,6 +26,10 @@ function App() {
         <Router history={history}>
           <Route path='/login/:account?' component={Login} />
           <Route path='/register' component={Register} />
+          <Route path='/resetpwd' component={ResetPassword} />
+          {/* <Route path='/verify-email' component={VerifyEmail} /> */}
+          {/* <Route path='/setup-business' component={SetupBusiness} /> */}
+          {/* <Route path='/account-ready' component={AccountReady} /> */}
         </Router>
       </Container>
     </IntlProvider>

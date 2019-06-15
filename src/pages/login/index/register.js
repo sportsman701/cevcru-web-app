@@ -8,7 +8,7 @@ import Box from '@material-ui/core/Box';
 import cx from 'classnames';
 import { FormattedMessage } from 'react-intl'
 
-import Welcome from './containers/welcome';
+import Welcome from '../containers/welcome';
 import Input from 'components/input';
 import Password from 'components/input/password';
 import Button from 'components/button';
@@ -36,9 +36,16 @@ function Register(props) {
   const mediaSmallerThan = useMediaSmallerThan();
 
   return (
-    <Box className={cx(classes.root, 'showAccount')}>
+    <Box className={cx(
+      classes.root,
+      'showAccount',
+      { blueScreen: mediaSmallerThan(media.md) }
+    )}>
       <Grid container className={classes.mainPanel}>
-        <Grid item xs={12} md={6} className={classes.account}>
+        <Grid
+          item xs={12} md={6}
+          className={classes.account}
+        >
           { mediaSmallerThan(media.md) && (
             <img alt="" src={logoVerticalMobile} />
           )}
