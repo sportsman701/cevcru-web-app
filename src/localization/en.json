@@ -13,6 +13,10 @@
     "Log into your Business Manager",
   "login.reset_your_account_password":
     "Reset your Account Password",
+  "login.request_password_reset":
+    "Request password reset",
+  "login.reset_password":
+    "Reset Password",
   "login.add_your_contact_information":
     "Add your contact information to create your account",
   "login.email_address":

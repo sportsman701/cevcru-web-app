@@ -9,6 +9,7 @@ import { history } from './redux/store'
 
 import Login from 'pages/login/index/index';
 import Register from 'pages/login/index/register'
+import ForgotPassword from 'pages/login/index/forgot-pwd'
 import ResetPassword from 'pages/login/index/reset-pwd'
 import VerifyEmail from 'pages/login/verify-mail'
 
@@ -27,9 +28,13 @@ function App() {
         <Router history={history}>
           <Route path='/login/:account?' component={Login} />
           <Route path='/register' component={Register} />
+          <Route path='/forgotpwd' component={ForgotPassword} />
           <Route path='/resetpwd' component={ResetPassword} />
           <Route path='/verify-email' component={VerifyEmail} />
-          {/* <Route path='/setup-business' component={SetupBusiness} /> */}
+          {/* <Route path='/setup-business' component={SetupBusinessStart} /> */}
+          {/* <Route path='/setup-business/create' component={SetupBusiness} />
+          <Route path='/setup-business/industry' component={SetupBusiness} />
+          <Route path='/setup-business/business' component={SetupBusiness} /> */}
           {/* <Route path='/account-ready' component={AccountReady} /> */}
         </Router>
       </Container>

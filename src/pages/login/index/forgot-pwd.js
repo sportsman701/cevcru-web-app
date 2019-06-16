@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import cx from 'classnames';
 
-import Password from 'components/input/password';
+import Input from 'components/input';
 import Button from 'components/button';
 import Link from 'components/link';
 import useGlobalStyles from 'hooks/styles';
@@ -16,7 +16,7 @@ import logoVerticalMobile from 'resources/logo/logo-vertical-mobile.svg';
 import useStyles from './style';
 
 
-function ResetPassword(props) {
+function ForgotPassword(props) {
   const trans = useIntl();
   const classes = useStyles();
   const globalClasses = useGlobalStyles();
@@ -38,21 +38,18 @@ function ResetPassword(props) {
             globalClasses.textSubTitle,
             globalClasses.textContrast
           )}>
-            { trans('login.reset_your_account_password') }
+            { trans('login.request_password_reset') }
           </p>
           <Box className={cx(
             classes.passwordPanel,
             globalClasses.formPanel
           )}>
             <FormControl error>
-              <Password placeholder={trans('login.password')} />
-            </FormControl>
-            <FormControl error>
-              <Password placeholder={trans('login.confirm_password')} />
+              <Input placeholder={trans('login.email_address')} />
             </FormControl>
             <FormControl>
               <Button>
-                {trans('login.reset_password')}
+                {trans('login.send_reset_token')}
               </Button>
             </FormControl>
             <Box className={classes.dontHaveAccount}>
@@ -75,4 +72,4 @@ function ResetPassword(props) {
   )
 }
 
-export default ResetPassword;
+export default ForgotPassword;
