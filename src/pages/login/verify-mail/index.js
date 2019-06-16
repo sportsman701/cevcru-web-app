@@ -43,81 +43,82 @@ function VerifyMail() {
             globalClasses.fullHeight,
             globalClasses.fullWidth
           ]
+        )}
+      >
+        <Alert
+          open={showResult}
+          onClose={() => setShowResult(false)}
+          className={cx({ [classes.dockedAlert]: mediaUp(media.sm) })}
+          >
+          <AlertContent classes={{message: globalClasses.textSizeA}}>
+            {trans('login.verification_code_is_incorrect')}
+          </AlertContent>
+        </Alert>
+        <Box className={cx(
+          globalClasses.formPanel,
+          classes.content
         )}>
-          <Alert
-            open={showResult}
-            onClose={() => setShowResult(false)}
-            className={cx({ [classes.dockedAlert]: mediaUp(media.sm) })}
-            >
-            <AlertContent classes={{message: globalClasses.textSizeA}}>
-              {trans('login.verification_code_is_incorrect')}
-            </AlertContent>
-          </Alert>
-          <Box className={cx(
-            globalClasses.formPanel,
-            classes.content
+          <img alt='' src={mailVerification} />
+          <p className={cx(
+            globalClasses.textInverseHighlight,
+            globalClasses.textTitle
           )}>
-            <img alt='' src={mailVerification} />
-            <p className={cx(
-              globalClasses.textInverseHighlight,
-              globalClasses.textTitle
-            )}>
-              <FormattedMessage
-                id='login.you_are_almost_there'
-                values={{ newline: <br/> }}
-              />
-            </p>
-            <p className={cx(
-              globalClasses.textInverseNormal,
-              classes.description
-            )}>
-              <FormattedMessage
-                id='login.to_keep_your_financial_information_secure'
-                values={{
-                  email: (
-                    <span className={globalClasses.textInverseHighlight}>
-                      users@mail.com
-                    </span>
-                  ),
-                  whatsapp: (
-                    <span className={globalClasses.textInverseHighlight}>
-                      Whatsapp
-                    </span>
-                  )
-                }}
-              />
-            </p>
-            <p className={globalClasses.textInverseNormal}>
-              {trans('login.enter_verification_code')}
-            </p>
-            <FormControl className={classes.verificationCode}>
-              <Input/>
-            </FormControl>
-            <p className={globalClasses.textInverseNormal}>
-              {trans('login.didnt_get_the_email')}
-              <Link
-                inverse
-                onClick={handleResendEmail}
-                className={cx(
-                  globalClasses.textInverseHighlight,
-                  classes.resendEmail
-                )}
-              >
-                {trans('login.resend_email')}
-              </Link>
-            </p>
-            <div className={classes.haveIssue}>
-              <small className={globalClasses.textInverseNormal}>
-                {trans('login.have_issues_setting_up')}
-              </small>
-              <Link
-                inverse
-                className={globalClasses.textInverseHighlight}
-              >
-                {trans('login.whatsapp_us')}
-              </Link>
-            </div>
-          </Box>
+            <FormattedMessage
+              id='login.you_are_almost_there'
+              values={{ newline: <br/> }}
+            />
+          </p>
+          <p className={cx(
+            globalClasses.textInverseNormal,
+            classes.description
+          )}>
+            <FormattedMessage
+              id='login.to_keep_your_financial_information_secure'
+              values={{
+                email: (
+                  <span className={globalClasses.textInverseHighlight}>
+                    users@mail.com
+                  </span>
+                ),
+                whatsapp: (
+                  <span className={globalClasses.textInverseHighlight}>
+                    Whatsapp
+                  </span>
+                )
+              }}
+            />
+          </p>
+          <p className={globalClasses.textInverseNormal}>
+            {trans('login.enter_verification_code')}
+          </p>
+          <FormControl className={classes.verificationCode}>
+            <Input/>
+          </FormControl>
+          <p className={globalClasses.textInverseNormal}>
+            {trans('login.didnt_get_the_email')}
+            <Link
+              inverse
+              onClick={handleResendEmail}
+              className={cx(
+                globalClasses.textInverseHighlight,
+                classes.resendEmail
+              )}
+            >
+              {trans('login.resend_email')}
+            </Link>
+          </p>
+          <div className={classes.haveIssue}>
+            <small className={globalClasses.textInverseNormal}>
+              {trans('login.have_issues_setting_up')}
+            </small>
+            <Link
+              inverse
+              className={globalClasses.textInverseHighlight}
+            >
+              {trans('login.whatsapp_us')}
+            </Link>
+          </div>
+        </Box>
       </Box>
     </Box>
   )

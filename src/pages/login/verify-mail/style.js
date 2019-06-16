@@ -51,7 +51,7 @@ export default makeStyles(theme => ({
   haveIssue: {
     marginTop: '30px',
     '&>small:first-child': {
-      margin: '0 10px 0'
+      margin: '0 10px 0 0'
     }
   },
 

@@ -32,6 +32,11 @@ export default makeStyles(theme => ({
     }
   },
 
+  textTitleFixed: {
+    fontSize: '25px',
+    fontWeight: 'bolder'
+  },
+
   textSubTitle: {
     fontSize: '18px',
     fontWeight: 'bolder'
