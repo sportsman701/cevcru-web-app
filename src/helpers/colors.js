@@ -2,7 +2,8 @@ const colors = {
   primary: {
     normal: '#2D74DA',
     hover: '#4684dd',
-    active: '#1055b7'
+    active: '#1055b7',
+    dark: '#264678'
   },
 
   inverse: {

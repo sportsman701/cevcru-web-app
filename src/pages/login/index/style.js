@@ -2,16 +2,8 @@ import colors from 'helpers/colors';
 import makeStyles from '@material-ui/styles/makeStyles';
 
 export default makeStyles(theme => ({
-  root: {
-    height: '100vh',
-    display: 'flex',
-
-    '&.blueScreen': {
-      position: 'absolute',
-      left: '0',
-      width: '100%',
-      backgroundColor: colors.primary.normal
-    }
+  blueScreen: {
+    backgroundColor: colors.primary.normal
   },
 
   mainPanel: {

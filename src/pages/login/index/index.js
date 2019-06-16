@@ -45,10 +45,12 @@ function Login(props) {
 
   return (
     <Box className={cx(
-      classes.root, {
-        blueScreen: mediaSmallerThan(media.md) ? showAccount : false,
-        showAccount
-      }
+      globalClasses.fullHeight,
+      { showAccount },
+      mediaSmallerThan(media.md) && showAccount && [
+        classes.blueScreen,
+        globalClasses.fullWidth
+      ]
     )}>
       <Grid container className={classes.mainPanel}>
         <Grid

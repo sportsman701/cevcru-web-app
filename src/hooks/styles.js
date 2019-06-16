@@ -3,6 +3,17 @@ import colors from 'helpers/colors';
 
 
 export default makeStyles(theme => ({
+  fullHeight: {
+    height: '100vh',
+    display: 'flex',
+  },
+
+  fullWidth: {
+    position: 'absolute',
+    left: '0',
+    width: '100%'
+  },
+
   formPanel: {
     display: 'flex',
     flexDirection: 'column',

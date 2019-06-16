@@ -37,9 +37,12 @@ function Register(props) {
 
   return (
     <Box className={cx(
-      classes.root,
+      globalClasses.fullHeight,
       'showAccount',
-      { blueScreen: mediaSmallerThan(media.md) }
+      mediaSmallerThan(media.md) && [
+        classes.blueScreen,
+        globalClasses.fullWidth
+      ]
     )}>
       <Grid container className={classes.mainPanel}>
         <Grid

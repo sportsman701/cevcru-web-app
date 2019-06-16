@@ -26,8 +26,9 @@ function ResetPassword(props) {
 
   return (
     <Box className={cx(
-      classes.root,
-      'blueScreen',
+      globalClasses.fullHeight,
+      globalClasses.fullWidth,
+      classes.blueScreen,
       'showAccount'
     )}>
       <Grid container className={classes.mainPanel}>
