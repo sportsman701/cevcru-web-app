@@ -12,6 +12,7 @@ export default makeStyles(theme => ({
     borderRadius: '5px',
     boxShadow: '#00000024 13px 4px 20px 0px',
     backgroundColor: colors.primary.normal,
+    transition: 'all ease .5s',
 
     [theme.breakpoints.only('xs')]: {
       padding: '40px',
@@ -51,6 +52,20 @@ export default makeStyles(theme => ({
     marginTop: '30px',
     '&>small:first-child': {
       margin: '0 10px 0'
+    }
+  },
+
+  dockedAlert: {
+    position: 'relative',
+    width: 'calc(100% + 100px)',
+
+    display: 'block',
+    left: '-50px',
+    top: '-50px',
+
+    '& .MuiSnackbarContent-root': {
+      borderBottomLeftRadius: 0,
+      borderBottomRightRadius: 0
     }
   }
 }));

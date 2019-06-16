@@ -32,13 +32,13 @@ export default makeStyles(theme => ({
     }
   },
 
-  textLarge: {
-    fontSize: '25px'
-  },
-
   textSubTitle: {
     fontSize: '18px',
     fontWeight: 'bolder'
+  },
+
+  textSizeA: {
+    fontSize: '20px',
   },
 
   textPrimary: {

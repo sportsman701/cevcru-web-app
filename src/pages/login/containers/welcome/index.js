@@ -44,10 +44,10 @@ function Welcome(props) {
   useEffect(() => {
     document.body.style.backgroundColor = 'white';
     const timer = setInterval(() => {
-      setBullet((bullet + 1) % carousel.length)
+      setBullet(bullet => (bullet + 1) % carousel.length)
     }, 5000);
     return () => clearInterval(timer);
-  }, [bullet]);
+  }, []);
 
   return (
     <Grid className={classes.root} item xs={12} md={6}>

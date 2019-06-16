@@ -16,14 +16,14 @@ function LinkComponent(props) {
     <a href={target} className={style}>
       {props.children}
     </a>
-  ) : (
-    <Link 
-      {...other}
-      to={target || '#'}
-      className={style}
-    >
+  ) : target ? (
+    <Link {...other} to={target || '#'} className={style}>
       {props.children}
-    </Link >
+    </Link>
+  ) : (
+    <span {...other} className={style}>
+      {props.children}
+    </span>
   )
 }
 

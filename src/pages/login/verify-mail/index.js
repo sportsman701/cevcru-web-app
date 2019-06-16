@@ -1,5 +1,5 @@
-import React from 'react'
-import { withRouter } from "react-router";
+import React, { useState } from 'react'
+
 import FormControl from '@material-ui/core/FormControl';
 import Box from '@material-ui/core/Box';
 import cx from 'classnames';
@@ -7,23 +7,28 @@ import { FormattedMessage } from 'react-intl'
 
 import Input from 'components/input';
 import Link from 'components/link';
+import { Alert, AlertContent } from 'components/alert';
 import useGlobalStyles from 'hooks/styles';
 import {
   media,
+  useMediaUp,
   useMediaSmallerThan
 } from 'hooks/media';
 import useIntl from 'hooks/intl';
 
 import mailVerification from 'resources/registration/mail-verification.svg';
-
 import useStyles from './style';
 
 
-function Login(props) {
+function VerifyMail() {
   const trans = useIntl();
   const classes = useStyles();
   const globalClasses = useGlobalStyles();
+  const mediaUp = useMediaUp();
   const mediaSmallerThan = useMediaSmallerThan();
+  const [ showResult, setShowResult ] = useState(false);
+
+  const handleResendEmail = () => setShowResult(true);
 
   return (
     <Box className={cx(
@@ -39,6 +44,15 @@ function Login(props) {
             globalClasses.fullWidth
           ]
         )}>
+          <Alert
+            open={showResult}
+            onClose={() => setShowResult(false)}
+            className={cx({ [classes.dockedAlert]: mediaUp(media.sm) })}
+            >
+            <AlertContent classes={{message: globalClasses.textSizeA}}>
+              {trans('login.verification_code_is_incorrect')}
+            </AlertContent>
+          </Alert>
           <Box className={cx(
             globalClasses.formPanel,
             classes.content
@@ -83,6 +97,7 @@ function Login(props) {
               {trans('login.didnt_get_the_email')}
               <Link
                 inverse
+                onClick={handleResendEmail}
                 className={cx(
                   globalClasses.textInverseHighlight,
                   classes.resendEmail
@@ -108,4 +123,4 @@ function Login(props) {
   )
 }
 
-export default withRouter(Login);
+export default VerifyMail;

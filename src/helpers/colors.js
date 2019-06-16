@@ -1,3 +1,6 @@
+import theme from "theme";
+import { amber, green } from '@material-ui/core/colors';
+
 const colors = {
   primary: {
     normal: '#2D74DA',
@@ -39,6 +42,13 @@ const colors = {
       hover: '#d0e5f2',
       active: '#35B2F9'
     }
+  },
+
+  status: {
+    error: theme.palette.error.dark,
+    info: theme.palette.primary.dark,
+    warning: amber[700],
+    success: green[600]
   }
 };
 

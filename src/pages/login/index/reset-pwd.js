@@ -1,5 +1,4 @@
 import React from 'react'
-import { withRouter } from "react-router";
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Grid from '@material-ui/core/Grid';
@@ -21,7 +20,6 @@ function ResetPassword(props) {
   const trans = useIntl();
   const classes = useStyles();
   const globalClasses = useGlobalStyles();
-  const { history } = props;
 
   return (
     <Box className={cx(
@@ -74,4 +72,4 @@ function ResetPassword(props) {
   )
 }
 
-export default withRouter(ResetPassword);
+export default ResetPassword;
