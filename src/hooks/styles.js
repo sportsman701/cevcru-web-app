@@ -4,7 +4,7 @@ import colors from 'helpers/colors';
 
 export default makeStyles(theme => ({
   fullHeight: {
-    height: '100vh',
+    minHeight: '100vh',
     display: 'flex',
   },
 
@@ -30,6 +30,10 @@ export default makeStyles(theme => ({
     [theme.breakpoints.only('xs')]: {
       fontSize: '18px'
     }
+  },
+
+  textLarge: {
+    fontSize: '25px'
   },
 
   textSubTitle: {

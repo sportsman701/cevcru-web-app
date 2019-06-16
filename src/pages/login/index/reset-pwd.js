@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { withRouter } from "react-router";
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -7,7 +7,6 @@ import Box from '@material-ui/core/Box';
 import cx from 'classnames';
 
 import Input from 'components/input';
-import Password from 'components/input/password';
 import Button from 'components/button';
 import Link from 'components/link';
 import useGlobalStyles from 'hooks/styles';

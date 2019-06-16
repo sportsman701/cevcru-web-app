@@ -48,15 +48,19 @@
   "login.privacy_policies":
     "privacy policies",
   "login.you_are_almost_there":
-    "You're almost there!<br/>Verify your email address to get started.",
+    "You're almost there!{newline}Verify your email address to get started.",
   "login.to_keep_your_financial_information_secure":
-    "To keep your financial information secure, a code has been sent to {email} and your {Whatsapp}",
+    "To keep your financial information secure, a code has been sent to {email} and your {whatsapp}",
   "login.enter_verification_code":
     "Enter Verification Code",
-  "login.didt_get_the_email":
+  "login.didnt_get_the_email":
     "Didn't get the email?",
   "login.resend_email":
     "Resend email",
+  "login.have_issues_setting_up":
+    "Have issues setting up?",
+  "login.whatsapp_us":
+    "Whatsapp us",
   "login.we_ve_sent_a_verification_email":
     "We've sent a verification email",
   "login.verification_code_is_incorrect":
