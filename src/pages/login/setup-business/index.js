@@ -61,8 +61,10 @@ function SetupBusiness(props) {
             globalClasses.fullWidth
           )}>
             <Box className={classes.mainContainer}>
-              <Box className={classes.topLogo}>
-                <img src={vencru} alt=''/>
+              <Box className={classes.logoHeader}>
+                <Box className={classes.logo}>
+                  <img src={vencru} alt=''/>
+                </Box>
               </Box>
               <Box className={classes.mainPanel}>
                 <Box className={classes.stepContent}>
@@ -94,7 +96,6 @@ function SetupBusiness(props) {
             </Box>
           </Box>
         </Grid>
-        {}
         <Grid
           xs={4} item
           className={classes.rightPanel}

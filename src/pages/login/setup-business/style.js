@@ -14,7 +14,11 @@ export default makeStyles(theme => ({
     padding: '50px',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+
+    [theme.breakpoints.only('xs')]: {
+      display: 'none'
+    }
   },
 
   startMainPanel: {
@@ -31,26 +35,47 @@ export default makeStyles(theme => ({
     }
   },
 
-  topLogo: {
+  logoHeader: {    
+    position: 'fixed',
+    display: 'flex',
+    zIndex: 1,
+    left: 0,
+    top: 0,
+    
+    [theme.breakpoints.only('xs')]: {
+      position: 'static',
+      backgroundColor: colors.background.white,
+      boxShadow: '0 0 15px rgba(0, 0, 0, 0.1)',
+
+      '& img': {
+        height: '40px'
+      }
+    }
+  },
+
+  logo: {
+    display: 'flex',
+    padding: '10px 20px',
+    backgroundColor: colors.primary.normal,
+
     '& img': {
       filter: 'brightness(10)'
     },
 
-    [theme.breakpoints.up('sm')]: {
-      position: 'fixed',
-      padding: '10px',
-      backgroundColor: colors.primary.normal,
-      left: 0,
-      top: 0
+    [theme.breakpoints.only('xs')]: {
+      '& img': {
+        height: '40px'
+      }
     }
   },
 
   mainContainer: {
-    margin: 'auto 60px',
+    margin: 'auto 0 auto 60px',
     width: '100%',
     display: 'flex',
 
     [theme.breakpoints.only('xs')]: {
+      flexDirection: 'column',
       margin: 0
     }
   },
@@ -59,7 +84,11 @@ export default makeStyles(theme => ({
     boxShadow: '0px 2px 9px rgba(0, 0, 0, 0.1)',
     backgroundColor: colors.background.white,
     flexGrow: '1',
-    padding: '40px'
+    padding: '40px',
+
+    [theme.breakpoints.only('xs')]: {
+      boxShadow: 'none'
+    }
   },
 
   stepContent: {
@@ -73,7 +102,13 @@ export default makeStyles(theme => ({
     justifyContent: 'space-evenly',
     textAlign: 'left',
     position: 'relative',
-    left: '-25px'
+    width: '30%',
+    minWidth: '180px',
+    left: '-25px',
+
+    [theme.breakpoints.only('xs')]: {
+      display: 'none'
+    }
   },
 
   stepIndicator: {
@@ -81,7 +116,7 @@ export default makeStyles(theme => ({
     alignItems: 'center',
 
     '& div:first-child': {
-      width: '50px',
+      minWidth: '50px',
       height: '50px',
       lineHeight: '30px',
       textAlign: 'center',
