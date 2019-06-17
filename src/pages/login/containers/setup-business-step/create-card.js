@@ -1,24 +1,21 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-import { FormattedMessage } from 'react-intl'
-import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
+import MenuItem from '@material-ui/core/MenuItem';
 import cx from 'classnames';
 
+import Input from 'components/input';
+import Select from 'components/select';
+import CheckBox from 'components/checkbox';
+
 import useGlobalStyles from 'hooks/styles';
-import { media, useMediaSmallerThan } from 'hooks/media';
 import useIntl from 'hooks/intl';
-import Button from 'components/button';
-
-
 import useStyles from './style';
 
 function SetupBusiness(props) {
   const trans = useIntl();
   const classes = useStyles();
   const globalClasses = useGlobalStyles();
-  const mediaSmallerThan = useMediaSmallerThan();
 
   return (
     <>
@@ -30,10 +27,43 @@ function SetupBusiness(props) {
         {trans('login.create_your_business_card')}
       </p>
       <p className={cx(
-        globalClasses.textNormal
+        globalClasses.textNormal,
+        classes.description
       )}>
         {trans('login.creating_your_business_card')}
       </p>
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={6}>
+          <Input frame label="First name"/>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Input frame label="Last name"/>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Input frame label="Company"/>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Input frame label="Phone number"/>
+        </Grid>
+        <Grid item xs={12}>
+          <Input frame label="Address (street)"/>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Input frame label="Address (city)"/>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Select frame label="Address (country)">
+            <MenuItem key={1} value={0}>
+              NG
+            </MenuItem>
+          </Select>
+        </Grid>
+      </Grid>
+      <div className={classes.incorporatedLLC}>
+        <CheckBox>
+          {trans('login.my_business_is_incorporated_llc')}
+        </CheckBox>
+      </div>
     </>
   )
 }

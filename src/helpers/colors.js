@@ -9,16 +9,23 @@ const colors = {
   },
 
   inverse: {
-    normal: 'white',
+    normal: '#FFFFFF',
     hover: '#d3dded',
-    active: 'white',
+    active: '#FFFFFF',
   },
 
   background: {
-    white: 'white',
+    white: '#FFFFFF',
     primary: '#2D74DA',
     dark: '#264678',
     light: '#F9F9F9'
+  },
+
+  input: {
+    border: {
+      normal: '#ced4da',
+      focus: '#2D74DA'
+    }
   },
   
   text: {
@@ -32,7 +39,7 @@ const colors = {
     },
     inverse: {
       normal: '#abc4e8',
-      highlight: 'white',
+      highlight: '#FFFFFF',
     }
   },
 

@@ -62,7 +62,7 @@ export default makeStyles(theme => ({
     },
 
     '&>div:last-child': {
-
+      flexGrow: 1
     }
   },
 

@@ -3,16 +3,27 @@ import Select from '@material-ui/core/Select';
 import Input from '../input';
 import useStyles from './style';
 
+
 function Dropdown(props) {
   const classes = useStyles(props);
-  const { children } = props;
+  const { children, frame, ...other } = props;
   const [ value, setValue ] = useState('');
 
   const handleChange = event => setValue(event.target.value);
 
-  return (
+  return frame ? (
+    <Input
+      frame
+      select
+      {...other}
+      value={value}
+      onChange={handleChange}
+    >
+      {children}
+    </Input>
+  ) : (
     <Select
-      {...props}
+      {...other}
       value={value}
       onChange={handleChange}
       classes={{select: classes.root}}
