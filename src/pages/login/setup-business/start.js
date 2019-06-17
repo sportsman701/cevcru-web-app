@@ -5,11 +5,7 @@ import Box from '@material-ui/core/Box';
 import cx from 'classnames';
 
 import useGlobalStyles from 'hooks/styles';
-import {
-  media,
-  useMediaUp,
-  useMediaSmallerThan
-} from 'hooks/media';
+import { media, useMediaSmallerThan } from 'hooks/media';
 import useIntl from 'hooks/intl';
 import Button from 'components/button';
 
@@ -22,11 +18,7 @@ function SetupBusinessStart() {
   const trans = useIntl();
   const classes = useStyles();
   const globalClasses = useGlobalStyles();
-  const mediaUp = useMediaUp();
   const mediaSmallerThan = useMediaSmallerThan();
-  const [ showResult, setShowResult ] = useState(false);
-
-  const handleResendEmail = () => setShowResult(true);
 
   return (
     <Box className={cx(

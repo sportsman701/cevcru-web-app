@@ -16,8 +16,8 @@ import {
 } from 'hooks/media';
 import useIntl from 'hooks/intl';
 
-import logo from 'resources/logo/logo.svg';
-import logoHorizontallMobile from 'resources/logo/logo-horizontal-mobile.svg';
+import vencru from 'resources/logo/vencru.svg';
+import vencruHorizontallMobile from 'resources/logo/vencru-horizontal-mobile.svg';
 import image1 from 'resources/registration/1.svg';
 import image2 from 'resources/registration/2.svg';
 import image3 from 'resources/registration/3.svg';
@@ -51,7 +51,7 @@ function Welcome(props) {
 
   return (
     <Grid className={classes.root} item xs={12} md={6}>
-      <img alt="" src={mediaUp(media.md) ? logo : logoHorizontallMobile} />
+      <img alt="" src={mediaUp(media.md) ? vencru : vencruHorizontallMobile} />
       <p className={cx(
         globalClasses.textPrimary,
         classes.imageTitle,

@@ -22,7 +22,7 @@ import {
 } from 'hooks/media';
 import useIntl from 'hooks/intl';
 
-import logoVerticalMobile from 'resources/logo/logo-vertical-mobile.svg';
+import vencruVerticalMobile from 'resources/logo/vencru-vertical-mobile.svg';
 import google from 'resources/registration/google.svg';
 
 import useStyles from './style';
@@ -50,7 +50,7 @@ function Register(props) {
           className={classes.account}
         >
           { mediaSmallerThan(media.md) && (
-            <img alt="" src={logoVerticalMobile} />
+            <img alt="" src={vencruVerticalMobile} />
           )}
           <p className={cx(
             globalClasses.textTitle,

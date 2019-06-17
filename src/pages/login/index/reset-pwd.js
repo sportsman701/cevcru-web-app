@@ -11,7 +11,7 @@ import Link from 'components/link';
 import useGlobalStyles from 'hooks/styles';
 import useIntl from 'hooks/intl';
 
-import logoVerticalMobile from 'resources/logo/logo-vertical-mobile.svg';
+import vencruVerticalMobile from 'resources/logo/vencru-vertical-mobile.svg';
 
 import useStyles from './style';
 
@@ -33,7 +33,7 @@ function ResetPassword(props) {
           item xs={12} md={6}
           className={cx(classes.account, 'keepMobileStyle')}
         >
-          <img alt="" src={logoVerticalMobile} />
+          <img alt="" src={vencruVerticalMobile} />
           <p className={cx(
             globalClasses.textSubTitle,
             globalClasses.textContrast
