@@ -13,7 +13,6 @@ function Input(props) {
       {...other}
       classes={{root: classes.frame}}
       className={className}
-      fullWidth
       variant="outlined"
       InputLabelProps={{
         shrink: true,

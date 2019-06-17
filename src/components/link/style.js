@@ -7,7 +7,7 @@ export default makeStyles({
     transition: 'all ease .5s',
     color: colors.link.primary.normal,
     cursor: 'pointer',
-
+    
     '&:hover': {
       color: colors.link.primary.hover
     },

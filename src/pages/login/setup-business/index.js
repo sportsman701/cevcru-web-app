@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 
+import { withRouter } from "react-router";
 import { FormattedMessage } from 'react-intl'
 import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
+import ChevronLeft from '@material-ui/icons/ChevronLeft';
+
 import cx from 'classnames';
+import { find } from 'lodash';
 
 import useGlobalStyles from 'hooks/styles';
 import { media, useMediaUp } from 'hooks/media';
@@ -23,9 +27,9 @@ import hand from 'resources/setup-business/hand.svg';
 import useStyles from './style';
 
 const steps = [
-  { name: 'create-card', title: 'login.create_your_business_card' },
-  { name: 'industry', title: 'login.about_your_industry' },
-  { name: 'business', title: 'login.about_your_business' }
+  { name: 'create-card', title: 'login.create_your_business_card', content: <CreateCard/> },
+  { name: 'industry', title: 'login.about_your_industry', content: <></> },
+  { name: 'business', title: 'login.about_your_business', content: <></> }
 ]
 
 function SetupBusiness(props) {
@@ -34,8 +38,14 @@ function SetupBusiness(props) {
   const globalClasses = useGlobalStyles();
   const mediaUp = useMediaUp();
 
-  const { match } = props;
+  const { match, history } = props;
   const step = match.params.step;
+  const stepInfo = find(steps, { name: step });
+
+  if (!stepInfo) {
+    history.push('/setup-business');
+    return null;
+  }
 
   return (
     <Box className={cx(
@@ -48,14 +58,6 @@ function SetupBusiness(props) {
           xs={8} item
           className={classes.leftPanel}
         >
-        {/* <Box>
-          {step === 'create' ?
-            <CreateCard/>
-          : step === 'industry' ?
-            <Industry/>
-          : <Business/>
-          }
-        </Box> */}
           <Box className={cx(
             globalClasses.fullHeight,
             globalClasses.fullWidth
@@ -68,7 +70,19 @@ function SetupBusiness(props) {
               </Box>
               <Box className={classes.mainPanel}>
                 <Box className={classes.stepContent}>
-                  <CreateCard/>
+                  {stepInfo.content}
+                  <Grid container className={classes.navigation}>
+                    <Grid item xs={6} sm={4}>
+                      <Link className={classes.textPrimary}>
+                        <ChevronLeft/>
+                        <span>{trans('login.previous_step')}</span>
+                      </Link>
+                    </Grid>
+                    <Grid item xs={6} sm={4}>
+                      <Button fullWidth>{trans('login.continue')}</Button>
+                    </Grid>
+                    { mediaUp(media.sm) && <Grid item xs={4}/> }
+                  </Grid>
                 </Box>
               </Box>
               <Box className={classes.stepList}>
@@ -144,25 +158,8 @@ function SetupBusiness(props) {
           </Box>
         </Grid>
       </Grid>
-      
-      {/* <Box
-        className={cx(
-          classes.mainPanel,
-          mediaSmallerThan(media.sm) && [
-            globalClasses.fullHeight,
-            globalClasses.fullWidth
-          ]
-        )}
-      >
-        <Box className={cx(
-          globalClasses.formPanel,
-          classes.content
-        )}>
-          
-        </Box>
-      </Box> */}
     </Box>
   )
 }
 
-export default SetupBusiness;
+export default withRouter(SetupBusiness);

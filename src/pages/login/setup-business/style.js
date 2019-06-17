@@ -1,5 +1,7 @@
 import colors from 'helpers/colors';
 import makeStyles from '@material-ui/styles/makeStyles';
+import backLogo from 'resources/logo/logo.svg';
+
 
 export default makeStyles(theme => ({
   root: {
@@ -86,6 +88,13 @@ export default makeStyles(theme => ({
     flexGrow: '1',
     padding: '40px',
 
+    [theme.breakpoints.up('lg')]: {
+      backgroundImage: `url('${backLogo}')`,
+      backgroundRepeat: 'no-repeat',
+      backgroundPositionY: 'center',
+      backgroundPositionX: 'calc(100% + 160px)',
+    },
+
     [theme.breakpoints.only('xs')]: {
       boxShadow: 'none'
     }
@@ -100,7 +109,7 @@ export default makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-around',
-    marginTop: '50px 0',
+    margin: '100px 0',
     textAlign: 'left',
     position: 'relative',
     width: '30%',
@@ -109,6 +118,25 @@ export default makeStyles(theme => ({
 
     [theme.breakpoints.only('xs')]: {
       display: 'none'
+    }
+  },
+
+  navigation: {
+    marginTop: '40px',
+
+    [theme.breakpoints.only('xs')]: {
+      marginTop: '20px'
+    },
+
+    '& div:first-child': {
+      display: 'flex',
+      alignItems: 'center',
+
+      '& span': {
+        display: 'flex',
+        alignItems: 'center',
+        marginRight: '15px'
+      }
     }
   },
 

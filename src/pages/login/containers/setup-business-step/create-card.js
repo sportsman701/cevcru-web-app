@@ -34,25 +34,25 @@ function SetupBusiness(props) {
       </p>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
-          <Input frame label="First name"/>
+          <Input fullWidth frame label="First name"/>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Input frame label="Last name"/>
+          <Input fullWidth frame label="Last name"/>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Input frame label="Company"/>
+          <Input fullWidth frame label="Company"/>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Input frame label="Phone number"/>
+          <Input fullWidth frame label="Phone number"/>
         </Grid>
         <Grid item xs={12}>
-          <Input frame label="Address (street)"/>
+          <Input fullWidth frame label="Address (street)"/>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Input frame label="Address (city)"/>
+          <Input fullWidth frame label="Address (city)"/>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Select frame label="Address (country)">
+          <Select fullWidth frame label="Address (country)">
             <MenuItem key={1} value={0}>
               NG
             </MenuItem>

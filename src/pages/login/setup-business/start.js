@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { withRouter } from "react-router";
 
 import FormControl from '@material-ui/core/FormControl';
 import Box from '@material-ui/core/Box';
@@ -14,11 +15,14 @@ import image from 'resources/setup-business/setup-business-start.png';
 import useStyles from './style';
 
 
-function SetupBusinessStart() {
+function SetupBusinessStart(props) {
   const trans = useIntl();
   const classes = useStyles();
   const globalClasses = useGlobalStyles();
   const mediaSmallerThan = useMediaSmallerThan();
+  const { history } = props
+
+  const handleStartSetupBusiness = () => history.push('setup-business/create-card');
 
   return (
     <Box className={cx(
@@ -55,7 +59,7 @@ function SetupBusinessStart() {
             <img alt="" src={image}/>
           </div>
           <FormControl className={classes.setupBusiness}>
-            <Button>
+            <Button onClick={handleStartSetupBusiness}>
               {trans('login.setup_my_business')}
             </Button>
           </FormControl>
@@ -65,4 +69,4 @@ function SetupBusinessStart() {
   )
 }
 
-export default SetupBusinessStart;
+export default withRouter(SetupBusinessStart);
