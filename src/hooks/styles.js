@@ -25,7 +25,8 @@ export default makeStyles(theme => ({
 
   textTitle: {
     fontSize: '25px',
-    fontWeight: 'bolder',
+    fontWeight: 'bold',
+    letterSpacing: '1.5px',
 
     [theme.breakpoints.only('xs')]: {
       fontSize: '18px'
@@ -34,15 +35,30 @@ export default makeStyles(theme => ({
 
   textTitleFixed: {
     fontSize: '25px',
-    fontWeight: 'bolder'
+    fontWeight: 'bold',
+    letterSpacing: '1.5px',
+    
   },
 
   textSubTitle: {
     fontSize: '18px',
-    fontWeight: 'bolder'
+    fontWeight: 'bold',
+    letterSpacing: '1.5px',
   },
 
   textSizeA: {
+    fontSize: '34px',
+  },
+
+  textSizeB: {
+    fontSize: '30px',
+  },
+
+  textSizeC: {
+    fontSize: '25px'
+  },
+
+  textSizeD: {
     fontSize: '20px',
   },
 

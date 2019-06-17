@@ -6,13 +6,19 @@ const colors = {
     normal: '#2D74DA',
     hover: '#4684dd',
     active: '#1055b7',
-    dark: '#264678'
   },
 
   inverse: {
     normal: 'white',
     hover: '#d3dded',
     active: 'white',
+  },
+
+  background: {
+    white: 'white',
+    primary: '#2D74DA',
+    dark: '#264678',
+    light: '#F9F9F9'
   },
   
   text: {

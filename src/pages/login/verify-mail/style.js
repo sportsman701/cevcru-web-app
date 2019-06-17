@@ -3,7 +3,7 @@ import makeStyles from '@material-ui/styles/makeStyles';
 
 export default makeStyles(theme => ({
   root: {
-    backgroundColor: colors.primary.dark,
+    backgroundColor: colors.background.dark,
   },
 
   mainPanel: {

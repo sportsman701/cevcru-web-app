@@ -28,7 +28,7 @@ function SetupBusinessStart() {
     )}>
       <Box
         className={cx(
-          classes.mainPanel,
+          classes.startMainPanel,
           mediaSmallerThan(media.sm) && [
             globalClasses.fullHeight,
             globalClasses.fullWidth
@@ -51,7 +51,7 @@ function SetupBusinessStart() {
           )}>
             {trans('login.your_business_manager_is_just_ahead')}
           </p>
-          <div className={classes.image}>
+          <div className={classes.startPreview}>
             <img alt="" src={image}/>
           </div>
           <FormControl className={classes.setupBusiness}>

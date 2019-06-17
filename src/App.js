@@ -12,6 +12,8 @@ import Register from 'pages/login/index/register'
 import ForgotPassword from 'pages/login/index/forgot-pwd'
 import ResetPassword from 'pages/login/index/reset-pwd'
 import VerifyEmail from 'pages/login/verify-mail'
+
+import SetupBusiness from 'pages/login/setup-business'
 import SetupBusinessStart from 'pages/login/setup-business/start'
 
 import en from 'localization/en.json'
@@ -32,9 +34,9 @@ function App() {
           <Route path='/forgotpwd' component={ForgotPassword} />
           <Route path='/resetpwd' component={ResetPassword} />
           <Route path='/verify-email' component={VerifyEmail} />
-          <Route path='/setup-business' component={SetupBusinessStart} />
-          {/* <Route path='/setup-business/create' component={SetupBusiness} />
-          <Route path='/setup-business/industry' component={SetupBusiness} />
+          <Route path='/setup-business' exact component={SetupBusinessStart} />
+          <Route path='/setup-business/:step' component={SetupBusiness} />
+          {/* <Route path='/setup-business/industry' component={SetupBusiness} />
           <Route path='/setup-business/business' component={SetupBusiness} /> */}
           {/* <Route path='/account-ready' component={AccountReady} /> */}
         </Router>

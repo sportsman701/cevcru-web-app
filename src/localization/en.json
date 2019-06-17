@@ -81,6 +81,8 @@
     "Log in to your account",
   "login.create_your_business_card":
     "Create your business card",
+  "login.mail_us_at":
+    "mail us at: {mail} or {newline} Whatsapp {number}",
   "login.creating_your_business_card":
     "Creating your business card will make sending invoices and campaigns easier.",
   "login.first_name":

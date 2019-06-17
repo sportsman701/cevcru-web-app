@@ -50,7 +50,7 @@ function VerifyMail() {
           onClose={() => setShowResult(false)}
           className={cx({ [classes.dockedAlert]: mediaUp(media.sm) })}
           >
-          <AlertContent classes={{message: globalClasses.textSizeA}}>
+          <AlertContent classes={{message: globalClasses.textSizeD}}>
             {trans('login.verification_code_is_incorrect')}
           </AlertContent>
         </Alert>
