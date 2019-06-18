@@ -96,7 +96,8 @@ export default makeStyles(theme => ({
     },
 
     [theme.breakpoints.only('xs')]: {
-      boxShadow: 'none'
+      boxShadow: 'none',
+      padding: '20px'
     }
   },
 

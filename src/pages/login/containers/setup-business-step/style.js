@@ -1,4 +1,3 @@
-import colors from 'helpers/colors';
 import makeStyles from '@material-ui/styles/makeStyles';
 
 export default makeStyles(theme => ({
@@ -11,7 +10,7 @@ export default makeStyles(theme => ({
   },
 
   description: {
-    margin: '30px 0 40px 0'
+    margin: '30px 0'
   },
 
   incorporatedLLC: {
@@ -24,6 +23,35 @@ export default makeStyles(theme => ({
 
   referralDescription: {
     marginTop: '10px',
+    textAlign: 'left',
+    lineHeight: '1'
+  },
+
+  fieldDescription: {
+    margin: '0 0 5px',
+    textAlign: 'left',
+    lineHeight: '1'
+  },
+
+  onlinePayment: {
     textAlign: 'left'
+  },
+
+  teamSize: {
+    marginTop: '10px',
+    
+    '& div': {
+      flexGrow: 0,
+      
+      [theme.breakpoints.down('sm')]: {
+        'maxWidth': '33.33%',
+        'flexBasis': '33.33%'
+      },
+      
+      [theme.breakpoints.up('md')]: {
+        'maxWidth': '20%',
+        'flexBasis': '20%'
+      }
+    }
   }
 }));

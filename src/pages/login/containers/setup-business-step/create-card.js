@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -12,10 +12,13 @@ import useGlobalStyles from 'hooks/styles';
 import useIntl from 'hooks/intl';
 import useStyles from './style';
 
-function SetupBusiness(props) {
+function CreateCard(props) {
   const trans = useIntl();
   const classes = useStyles();
   const globalClasses = useGlobalStyles();
+  const [coporation, setCoporation] = useState(true);
+
+  const handleCoporationChange = () => setCoporation(!coporation)
 
   return (
     <>
@@ -89,7 +92,10 @@ function SetupBusiness(props) {
         </Grid>
       </Grid>
       <div className={classes.incorporatedLLC}>
-        <CheckBox>
+        <CheckBox
+          checked={coporation}
+          onClick={handleCoporationChange}
+        >
           {trans('login.my_business_is_incorporated_llc')}
         </CheckBox>
       </div>
@@ -97,4 +103,4 @@ function SetupBusiness(props) {
   )
 }
 
-export default SetupBusiness;
+export default CreateCard;

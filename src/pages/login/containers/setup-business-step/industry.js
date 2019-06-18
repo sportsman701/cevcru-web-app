@@ -11,16 +11,16 @@ import useGlobalStyles from 'hooks/styles';
 import useIntl from 'hooks/intl';
 import useStyles from './style';
 
-import industry from 'resources/setup-business/industry.svg';
+import image from 'resources/setup-business/industry.svg';
 
-function SetupBusiness(props) {
+function Industry(props) {
   const trans = useIntl();
   const classes = useStyles();
   const globalClasses = useGlobalStyles();
 
   return (
     <>
-      <img className={classes.topImage} src={industry} alt=""/>
+      <img className={classes.topImage} src={image} alt=""/>
       <p className={cx(
         globalClasses.textPrimary,
         globalClasses.textSizeC,
@@ -67,7 +67,7 @@ function SetupBusiness(props) {
           />
           <p className={cx(
             globalClasses.textPrimary,
-            classes.referralDescription
+            classes.fieldDescription
           )}>
             <small>
               {trans('login.enter_your_referees_code')}
@@ -79,4 +79,4 @@ function SetupBusiness(props) {
   )
 }
 
-export default SetupBusiness;
+export default Industry;

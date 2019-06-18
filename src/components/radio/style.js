@@ -20,20 +20,5 @@ export default makeStyles({
 
   caption: {
     color: colors.text.primary.normal
-  },
-
-  label: {
-    textTransform: 'none'
-  },
-
-  button: {
-    padding: '3px',
-    color: colors.text.primary.contrast,
-    border: `1px solid ${colors.text.primary.normal}`,
-
-    '&.MuiButton-contained': {
-      border: `1px solid ${colors.text.primary.primary}`,
-      color: colors.text.inverse.highlight
-    }
   }
 })

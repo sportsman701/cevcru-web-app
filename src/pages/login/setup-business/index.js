@@ -2,13 +2,12 @@ import React, { useState } from 'react'
 
 import { withRouter } from "react-router";
 import { FormattedMessage } from 'react-intl'
-import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 
 import cx from 'classnames';
-import { find } from 'lodash';
+import { findIndex } from 'lodash';
 
 import useGlobalStyles from 'hooks/styles';
 import { media, useMediaUp } from 'hooks/media';
@@ -18,7 +17,7 @@ import Link from 'components/link';
 
 import CreateCard from '../containers/setup-business-step/create-card';
 import Industry from '../containers/setup-business-step/industry';
-// import Business from '../containers/setup-business-step/business';
+import Business from '../containers/setup-business-step/business';
 
 import setupBusiness from 'resources/setup-business/setup-business.svg';
 import vencru from 'resources/logo/vencru.svg';
@@ -29,7 +28,7 @@ import useStyles from './style';
 const steps = [
   { name: 'create-card', title: 'login.create_your_business_card', content: <CreateCard/> },
   { name: 'industry', title: 'login.about_your_industry', content: <Industry/> },
-  { name: 'business', title: 'login.about_your_business', content: <></> }
+  { name: 'business', title: 'login.about_your_business', content: <Business/> }
 ]
 
 function SetupBusiness(props) {
@@ -40,11 +39,24 @@ function SetupBusiness(props) {
 
   const { match, history } = props;
   const step = match.params.step;
-  const stepInfo = find(steps, { name: step });
+  const stepIndex = findIndex(steps, { name: step });
+  const stepInfo = steps[stepIndex]
 
-  if (!stepInfo) {
+  if (stepInfo < 0) {
     history.push('/setup-business');
     return null;
+  }
+
+  const handleContinueClick = () => {
+    if (stepIndex < 2) {
+      history.push(`/setup-business/${steps[stepIndex + 1].name}`);
+    } else {
+      
+    }
+  }
+
+  const handlePrevClick = () => {
+    history.push(`/setup-business/${steps[stepIndex - 1].name}`);
   }
 
   return (
@@ -72,14 +84,19 @@ function SetupBusiness(props) {
                 <Box className={classes.stepContent}>
                   {stepInfo.content}
                   <Grid container className={classes.navigation}>
-                    <Grid item xs={6} sm={4}>
-                      <Link className={classes.textPrimary}>
-                        <ChevronLeft/>
-                        <span>{trans('login.previous_step')}</span>
-                      </Link>
+                    <Grid item xs={7} sm={4}>
+                      { stepIndex > 0 && (
+                        <Link
+                          className={classes.textPrimary}
+                          onClick={handlePrevClick}
+                        >
+                          <ChevronLeft/>
+                          <span>{trans('login.previous_step')}</span>
+                        </Link>
+                      )}
                     </Grid>
-                    <Grid item xs={6} sm={4}>
-                      <Button fullWidth>{trans('login.continue')}</Button>
+                    <Grid item xs={5} sm={4}>
+                      <Button fullWidth onClick={handleContinueClick}>{trans('login.continue')}</Button>
                     </Grid>
                     { mediaUp(media.sm) && <Grid item xs={4}/> }
                   </Grid>

@@ -2,12 +2,13 @@ import React from 'react';
 import cx from 'classnames';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Button from 'components/button';
+import UncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
+import CheckedIcon from '@material-ui/icons/CheckCircle'; // CheckCircleOutline
 import useStyles from './style';
 
 
-function CheckboxComponent(props) {
-  const { children, button, checked, onClick, className, ...other } = props;
+function RadioButton(props) {
+  const { children, checked, onClick, className, ...other } = props;
   const classes = useStyles();
 
   const checkBox = (
@@ -15,19 +16,12 @@ function CheckboxComponent(props) {
       checked={checked}
       onChange={onClick}
       className={classes.root}
+      icon={<UncheckedIcon/>}
+      checkedIcon={<CheckedIcon/>}
     />
   )
   
-  return button ? (
-    <Button
-      inverse={!checked}
-      onClick={onClick}
-      className={classes.button}
-      {...other}
-    >
-      {children}
-    </Button>
-  ) : (
+  return (
     <FormControlLabel
       {...other}
       label={children}
@@ -37,7 +31,7 @@ function CheckboxComponent(props) {
         className
       )}
     />
-  )
+  );
 }
 
-export default CheckboxComponent;
+export default RadioButton;

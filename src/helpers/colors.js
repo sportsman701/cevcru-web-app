@@ -37,6 +37,7 @@ const colors = {
       contrast: '#5a5a5a',
       placeholder: '#DFDFDF',
     },
+    
     inverse: {
       normal: '#abc4e8',
       highlight: '#FFFFFF',

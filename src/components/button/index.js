@@ -3,10 +3,10 @@ import Button from '@material-ui/core/Button';
 import useStyles from './style';
 import cx from 'classnames';
 
-function CustomButton(props) {
+function ButtonComponent(props) {
   const classes = useStyles();
   const variant = props.inverse ? 'outlined' : 'contained';
-  const { inverse, grayText, ...other} = props;
+  const { inverse, grayText, className, ...other} = props;
 
   return (
     <Button
@@ -14,6 +14,7 @@ function CustomButton(props) {
       {...other}
       classes={{label: classes.label}}
       className={cx(
+        className,
         classes.root, {
           [classes.inverse]: props.inverse,
           [classes.grayText]: props.grayText
@@ -32,4 +33,4 @@ function CustomButton(props) {
   )
 }
 
-export default CustomButton;
+export default ButtonComponent;
