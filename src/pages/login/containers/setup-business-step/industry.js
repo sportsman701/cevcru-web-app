@@ -13,6 +13,17 @@ import useStyles from './style';
 
 import image from 'resources/setup-business/industry.svg';
 
+const hearAboutVencru = [
+  'login.friend',
+  'login.website',
+  'login.instagram_facebook',
+  'login.twitter',
+  'login.linkedin',
+  'login.google',
+  'login.appstore',
+  'login.other'
+]
+
 function Industry(props) {
   const trans = useIntl();
   const classes = useStyles();
@@ -53,9 +64,11 @@ function Industry(props) {
             id='hearFrom'
             label={trans('login.how_did_you_hear_about_vencru')}
           >
-            <MenuItem key={1} value={0}>
-              {trans('login.friend')}
-            </MenuItem>
+            {hearAboutVencru.map((item, key) => (
+              <MenuItem key={key} value={key}>
+                {trans(item)}
+              </MenuItem>
+            ))}
           </Select>
         </Grid>
         <Grid item xs={12}>
