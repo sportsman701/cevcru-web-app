@@ -1,12 +1,14 @@
 import React from 'react';
 import InputBase from '@material-ui/core/InputBase';
 import TextField from '@material-ui/core/TextField';
+import InputLabel from '@material-ui/core/InputLabel';
 import cx from 'classnames';
+
 import useStyles from './style';
 
 function Input(props) {
   const classes = useStyles(props);
-  const { frame, children, className, ...other } = props;
+  const { frame, children, className, id, label, ...other } = props;
   
   return frame ? (
     <TextField
@@ -21,11 +23,23 @@ function Input(props) {
       {children}
     </TextField>
   ) : (
-    <InputBase
-      {...other}
-      className={cx(classes.root, className)}
-      classes={{input: classes.input}}
-    />
+    <>
+      {label && (
+        <InputLabel
+          shrink
+          htmlFor={id}
+          className={classes.label}
+        >
+          {label}
+        </InputLabel>
+      )}
+      <InputBase
+        {...other}
+        id={id}
+        className={cx(classes.root, className)}
+        classes={{input: classes.input}}
+      />
+    </>
   )
 }
 

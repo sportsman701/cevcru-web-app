@@ -27,6 +27,15 @@ export default makeStyles({
     }
   },
 
+  label: {
+    textAlign: 'left',
+    color: colors.text.primary.primary,
+
+    '&+.MuiInputBase-root': {
+      marginTop: '5px'
+    }
+  },
+
   frame: {
     '& label': {
       color: colors.text.primary.normal

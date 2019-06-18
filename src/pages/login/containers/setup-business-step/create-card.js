@@ -34,25 +34,54 @@ function SetupBusiness(props) {
       </p>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
-          <Input fullWidth frame label="First name"/>
+          <Input
+            fullWidth
+            id="firstName"
+            label={trans("login.first_name")}
+          />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Input fullWidth frame label="Last name"/>
+          <Input
+            fullWidth
+            id="lastName"
+            label={trans("login.last_name")}
+          />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Input fullWidth frame label="Company"/>
+          <Input
+            fullWidth
+            id="company"
+            label={trans("login.company")}
+          />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Input fullWidth frame label="Phone number"/>
+          <Input
+            fullWidth
+            id="phoneNumber"
+            label={trans("login.phone_number")}
+          />
         </Grid>
         <Grid item xs={12}>
-          <Input fullWidth frame label="Address (street)"/>
+          <Input
+            fullWidth
+            id="addressStreet"
+            label={trans("login.address_street")}
+          />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Input fullWidth frame label="Address (city)"/>
+          <Input
+            fullWidth
+            id="addressCity"
+            label={trans("login.address_city")}
+          />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Select fullWidth frame label="Address (country)">
+          <Select
+            fullWidth
+            id="addressCountry"
+            value={0}
+            label={trans("login.address_country")}
+          >
             <MenuItem key={1} value={0}>
               NG
             </MenuItem>

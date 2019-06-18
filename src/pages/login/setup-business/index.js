@@ -17,7 +17,7 @@ import Button from 'components/button';
 import Link from 'components/link';
 
 import CreateCard from '../containers/setup-business-step/create-card';
-// import Industry from '../containers/setup-business-step/industry`';
+import Industry from '../containers/setup-business-step/industry';
 // import Business from '../containers/setup-business-step/business';
 
 import setupBusiness from 'resources/setup-business/setup-business.svg';
@@ -28,7 +28,7 @@ import useStyles from './style';
 
 const steps = [
   { name: 'create-card', title: 'login.create_your_business_card', content: <CreateCard/> },
-  { name: 'industry', title: 'login.about_your_industry', content: <></> },
+  { name: 'industry', title: 'login.about_your_industry', content: <Industry/> },
   { name: 'business', title: 'login.about_your_business', content: <></> }
 ]
 

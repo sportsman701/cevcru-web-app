@@ -86,8 +86,8 @@ function Register(props) {
               {/* <FormHelperText id="password-helper"></FormHelperText> */}
             </FormControl>
             <FormControl className={classes.phone}>
-              <Select>
-                <MenuItem value={10}>NG</MenuItem>
+              <Select value={0}>
+                <MenuItem value={0}>NG</MenuItem>
               </Select>
               <Input placeholder={'+234 (0) 123-456-7890'} />
             </FormControl>

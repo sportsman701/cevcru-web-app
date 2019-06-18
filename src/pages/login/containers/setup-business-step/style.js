@@ -2,6 +2,10 @@ import colors from 'helpers/colors';
 import makeStyles from '@material-ui/styles/makeStyles';
 
 export default makeStyles(theme => ({
+  topImage: {
+    marginBottom: '20px'
+  },
+
   title: {
     margin: 0
   },
@@ -16,5 +20,10 @@ export default makeStyles(theme => ({
     [theme.breakpoints.only('xs')]: {
       marginTop: '20px'
     }
+  },
+
+  referralDescription: {
+    marginTop: '10px',
+    textAlign: 'left'
   }
 }));

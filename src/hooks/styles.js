@@ -36,8 +36,7 @@ export default makeStyles(theme => ({
   textTitleFixed: {
     fontSize: '25px',
     fontWeight: 'bold',
-    letterSpacing: '1.5px',
-    
+    letterSpacing: '1.5px'
   },
 
   textSubTitle: {

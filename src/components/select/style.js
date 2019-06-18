@@ -5,6 +5,8 @@ import { red } from '@material-ui/core/colors';
 export default makeStyles({
   root: {
     borderRadius: 4,
+    textAlign: 'left',
+    
     '&:focus': {
       borderRadius: 4,
       backgroundColor: colors.inverse.normal
