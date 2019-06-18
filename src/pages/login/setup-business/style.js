@@ -3,6 +3,8 @@ import makeStyles from '@material-ui/styles/makeStyles';
 import backLogo from 'resources/logo/logo.svg';
 
 
+const mainPanelMinHeight = '680px';
+
 export default makeStyles(theme => ({
   root: {
     backgroundColor: colors.background.dark,
@@ -17,6 +19,7 @@ export default makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
+    minHeight: mainPanelMinHeight,
 
     [theme.breakpoints.only('xs')]: {
       display: 'none'
@@ -61,7 +64,7 @@ export default makeStyles(theme => ({
     backgroundColor: colors.primary.normal,
 
     '& img': {
-      filter: 'brightness(10)'
+      filter: 'brightness(100)'
     },
 
     [theme.breakpoints.only('xs')]: {
@@ -87,7 +90,7 @@ export default makeStyles(theme => ({
     backgroundColor: colors.background.white,
     flexGrow: '1',
     padding: '40px',
-    minHeight: '680px',
+    minHeight: mainPanelMinHeight,
 
     [theme.breakpoints.up('lg')]: {
       backgroundImage: `url('${backLogo}')`,

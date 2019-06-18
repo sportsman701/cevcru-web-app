@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 
 import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -17,6 +17,7 @@ function Industry(props) {
   const trans = useIntl();
   const classes = useStyles();
   const globalClasses = useGlobalStyles();
+  // const
 
   return (
     <div>
@@ -40,6 +41,7 @@ function Industry(props) {
             fullWidth
             id='industry'
             label={trans('login.choose_your_industry')}
+            className={classes.adjustLabelHeight}
           >
             <MenuItem key={1} value={0}>
               NG

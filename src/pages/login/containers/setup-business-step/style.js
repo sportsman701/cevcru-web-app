@@ -2,7 +2,8 @@ import makeStyles from '@material-ui/styles/makeStyles';
 
 export default makeStyles(theme => ({
   topImage: {
-    marginBottom: '20px'
+    marginBottom: '20px',
+    height: '100px'
   },
 
   title: {
