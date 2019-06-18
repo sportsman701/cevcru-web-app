@@ -30,9 +30,11 @@ export default makeStyles({
   label: {
     textAlign: 'left',
     color: colors.text.primary.primary,
+    fontSize: 'smaller',
+    transform: 'none',
 
     '&+.MuiInputBase-root': {
-      marginTop: '5px'
+      marginTop: '8px'
     }
   },
 
