@@ -87,6 +87,7 @@ export default makeStyles(theme => ({
     backgroundColor: colors.background.white,
     flexGrow: '1',
     padding: '40px',
+    minHeight: '680px',
 
     [theme.breakpoints.up('lg')]: {
       backgroundImage: `url('${backLogo}')`,
@@ -103,7 +104,11 @@ export default makeStyles(theme => ({
 
   stepContent: {
     margin: 'auto',
-    maxWidth: '550px'
+    maxWidth: '550px',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between'
   },
 
   stepList: {
@@ -123,8 +128,6 @@ export default makeStyles(theme => ({
   },
 
   navigation: {
-    marginTop: '40px',
-
     [theme.breakpoints.only('xs')]: {
       marginTop: '20px'
     },

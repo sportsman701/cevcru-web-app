@@ -25,6 +25,7 @@ import hand from 'resources/setup-business/hand.svg';
 
 import useStyles from './style';
 
+
 const steps = [
   { name: 'create-card', title: 'login.create_your_business_card', content: <CreateCard/> },
   { name: 'industry', title: 'login.about_your_industry', content: <Industry/> },

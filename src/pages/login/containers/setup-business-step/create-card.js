@@ -21,7 +21,7 @@ function CreateCard(props) {
   const handleCoporationChange = () => setCoporation(!coporation)
 
   return (
-    <>
+    <div>
       <p className={cx(
         globalClasses.textPrimary,
         globalClasses.textSizeC,
@@ -99,7 +99,7 @@ function CreateCard(props) {
           {trans('login.my_business_is_incorporated_llc')}
         </CheckBox>
       </div>
-    </>
+    </div>
   )
 }
 

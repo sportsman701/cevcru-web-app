@@ -44,7 +44,7 @@ function Business(props) {
     size => () => setTeamSize(size)
 
   return (
-    <>
+    <div>
       <img className={classes.topImage} src={image} alt=""/>
       <p className={cx(
         globalClasses.textPrimary,
@@ -128,7 +128,7 @@ function Business(props) {
           </div>
         </Grid>
       </Grid>
-    </>
+    </div>
   )
 }
 

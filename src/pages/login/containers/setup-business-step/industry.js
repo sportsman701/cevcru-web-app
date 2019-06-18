@@ -19,7 +19,7 @@ function Industry(props) {
   const globalClasses = useGlobalStyles();
 
   return (
-    <>
+    <div>
       <img className={classes.topImage} src={image} alt=""/>
       <p className={cx(
         globalClasses.textPrimary,
@@ -67,7 +67,7 @@ function Industry(props) {
           />
           <p className={cx(
             globalClasses.textPrimary,
-            classes.fieldDescription
+            classes.referralDescription
           )}>
             <small>
               {trans('login.enter_your_referees_code')}
@@ -75,7 +75,7 @@ function Industry(props) {
           </p>
         </Grid>
       </Grid>
-    </>
+    </div>
   )
 }
 
