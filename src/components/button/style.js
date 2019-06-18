@@ -15,6 +15,10 @@ export default makeStyles({
 
     '&:focus': {
       boxShadow: 'none'
+    },
+
+    '&.Mui-disabled': {
+      backgroundColor: '#EEE'
     }
   },
   

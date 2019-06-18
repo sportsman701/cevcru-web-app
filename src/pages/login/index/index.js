@@ -4,6 +4,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
+import GoogleLogin from 'react-google-login';
 import cx from 'classnames';
 import { FormattedMessage } from 'react-intl'
 
@@ -43,6 +44,13 @@ function Login(props) {
 
   const openLogin = () => history.push('/login/account')
 
+  const successGoogle = res => {
+    const token = res.tokenObj.id_token;
+
+  }
+
+  const failGoogle = res => null
+
   return (
     <Box className={cx(
       globalClasses.fullHeight,
@@ -81,7 +89,9 @@ function Login(props) {
             </FormControl>
             <FormControl>
               <Button inverse={mediaUp(media.md)}>
-                {trans(mediaUp(media.md) ? 'login.get_started' : 'login.sign_in')}
+                {trans(mediaUp(media.md)
+                  ? 'login.get_started'
+                  : 'login.sign_in')}
               </Button>
             </FormControl>
             <Link
@@ -92,9 +102,22 @@ function Login(props) {
               {trans('login.forgot_password')}
             </Link>
             <FormControl className={classes.loginWithGoogle}>
-              <Button icon={google} grayText>
-                { trans('login.login_with_google') }
-              </Button>
+              <GoogleLogin
+                clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+                render={renderProps => (
+                  <Button
+                    icon={google}
+                    grayText
+                    onClick={renderProps.onClick}
+                    disabled={renderProps.disabled}
+                  >
+                    { trans('login.login_with_google') }
+                  </Button>
+                )}
+                onSuccess={successGoogle}
+                onFailure={failGoogle}
+                cookiePolicy={'single_host_origin'}
+              />
             </FormControl>
             <Box className={classes.dontHaveAccount}>
               <span className={
@@ -108,7 +131,9 @@ function Login(props) {
                 target='/register'
                 inverse={mediaUp(media.md)}
               >
-                { trans(mediaUp(media.md) ? 'login.create_one' : 'login.sign_up') }
+                { trans(mediaUp(media.md)
+                  ? 'login.create_one'
+                  : 'login.sign_up') }
               </Link>
             </Box>
             { mediaUp(media.md) && (
