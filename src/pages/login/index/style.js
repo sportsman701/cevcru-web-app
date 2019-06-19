@@ -10,6 +10,12 @@ export default makeStyles(theme => ({
     margin: 'auto 40px'
   },
 
+  title: {
+    [theme.breakpoints.up('md')]: {
+      marginTop: '0'
+    }
+  },
+
   account: {
     backgroundColor: colors.primary.normal,
     boxShadow: '#00000024 13px 4px 20px 0px',
@@ -70,6 +76,10 @@ export default makeStyles(theme => ({
       flexGrow: 1
     }
   },
+  
+  loader: {
+    minHeight: '20px',
+  },
 
   passwordPanel: {
     width: '65%',
@@ -90,11 +100,7 @@ export default makeStyles(theme => ({
   signupDescription: {
     margin: '0 auto',
     marginBottom: '10px',
-    width: '70%',
-
-    [theme.breakpoints.only('md')]: {
-      width: '100%'
-    },
+    width: '100%',
 
     [theme.breakpoints.only('sm')]: {
       margin: '0 auto 15px',

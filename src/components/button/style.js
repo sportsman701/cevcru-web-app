@@ -45,6 +45,10 @@ export default makeStyles({
     backgroundColor: colors.inverse.normal,
     color: colors.text.primary.primary,
 
+    '&.Mui-disabled': {
+      border: '2px solid #00000000'
+    },
+
     '&:hover': {
       backgroundColor: colors.inverse.hover
     }

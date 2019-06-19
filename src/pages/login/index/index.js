@@ -1,7 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useReducer } from 'react'
+import { createAction } from 'redux-actions'
 import { compose } from 'redux'
 import { useDispatch } from 'react-redux'
 import { withRouter } from "react-router";
+
+import cx from 'classnames';
+import { FormattedMessage } from 'react-intl'
 
 import { Formik } from 'formik';
 import FormControl from '@material-ui/core/FormControl';
@@ -9,17 +13,17 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import GoogleLogin from 'react-google-login';
-import cx from 'classnames';
-import { FormattedMessage } from 'react-intl'
 
 import Welcome from '../containers/welcome';
 import Input from 'components/input';
 import Password from 'components/input/password';
 import Button from 'components/button';
 import Link from 'components/link';
+import BarLoader from 'components/loader';
 import useGlobalStyles from 'hooks/styles';
 import { media, useMediaUp, useMediaSmallerThan } from 'hooks/media';
 import useIntl from 'hooks/intl';
+
 import { isEmail } from 'helpers/validate';
 import { errorCode } from 'helpers/request';
 
@@ -31,6 +35,24 @@ import google from 'resources/registration/google.svg';
 import useStyles from './style';
 
 
+const actionShowAccount = createAction('showAccount');
+
+const actionThrowRequest = createAction('throwRequest');
+
+const actionApiResult = createAction('apiResult');
+
+const reducer = (state, { type, payload }) => {
+  switch (type) {
+    case 'showAccount':
+      return { ...state, showAccount: payload };
+    case 'throwRequest':
+      return { ...state, apiStatus: true, apiResult: false };
+    case 'apiResult':
+    default:
+      return { ...state, apiStatus: false, apiResult: payload };
+  }
+}
+
 function Login(props) {
   const trans = useIntl();
   const classes = useStyles();
@@ -38,15 +60,25 @@ function Login(props) {
   const mediaUp = useMediaUp();
   const mediaSmallerThan = useMediaSmallerThan();
   const dispatch = useDispatch();
-
-  const [ showAccount, setShowAccount ] = useState(false);
-  const [ apiResult, setApiResult ] = useState(false);
   const timer = useRef(null);
+  
+  const init = {
+    showAccount: false,
+    apiResult: false,
+    apiStatus: false
+  };
+
+  const [{
+    showAccount,
+    apiResult,
+    apiStatus
+  }, localDispatch] = useReducer(reducer, init);
   
   const { history, match } = props;
 
   useEffect(() => {
-    setShowAccount(!!match.params.account);
+    const action = actionShowAccount(!!match.params.account);
+    localDispatch(action);
     return () => clearTimeout(timer.current);
   }, [match.params.account])
 
@@ -63,11 +95,14 @@ function Login(props) {
 
   const failGoogle = res => null
 
-  const handleSignInClick = ({ email, password }, actions) => {
+  const handleSignInClick = ({ email, password }, { setSubmitting }) => {
     const deviceId = 'custom-device-id';
     const token = 'custom-token';
+    const action = actionThrowRequest();
 
-    actions.setSubmitting(false);
+    setSubmitting(false);
+    localDispatch(action);
+
     dispatch(signIn({
       body: {
         email,
@@ -75,26 +110,33 @@ function Login(props) {
         deviceId,
         token
       },
-      onSuccess: {
-
+      onSuccess: data => {
+        const action = actionApiResult(false);
+        localDispatch(action);
       },
-      onFail: (errCode, data) => {
-        clearTimeout(timer.current);
+      onFail: errCode => {
+        let result = false; 
 
         switch (errCode) {
           case errorCode.noResponse:
-            setApiResult(trans('login.server_is_not_responding'));
+            result = trans('login.server_is_not_responding');
             break;
 
           case errorCode.network:
-            setApiResult(trans('login.network_error'));
+            result = trans('login.network_error');
             break;
 
           default:
-            setApiResult(trans('login.user_name_or_password_is_incorrect'));
+            result = trans('login.user_name_or_password_is_incorrect');
             break;
         }
-        timer.current = setTimeout(() => setApiResult(false), 3000);
+
+        const action = actionApiResult(result);
+        
+        clearTimeout(timer.current);
+        localDispatch(action);
+        timer.current = setTimeout(() =>
+          localDispatch(actionApiResult(false)), 3000);
       }
     }));
   }
@@ -132,13 +174,19 @@ function Login(props) {
           item xs={12} md={6}
           className={cx(classes.account)}
         >
+          <BarLoader
+            loading={apiStatus}
+            inverse={mediaUp(media.md)}
+            className={classes.loader}
+          />
           { mediaSmallerThan(media.md) && (
             <img alt="" src={vencruVerticalMobile} />
           )}
           <p className={cx(
+            classes.title,
             globalClasses.textTitle,
-            mediaUp(media.md) ?
-              globalClasses.textInverseHighlight
+            mediaUp(media.md)
+              ? globalClasses.textInverseHighlight
               : globalClasses.textContrast
           )}>
             { trans('login.log_into_your_business_manager') }
@@ -186,13 +234,14 @@ function Login(props) {
                   </FormControl>
                   { apiResult && (
                     <p className={classes.invalidCredential}>
-                      {apiResult}
+                      { apiResult }
                     </p>
                   )}
                   <FormControl>
                     <Button
                       onClick={handleSubmit}
                       inverse={mediaUp(media.md)}
+                      disabled={apiStatus}
                     >
                       {trans(mediaUp(media.md)
                         ? 'login.get_started'
@@ -217,7 +266,7 @@ function Login(props) {
                     icon={google}
                     grayText
                     onClick={renderProps.onClick}
-                    disabled={renderProps.disabled}
+                    disabled={renderProps.disabled || apiStatus }
                   >
                     { trans('login.login_with_google') }
                   </Button>

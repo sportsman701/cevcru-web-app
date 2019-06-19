@@ -50,15 +50,16 @@ export default ({
       params
     })
 
-    const { status, data } = res
+    const { data } = res
 
     yield put({
       type: requestSuccess(type),
-      payload: payloadSuccess ? payloadSuccess(status, data) : data
+      payload: payloadSuccess && typeof(payloadSuccess) === 'function'
+                ? payloadSuccess(data) : data
     })
 
-    success && success(status, data)
-    onSuccess && onSuccess(status, data)
+    success && typeof(success) === 'function' && success(data)
+    onSuccess && typeof(onSuccess) === 'function' && onSuccess(data)
 
   } catch (err) {
 

@@ -75,6 +75,7 @@ function Register(props) {
             <img alt="" src={vencruVerticalMobile} />
           )}
           <p className={cx(
+            classes.title,
             globalClasses.textTitle,
             mediaUp(media.md) ?
               globalClasses.textInverseHighlight
