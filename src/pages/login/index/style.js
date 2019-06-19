@@ -51,6 +51,11 @@ export default makeStyles(theme => ({
     }
   },
   
+  invalidCredential: {
+    margin: '3px 0',
+    color: `${colors.status.error}`
+  },
+
   phone: {
     display: 'flex',
     flexDirection: 'row',

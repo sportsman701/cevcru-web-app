@@ -1,7 +1,7 @@
 import { put, call } from 'redux-saga/effects'
 import axios from 'axios'
-import { requestPending, requestSuccess, requestFail} from './request'
-
+import { requestPending, requestSuccess, requestFail } from './request'
+import { errorCode } from 'helpers/request'
 
 const defaultHeaders = () => {
   const token = localStorage.getItem('vencru')
@@ -62,16 +62,15 @@ export default ({
 
   } catch (err) {
 
-    const { response, request } = err
+    const { response, request, message } = err
 
     if (response) {
-
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx
 
       const { status, data } = response
 
-      fail && fail(status,data)
+      fail && fail(status, data)
       onFail && onFail(status, data)
 
       yield put({
@@ -83,18 +82,26 @@ export default ({
       })
 
     } else if (request) {
-
       // The request was made but no response was received
+
+      fail && fail(errorCode.noResponse, request)
+      onFail && onFail(errorCode.noResponse, request)
 
       yield put({
         type: requestFail(type),
-        payload: { errCode: 'no response'}
+        payload: { errCode: errorCode.noResponse, data: request}
       })
 
     } else {
-      
       // Something happened in setting up the request that triggered an Error
 
+      fail && fail(errorCode.network, message)
+      onFail && onFail(errorCode.network, message)
+
+      yield put({
+        type: requestFail(type),
+        payload: { errCode: errorCode.network, data: message}
+      })
     }
   }
 }

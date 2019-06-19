@@ -6,13 +6,13 @@ import api from '../api/sagas'
 const signIn = api({
   type: types.SIGN_IN,
   method: 'post',
-  url: '/auth/account/login'
+  url: '/account/login'
 })
 
 const signInGoogle = api({
   type: types.SIGN_IN_GOOGLE,
   method: 'post',
-  path: () => '/auth/account/external'
+  path: () => '/account/external'
 })
 
 export default function* rootSaga () {

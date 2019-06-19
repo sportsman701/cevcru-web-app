@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { compose } from 'redux'
 import { useDispatch } from 'react-redux'
 import { withRouter } from "react-router";
@@ -21,6 +21,7 @@ import useGlobalStyles from 'hooks/styles';
 import { media, useMediaUp, useMediaSmallerThan } from 'hooks/media';
 import useIntl from 'hooks/intl';
 import { isEmail } from 'helpers/validate';
+import { errorCode } from 'helpers/request';
 
 import { signIn, signInGoogle } from 'redux/account/actions';
 
@@ -36,12 +37,17 @@ function Login(props) {
   const globalClasses = useGlobalStyles();
   const mediaUp = useMediaUp();
   const mediaSmallerThan = useMediaSmallerThan();
-  const [ showAccount, setShowAccount ] = useState(false);
   const dispatch = useDispatch();
+
+  const [ showAccount, setShowAccount ] = useState(false);
+  const [ apiResult, setApiResult ] = useState(false);
+  const timer = useRef(null);
+  
   const { history, match } = props;
 
   useEffect(() => {
     setShowAccount(!!match.params.account);
+    return () => clearTimeout(timer.current);
   }, [match.params.account])
 
   const openSignUp = () => history.push('/register')
@@ -60,7 +66,7 @@ function Login(props) {
   const handleSignInClick = ({ email, password }, actions) => {
     const deviceId = 'custom-device-id';
     const token = 'custom-token';
-    
+
     actions.setSubmitting(false);
     dispatch(signIn({
       body: {
@@ -68,6 +74,27 @@ function Login(props) {
         password,
         deviceId,
         token
+      },
+      onSuccess: {
+
+      },
+      onFail: (errCode, data) => {
+        clearTimeout(timer.current);
+
+        switch (errCode) {
+          case errorCode.noResponse:
+            setApiResult(trans('login.server_is_not_responding'));
+            break;
+
+          case errorCode.network:
+            setApiResult(trans('login.network_error'));
+            break;
+
+          default:
+            setApiResult(trans('login.user_name_or_password_is_incorrect'));
+            break;
+        }
+        timer.current = setTimeout(() => setApiResult(false), 3000);
       }
     }));
   }
@@ -157,6 +184,11 @@ function Login(props) {
                       </FormHelperText>
                     )}
                   </FormControl>
+                  { apiResult && (
+                    <p className={classes.invalidCredential}>
+                      {apiResult}
+                    </p>
+                  )}
                   <FormControl>
                     <Button
                       onClick={handleSubmit}
