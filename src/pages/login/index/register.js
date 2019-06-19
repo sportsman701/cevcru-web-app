@@ -54,6 +54,9 @@ function Register(props) {
     return errors;
   }
 
+  const handlePasswordConfirmKeyUp =
+    handleSubmit => e => e.which === 13 && handleSubmit()
+
   return (
     <Box className={cx(
       globalClasses.fullHeight,
@@ -133,6 +136,7 @@ function Register(props) {
                       name='passwordConfirm'
                       placeholder={trans('login.confirm_password')}
                       onChange={handleChange}
+                      onKeyUp={handlePasswordConfirmKeyUp(handleSubmit)}
                       onBlur={handleBlur}
                     />
                   </FormControl>

@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react'
+import { compose } from 'redux'
+import { useDispatch } from 'react-redux'
 import { withRouter } from "react-router";
+
 import { Formik } from 'formik';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -19,7 +22,7 @@ import { media, useMediaUp, useMediaSmallerThan } from 'hooks/media';
 import useIntl from 'hooks/intl';
 import { isEmail } from 'helpers/validate';
 
-
+import { signIn, signInGoogle } from 'redux/account/actions';
 
 import vencruVerticalMobile from 'resources/logo/vencru-vertical-mobile.svg';
 import google from 'resources/registration/google.svg';
@@ -34,6 +37,7 @@ function Login(props) {
   const mediaUp = useMediaUp();
   const mediaSmallerThan = useMediaSmallerThan();
   const [ showAccount, setShowAccount ] = useState(false);
+  const dispatch = useDispatch();
   const { history, match } = props;
 
   useEffect(() => {
@@ -45,16 +49,31 @@ function Login(props) {
   const openLogin = () => history.push('/login/account')
 
   const successGoogle = res => {
-    // const token = res.tokenObj.id_token;
-
+    const token = res.tokenObj.id_token;
+    dispatch(signInGoogle({
+      token
+    }));
   }
 
   const failGoogle = res => null
 
-  const handleSignInClick = (values, actions) => {
-    console.log(values)
+  const handleSignInClick = ({ email, password }, actions) => {
+    const deviceId = 'custom-device-id';
+    const token = 'custom-token';
+    
     actions.setSubmitting(false);
+    dispatch(signIn({
+      body: {
+        email,
+        password,
+        deviceId,
+        token
+      }
+    }));
   }
+
+  const handlePasswordKeyUp =
+    handleSubmit => e => e.which === 13 && handleSubmit()
 
   const validate = values => {
     const errors = {};
@@ -128,6 +147,7 @@ function Login(props) {
                       name='password'
                       onChange={handleChange}
                       onBlur={handleBlur}
+                      onKeyUp={handlePasswordKeyUp(handleSubmit)}
                       error={errors.password && touched.password}
                       placeholder={trans('login.password')}
                     />
@@ -226,4 +246,8 @@ function Login(props) {
   )
 }
 
-export default withRouter(Login);
+
+export default compose(
+  React.memo,
+  withRouter
+)(Login);

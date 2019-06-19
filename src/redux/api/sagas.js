@@ -1,6 +1,6 @@
 import { put, call } from 'redux-saga/effects'
 import axios from 'axios'
-import { requestPending, requestSuccess, requestFail} from './actions'
+import { requestPending, requestSuccess, requestFail} from './request'
 
 
 const defaultHeaders = () => {
@@ -29,13 +29,13 @@ export default ({
   fail,
   payloadSuccess,
   payloadFail
-}) => function* (action) {
+}) => function* ({ payload }) {
   const {
     body,
     params,
     onSuccess,
     onFail
-  } = action.payload;
+  } = payload;
 
   try {
     yield put({
@@ -43,7 +43,7 @@ export default ({
     });
     
     const res = yield call(axios.request, {
-      url:      typeof(url) === 'function' ? url(action.payload) : url,
+      url:      typeof(url) === 'function' ? url(payload) : url,
       method:   method || 'get',
       headers:  Object.assign({}, defaultHeaders(), header),
       data:     body,
@@ -76,12 +76,20 @@ export default ({
 
       yield put({
         type: requestFail(type),
-        payload: payloadFail ? payloadFail(status, data) : undefined
+        payload: {
+          errCode: status,
+          data: payloadFail ? payloadFail(status, data) : data
+        }
       })
 
     } else if (request) {
 
       // The request was made but no response was received
+
+      yield put({
+        type: requestFail(type),
+        payload: { errCode: 'no response'}
+      })
 
     } else {
       
