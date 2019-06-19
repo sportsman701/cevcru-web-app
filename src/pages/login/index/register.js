@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { Formik } from 'formik';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -15,12 +15,9 @@ import Button from 'components/button';
 import Select from 'components/select';
 import Link from 'components/link';
 import useGlobalStyles from 'hooks/styles';
-import {
-  media,
-  useMediaUp,
-  useMediaSmallerThan
-} from 'hooks/media';
+import { media, useMediaUp, useMediaSmallerThan } from 'hooks/media';
 import useIntl from 'hooks/intl';
+import { isEmail } from 'helpers/validate'
 
 import vencruVerticalMobile from 'resources/logo/vencru-vertical-mobile.svg';
 import google from 'resources/registration/google.svg';
@@ -34,6 +31,28 @@ function Register(props) {
   const globalClasses = useGlobalStyles();
   const mediaUp = useMediaUp();
   const mediaSmallerThan = useMediaSmallerThan();
+
+  const handleSignupClick = (values, actions) => {
+    actions.setSubmitting(false);
+  }
+
+  const validate = values => {
+    const errors = {};
+
+    if (!values.email) {
+      errors.email = trans('login.required');
+    } else if (!isEmail(values.email)) {
+      errors.email = trans('login.invalid_email');
+    }
+
+    if (!values.password) {
+      errors.password = trans('login.required');
+    } else if (values.password !== values.passwordConfirm) {
+      errors.password = trans('login.password_mismatch')
+    }
+
+    return errors;
+  }
 
   return (
     <Box className={cx(
@@ -74,28 +93,66 @@ function Register(props) {
                 {trans('login.add_your_contact_information')}
               </p>
             )}
-            <FormControl error>
-              <Input placeholder={trans('login.email_address')} />
-            </FormControl>
-            <FormControl>
-              <Password placeholder={trans('login.password')} />
-              {/* <FormHelperText id="password-helper"></FormHelperText> */}
-            </FormControl>
-            <FormControl>
-              <Password placeholder={trans('login.confirm_password')} />
-              {/* <FormHelperText id="password-helper"></FormHelperText> */}
-            </FormControl>
-            <FormControl className={classes.phone}>
-              <Select value={0}>
-                <MenuItem value={0}>NG</MenuItem>
-              </Select>
-              <Input placeholder={'+234 (0) 123-456-7890'} />
-            </FormControl>
-            <FormControl>
-              <Button inverse={mediaUp(media.md)}>
-                {trans('login.get_started')}
-              </Button>
-            </FormControl>
+            <Formik
+              initialValues={{ email: null, password: null }}
+              onSubmit={handleSignupClick}
+              validate={validate}
+            >
+              {({ handleSubmit, handleChange, handleBlur, errors, touched }) => (
+                <>
+                  <FormControl>
+                    <Input
+                      name='email'
+                      placeholder={trans('login.email_address')}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      error={errors.email && touched.email}
+                    />
+                    {errors.email && touched.email && (
+                      <FormHelperText error>
+                        {errors.email}
+                      </FormHelperText>
+                    )}
+                  </FormControl>
+                  <FormControl>
+                    <Password
+                      name='password'
+                      placeholder={trans('login.password')}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      error={errors.password && touched.password}
+                    />
+                    {errors.password && touched.password && (
+                      <FormHelperText error>
+                        {errors.password}
+                      </FormHelperText>
+                    )}
+                  </FormControl>
+                  <FormControl>
+                    <Password
+                      name='passwordConfirm'
+                      placeholder={trans('login.confirm_password')}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                  </FormControl>
+                  <FormControl className={classes.phone}>
+                    <Select value={0}>
+                      <MenuItem value={0}>NG</MenuItem>
+                    </Select>
+                    <Input placeholder={'+234 (0) 123-456-7890'} />
+                  </FormControl>
+                  <FormControl>
+                    <Button
+                      inverse={mediaUp(media.md)}
+                      onClick={handleSubmit}
+                    >
+                      {trans('login.get_started')}
+                    </Button>
+                  </FormControl>
+                </>
+              )}
+            </Formik>
             {mediaUp(media.md) && (
               <p className={globalClasses.textInverseNormal}>
                 {trans('login.or')}

@@ -29,6 +29,8 @@
     "Required",
   "login.invalid_email":
     "Invalid email",
+  "login.password_mismatch":
+    "Password mismatches with confirmation",
   "login.get_started":
     "Get Started",
   "login.forgot_password":
