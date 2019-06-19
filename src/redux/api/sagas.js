@@ -1,47 +1,92 @@
-import { takeLatest, put, call, select } from 'redux-saga/effects'
+import { put, call } from 'redux-saga/effects'
 import axios from 'axios'
-import * as actions from './actions'
-import { tokenSelector } from '../auth/selectors'
+import { requestPending, requestSuccess, requestFail} from './actions'
 
-const headers = {
-  'Accept': 'application/json',
-  'Content-Type': 'application/json',
-  'X-Requested-With': 'XMLHttpRequest'
-}
 
-const request = (method, url, params, token) => {
-  return axios.request({
-    method: method || 'get',
-    url: process.env.REACT_APP_SERVER + url,
-    headers: { ...headers, token },
-    params
-  })
-}
+const defaultHeaders = () => {
+  const token = localStorage.getItem('vencru')
 
-const throwRequest = function* ({ payload }) {
-  const { method, url, params, onSuccess, onFailed } = payload
-  const token = yield select(tokenSelector)
+  axios.defaults.baseURL = process.env.REACT_APP_SERVER
 
-  try {
-    const response = yield call(request, method, url, params, token)
-    const { status, data } = response
-    if (onSuccess) {
-      yield call(onSuccess, data, status)
-    }
-  } catch (error) {
-    if (onFailed) {
-      const { response } = error
-      if (response) {
-        const data = response.data && response.data
-        const status = response.status && response.status
-        yield call(onFailed, data, status)
-      }
-    }
+  const headers = {
+    'Accept':       'application/json',
+    'Content-Type': 'application/json'
   }
 
-  yield put(actions.finishRequest())
+  if (token) {
+    headers['Authorization'] = token
+  }
+
+  return headers
 }
 
-export default function* rootSaga() {
-  yield takeLatest(actions.types.THROW_REQUEST, throwRequest)
+export default ({
+  type,
+  method,
+  url,
+  header,
+  success,
+  fail,
+  payloadSuccess,
+  payloadFail
+}) => function* (action) {
+  const {
+    body,
+    params,
+    onSuccess,
+    onFail
+  } = action.payload;
+
+  try {
+    yield put({
+      type: requestPending(type)
+    });
+    
+    const res = yield call(axios.request, {
+      url:      typeof(url) === 'function' ? url(action.payload) : url,
+      method:   method || 'get',
+      headers:  Object.assign({}, defaultHeaders(), header),
+      data:     body,
+      params
+    })
+
+    const { status, data } = res
+
+    yield put({
+      type: requestSuccess(type),
+      payload: payloadSuccess ? payloadSuccess(status, data) : data
+    })
+
+    success && success(status, data)
+    onSuccess && onSuccess(status, data)
+
+  } catch (err) {
+
+    const { response, request } = err
+
+    if (response) {
+
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx
+
+      const { status, data } = response
+
+      fail && fail(status,data)
+      onFail && onFail(status, data)
+
+      yield put({
+        type: requestFail(type),
+        payload: payloadFail ? payloadFail(status, data) : undefined
+      })
+
+    } else if (request) {
+
+      // The request was made but no response was received
+
+    } else {
+      
+      // Something happened in setting up the request that triggered an Error
+
+    }
+  }
 }

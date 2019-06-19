@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { withRouter } from "react-router";
+import { Formik } from 'formik';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Grid from '@material-ui/core/Grid';
@@ -14,12 +15,11 @@ import Password from 'components/input/password';
 import Button from 'components/button';
 import Link from 'components/link';
 import useGlobalStyles from 'hooks/styles';
-import {
-  media,
-  useMediaUp,
-  useMediaSmallerThan
-} from 'hooks/media';
+import { media, useMediaUp, useMediaSmallerThan } from 'hooks/media';
 import useIntl from 'hooks/intl';
+import { isEmail } from 'helpers/validate';
+
+
 
 import vencruVerticalMobile from 'resources/logo/vencru-vertical-mobile.svg';
 import google from 'resources/registration/google.svg';
@@ -45,11 +45,32 @@ function Login(props) {
   const openLogin = () => history.push('/login/account')
 
   const successGoogle = res => {
-    const token = res.tokenObj.id_token;
+    // const token = res.tokenObj.id_token;
 
   }
 
   const failGoogle = res => null
+
+  const handleSignInClick = (values, actions) => {
+    console.log(values)
+    actions.setSubmitting(false);
+  }
+
+  const validate = values => {
+    const errors = {};
+    
+    if (!values.email) {
+      errors.email = trans('login.required');
+    } else if (!isEmail(values.email)) {
+      errors.email = trans('login.invalid_email');
+    }
+
+    if (!values.password) {
+      errors.password = trans('login.required');
+    }
+
+    return errors;
+  }
 
   return (
     <Box className={cx(
@@ -80,20 +101,55 @@ function Login(props) {
             classes.passwordPanel,
             globalClasses.formPanel
           )}>
-            <FormControl error>
-              <Input placeholder={trans('login.email_address')} />
-            </FormControl>
-            <FormControl>
-              <Password icon placeholder={trans('login.password')} />
-              {/* <FormHelperText id="password-helper"></FormHelperText> */}
-            </FormControl>
-            <FormControl>
-              <Button inverse={mediaUp(media.md)}>
-                {trans(mediaUp(media.md)
-                  ? 'login.get_started'
-                  : 'login.sign_in')}
-              </Button>
-            </FormControl>
+            <Formik
+              initialValues={{ email: null, password: null }}
+              onSubmit={handleSignInClick}
+              validate={validate}
+            >
+              {({ handleSubmit, handleChange, handleBlur, errors, touched }) => (
+                <>
+                  <FormControl>
+                    <Input
+                      name='email'
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      error={errors.email && touched.email}
+                      placeholder={trans('login.email_address')}
+                    />
+                    {errors.email && touched.email && (
+                      <FormHelperText error>
+                        {errors.email}
+                      </FormHelperText>
+                    )}
+                  </FormControl>
+                  <FormControl>
+                    <Password
+                      icon
+                      name='password'
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      error={errors.password && touched.password}
+                      placeholder={trans('login.password')}
+                    />
+                    {errors.password && touched.password && (
+                      <FormHelperText error>
+                        {errors.password}
+                      </FormHelperText>
+                    )}
+                  </FormControl>
+                  <FormControl>
+                    <Button
+                      onClick={handleSubmit}
+                      inverse={mediaUp(media.md)}
+                    >
+                      {trans(mediaUp(media.md)
+                        ? 'login.get_started'
+                        : 'login.sign_in')}
+                    </Button>
+                  </FormControl>
+                </>
+              )}
+            </Formik>
             <Link
               target='/forgot-password'
               inverse={mediaUp(media.md)}

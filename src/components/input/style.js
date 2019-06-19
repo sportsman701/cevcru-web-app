@@ -13,6 +13,12 @@ export default makeStyles({
     }
   },
 
+  error: {
+    '& input': {
+      borderColor: `${colors.status.error} !important`
+    }
+  },
+
   input: {
     borderRadius: 4,
     backgroundColor: colors.inverse.normal,

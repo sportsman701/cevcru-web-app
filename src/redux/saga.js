@@ -3,7 +3,7 @@ import api from './api/sagas';
 
 
 export default function* rootSaga() {
-  yield all([
-    call(api),
-  ])
+  // yield all([
+  //   call(api),
+  // ])
 }

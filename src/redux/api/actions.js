@@ -1,12 +1,3 @@
-import { createAction } from 'redux-actions'
-
-const THROW_REQUEST = 'THROW_REQUEST'
-const FINISH_REQUEST = 'FINISH_REQUEST'
-
-export const types = {
-  THROW_REQUEST,
-  FINISH_REQUEST
-}
-
-export const throwRequest = createAction(THROW_REQUEST)
-export const finishRequest = createAction(FINISH_REQUEST)
+export const requestPending = type => `${type}/pending`
+export const requestSuccess = type => `${type}/success`
+export const requestFail = type => `${type}/fail`

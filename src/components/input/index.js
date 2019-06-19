@@ -8,7 +8,7 @@ import useStyles from './style';
 
 function Input(props) {
   const classes = useStyles(props);
-  const { frame, children, className, id, label, ...other } = props;
+  const { frame, children, className, id, label, error, ...other } = props;
   
   return frame ? (
     <TextField
@@ -36,7 +36,11 @@ function Input(props) {
       <InputBase
         {...other}
         id={id}
-        className={cx(classes.root, className)}
+        className={cx(
+          classes.root,
+          className,
+          { [classes.error]: error }
+        )}
         classes={{input: classes.input}}
       />
     </>

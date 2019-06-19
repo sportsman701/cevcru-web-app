@@ -25,6 +25,10 @@
     "Password",
   "login.confirm_password":
     "Confirm password",
+  "login.required":
+    "Required",
+  "login.invalid_email":
+    "Invalid email",
   "login.get_started":
     "Get Started",
   "login.forgot_password":
