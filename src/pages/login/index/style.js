@@ -77,6 +77,10 @@ export default makeStyles(theme => ({
     }
   },
   
+  or: {
+    margin: '3px 0'
+  },
+
   loader: {
     minHeight: '20px',
   },

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useReducer } from 'react'
+import React, { useEffect, useRef, useReducer } from 'react'
 import { createAction } from 'redux-actions'
 import { compose } from 'redux'
 import { useDispatch } from 'react-redux'
@@ -27,7 +27,7 @@ import useIntl from 'hooks/intl';
 import { isEmail } from 'helpers/validate';
 import { errorCode } from 'helpers/request';
 
-import { signIn, signInGoogle } from 'redux/account/actions';
+import { signIn, withGoogle } from 'redux/account/actions';
 
 import vencruVerticalMobile from 'resources/logo/vencru-vertical-mobile.svg';
 import google from 'resources/registration/google.svg';
@@ -88,12 +88,12 @@ function Login(props) {
 
   const successGoogle = res => {
     const token = res.tokenObj.id_token;
-    dispatch(signInGoogle({
+    dispatch(withGoogle({
       token
     }));
   }
 
-  const failGoogle = res => null
+  const failGoogle = res => console.log(res)
 
   const handleSignInClick = ({ email, password }, { setSubmitting }) => {
     const deviceId = 'custom-device-id';

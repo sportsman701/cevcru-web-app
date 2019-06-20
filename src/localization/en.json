@@ -31,6 +31,8 @@
     "Invalid email",
   "login.password_mismatch":
     "Password mismatches with confirmation",
+  "login.password_length_should_be_more_than_6":
+    "Password length should be more than 6",
   "login.get_started":
     "Get Started",
   "login.user_name_or_password_is_incorrect":
@@ -43,6 +45,8 @@
     "Forgot Password?",
   "login.login_with_google":
     "Log in with Google",
+  "login.signup_with_google":
+    "Sign up with Google",
   "login.dont_have_an_account":
     "Don't have an account?",
   "login.already_have_an_account":

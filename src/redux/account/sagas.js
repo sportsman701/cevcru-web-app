@@ -9,7 +9,14 @@ const signIn = api({
   url: '/account/login'
 })
 
-const signInGoogle = api({
+const signUp = api({
+  type: types.SIGN_UP,
+  method: 'post',
+  header: { Emailurl: 'isMobile' },
+  url: '/account/register'
+})
+
+const withGoogle = api({
   type: types.SIGN_IN_GOOGLE,
   method: 'post',
   path: () => '/account/external'
@@ -17,5 +24,6 @@ const signInGoogle = api({
 
 export default function* rootSaga () {
   yield takeLatest(types.SIGN_IN, signIn)
-  yield takeLatest(types.SIGN_IN_GOOGLE, signInGoogle)
+  yield takeLatest(types.SIGN_UP, signUp)
+  yield takeLatest(types.WITH_GOOGLE, withGoogle)
 }
