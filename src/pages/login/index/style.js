@@ -148,5 +148,21 @@ export default makeStyles(theme => ({
     [theme.breakpoints.down('sm')]: {
       order: 1
     }
+  },
+
+  dockedAlert: {
+    position: 'relative',
+    top: '-20px',
+    left: '0',
+    width: 'calc(100% + 30px)',
+
+    '& .MuiCollapse-container': {
+      width: '100%'
+    },
+
+    '& .MuiSnackbarContent-root': {
+      borderBottomLeftRadius: 0,
+      borderBottomRightRadius: 0
+    }
   }
 }));

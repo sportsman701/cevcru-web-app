@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useReducer } from 'react'
 import { createAction } from 'redux-actions'
-import { compose } from 'redux'
 import { useDispatch } from 'react-redux'
-import { withRouter } from "react-router";
 
 import cx from 'classnames';
 import { FormattedMessage } from 'react-intl'
@@ -27,6 +25,7 @@ import useIntl from 'hooks/intl';
 
 import { isEmail } from 'helpers/validate';
 import { errorCode } from 'helpers/request';
+import { pop, pushAndNavigate } from 'helpers/navigateWithData';
 
 import { signIn, withGoogle } from 'redux/account/actions';
 
@@ -82,10 +81,9 @@ function Login(props) {
   useEffect(() => {
     const action = actionInitPage({
       showAccount: !!match.params.account,
-      alert: localStorage.getItem('alert')
+      alert: pop('alert')
     });
     localDispatch(action);
-    localStorage.removeItem('alert');
     return () => clearTimeout(timer.current);
   }, [match.params.account])
 
@@ -126,7 +124,7 @@ function Login(props) {
           localDispatch(action);
           //after login
         } else {
-          history.push('/verify-email');
+          pushAndNavigate('email', email, history, '/verify-email',);
         }
       },
       onFail: (errCode, { Message }) => {
@@ -275,7 +273,7 @@ function Login(props) {
               )}
             </Formik>
             <Link
-              target='/forgotpwd'
+              target='/forgot-password'
               inverse={mediaUp(media.md)}
               className={classes.forgotPassword}
             >
@@ -350,8 +348,4 @@ function Login(props) {
   )
 }
 
-
-export default compose(
-  React.memo,
-  withRouter
-)(Login);
+export default React.memo(Login);

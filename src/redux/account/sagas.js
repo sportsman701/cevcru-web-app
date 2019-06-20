@@ -30,9 +30,26 @@ const initiatePasswordChange = api({
   url: '/account/initiatePasswordChange'
 })
 
+const validatePasswordResetToken = api({
+  type: types.VALIDATE_PASSWORD_RESET_TOKEN,
+  method: 'post',
+  header: { emailUrl: 'isMobile' },
+  url: '/account/validatePasswordResetToken'
+})
+
+const resetPassword = api({
+  type: types.RESET_PASSWORD,
+  method: 'post',
+  header: { emailUrl: 'isMobile' },
+  url: '/account/resetPassword'
+})
+
 export default function* rootSaga () {
   yield takeLatest(types.SIGN_IN, signIn)
   yield takeLatest(types.SIGN_UP, signUp)
   yield takeLatest(types.WITH_GOOGLE, withGoogle)
+
   yield takeLatest(types.INITIATE_PASSWORD_CHANGE, initiatePasswordChange)
+  yield takeLatest(types.VALIDATE_PASSWORD_RESET_TOKEN, validatePasswordResetToken)
+  yield takeLatest(types.RESET_PASSWORD, resetPassword)
 }

@@ -1,8 +1,6 @@
-import React, { useReducer } from 'react'
-import { compose } from 'redux'
+import React, { useReducer, useEffect } from 'react'
 import { createAction } from 'redux-actions'
 import { Formik } from 'formik';
-import { withRouter } from "react-router";
 import { useDispatch } from 'react-redux'
 
 import FormControl from '@material-ui/core/FormControl';
@@ -21,6 +19,7 @@ import useGlobalStyles from 'hooks/styles';
 import useIntl from 'hooks/intl';
 import { isEmail } from 'helpers/validate';
 import { errorCode } from 'helpers/request';
+import { pop, pushAndNavigate } from 'helpers/navigateWithData';
 
 import { initiatePasswordChange } from 'redux/account/actions';
 import vencruVerticalMobile from 'resources/logo/vencru-vertical-mobile.svg';
@@ -58,6 +57,11 @@ function ForgotPassword(props) {
     apiStatus
   }, localDispatch] = useReducer(reducer, init);
 
+  useEffect(() => {
+    const action = actionApiResult(pop('alert'));
+    localDispatch(action);
+  }, []);
+
   const validate = values => {
     const errors = {};
     
@@ -85,8 +89,7 @@ function ForgotPassword(props) {
           localDispatch(action);
         } else {
           const alert = trans('login.password_reset_link_has_been_sent_to_your_email');
-          localStorage.setItem('alert', alert);
-          history.goBack();
+          pushAndNavigate('alert', alert, history, '/login/account');
         }
       },
       onFail: errCode => {
@@ -128,7 +131,7 @@ function ForgotPassword(props) {
           className={cx(classes.account, 'keepMobileStyle')}
         >
           <Alert
-            open={apiResult}
+            open={!!apiResult}
             onClose={() => localDispatch(actionApiResult(false))}
             >
             <AlertContent fail>
@@ -203,7 +206,4 @@ function ForgotPassword(props) {
   )
 }
 
-export default compose(
-  React.memo,
-  withRouter
-)(ForgotPassword);
+export default React.memo(ForgotPassword);

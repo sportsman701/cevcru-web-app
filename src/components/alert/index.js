@@ -36,7 +36,7 @@ export function Alert(props) {
     <Snackbar
       className={className}
       open={open}
-      autoHideDuration={3000}
+      autoHideDuration={5000}
       onClose={onClose}
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       TransitionComponent={Collapse}

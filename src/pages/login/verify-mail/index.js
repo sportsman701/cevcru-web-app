@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import FormControl from '@material-ui/core/FormControl';
 import Box from '@material-ui/core/Box';
@@ -15,6 +15,7 @@ import {
   useMediaSmallerThan
 } from 'hooks/media';
 import useIntl from 'hooks/intl';
+import { pop } from 'helpers/navigateWithData';
 
 import mailVerification from 'resources/registration/mail-verification.svg';
 import useStyles from './style';
@@ -27,6 +28,11 @@ function VerifyMail() {
   const mediaUp = useMediaUp();
   const mediaSmallerThan = useMediaSmallerThan();
   const [ showResult, setShowResult ] = useState(false);
+  const [ email, setEmail ] = useState(null);
+
+  useEffect(() => {
+    setEmail(pop('email'));
+  }, []);
 
   const handleResendEmail = () => setShowResult(true);
 
@@ -77,7 +83,7 @@ function VerifyMail() {
               values={{
                 email: (
                   <span className={globalClasses.textInverseHighlight}>
-                    users@mail.com
+                    {email}
                   </span>
                 ),
                 whatsapp: (

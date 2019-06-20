@@ -31,8 +31,8 @@ function App() {
         <Router history={history}>
           <Route path='/login/:account?' component={Login} />
           <Route path='/register' component={Register} />
-          <Route path='/forgotpwd' component={ForgotPassword} />
-          <Route path='/resetpwd' component={ResetPassword} />
+          <Route path='/forgot-password' component={ForgotPassword} />
+          <Route path='/reset-password' component={ResetPassword} />
           <Route path='/verify-email' component={VerifyEmail} />
           <Route path='/setup-business' exact component={SetupBusinessStart} />
           <Route path='/setup-business/:step' component={SetupBusiness} />

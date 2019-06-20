@@ -25,6 +25,7 @@ import useGlobalStyles from 'hooks/styles';
 import { media, useMediaUp, useMediaSmallerThan } from 'hooks/media';
 import { isEmail } from 'helpers/validate';
 import { errorCode } from 'helpers/request';
+import { pop, pushAndNavigate } from 'helpers/navigateWithData';
 
 import { signUp, withGoogle } from 'redux/account/actions';
 
@@ -88,7 +89,7 @@ function Register(props) {
           localDispatch(action);
           // after login
         } else {
-          history.push('/verify-email');
+          pushAndNavigate('email', values.email, history, '/verify-email');
         }
       },
       onFail: (errCode, { Message }) => {
@@ -142,9 +143,10 @@ function Register(props) {
     if (!values.password) {
       errors.password = trans('login.required');
     } else if (values.password.length < 7) {
-      errors.password = trans('login.password_length_should_be_more_than_6')
+      errors.password = trans('login.password_length_should_be_more_than_6');
     } else if (values.password !== values.passwordConfirm) {
-      errors.password = trans('login.password_mismatch')
+      errors.password = trans('login.password_mismatch');
+      errors.passwordConfirm = true;
     }
 
     return errors;
@@ -238,7 +240,7 @@ function Register(props) {
                       name='passwordConfirm'
                       placeholder={trans('login.confirm_password')}
                       onChange={handleChange}
-                      error={errors.password && touched.password}
+                      error={errors.passwordConfirm && touched.passwordConfirm}
                       onKeyUp={handlePasswordConfirmKeyUp(handleSubmit)}
                       onBlur={handleBlur}
                     />
