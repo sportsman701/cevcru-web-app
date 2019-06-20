@@ -81,8 +81,14 @@
     "Have issues setting up?",
   "login.whatsapp_us":
     "Whatsapp us",
+  "login.password_reset_link_has_been_sent_to_your_email":
+    "Password reset link has been sent to your email",
+  "login.failed_to_send_password_reset_link_to_your_email":
+    "Failed to send password reset link to your email",    
   "login.we_ve_sent_a_verification_email":
     "We've sent a verification email",
+  "login.failed_to_send_verification_email":
+    "Failed to send a verification email",
   "login.verification_code_is_incorrect":
     "Verification code is incorrect",
   "login.welcome_to_vencru":

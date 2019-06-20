@@ -56,6 +56,7 @@ function Register(props) {
   const mediaSmallerThan = useMediaSmallerThan();
   const dispatch = useDispatch();
   const timer = useRef(null);
+  const { history } = props;
 
   const init = {
     apiResult: false,
@@ -81,9 +82,14 @@ function Register(props) {
         password: values.password,
         confirmpassword: values.passwordConfirm
       },
-      onSuccess: data => {
-        const action = actionApiResult(false);
-        localDispatch(action);
+      onSuccess: ({ emailconfirmed }) => {
+        if (emailconfirmed) {
+          const action = actionApiResult(false);
+          localDispatch(action);
+          // after login
+        } else {
+          history.push('/verify-email');
+        }
       },
       onFail: (errCode, { Message }) => {
         let result = false; 
@@ -115,7 +121,10 @@ function Register(props) {
   const successGoogle = res => {
     const token = res.tokenObj.id_token;
     dispatch(withGoogle({
-      token
+      body: { token },
+      onSuccess: data => {
+        // after login
+      }
     }));
   }
 

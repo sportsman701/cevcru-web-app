@@ -20,6 +20,7 @@ import Password from 'components/input/password';
 import Button from 'components/button';
 import Link from 'components/link';
 import BarLoader from 'components/loader';
+import { Alert, AlertContent } from 'components/alert';
 import useGlobalStyles from 'hooks/styles';
 import { media, useMediaUp, useMediaSmallerThan } from 'hooks/media';
 import useIntl from 'hooks/intl';
@@ -35,7 +36,7 @@ import google from 'resources/registration/google.svg';
 import useStyles from './style';
 
 
-const actionShowAccount = createAction('showAccount');
+const actionInitPage = createAction('initPage');
 
 const actionThrowRequest = createAction('throwRequest');
 
@@ -43,8 +44,8 @@ const actionApiResult = createAction('apiResult');
 
 const reducer = (state, { type, payload }) => {
   switch (type) {
-    case 'showAccount':
-      return { ...state, showAccount: payload };
+    case 'initPage':
+      return { ...state, ...payload };
     case 'throwRequest':
       return { ...state, apiStatus: true, apiResult: false };
     case 'apiResult':
@@ -63,13 +64,15 @@ function Login(props) {
   const timer = useRef(null);
   
   const init = {
+    alert : false,
     showAccount: false,
-    apiResult: false,
-    apiStatus: false
+    apiResult: false,   // string: api result, false: don't show api result
+    apiStatus: false    // true: request pending, false: request finished
   };
 
   const [{
     showAccount,
+    alert,
     apiResult,
     apiStatus
   }, localDispatch] = useReducer(reducer, init);
@@ -77,8 +80,12 @@ function Login(props) {
   const { history, match } = props;
 
   useEffect(() => {
-    const action = actionShowAccount(!!match.params.account);
+    const action = actionInitPage({
+      showAccount: !!match.params.account,
+      alert: localStorage.getItem('alert')
+    });
     localDispatch(action);
+    localStorage.removeItem('alert');
     return () => clearTimeout(timer.current);
   }, [match.params.account])
 
@@ -89,7 +96,10 @@ function Login(props) {
   const successGoogle = res => {
     const token = res.tokenObj.id_token;
     dispatch(withGoogle({
-      token
+      body: { token },
+      onSuccess: data => {
+        // after login
+      }
     }));
   }
 
@@ -110,11 +120,16 @@ function Login(props) {
         deviceId,
         token
       },
-      onSuccess: data => {
-        const action = actionApiResult(false);
-        localDispatch(action);
+      onSuccess: ({ emailconfirmed }) => {
+        if (emailconfirmed) {
+          const action = actionApiResult(false);
+          localDispatch(action);
+          //after login
+        } else {
+          history.push('/verify-email');
+        }
       },
-      onFail: errCode => {
+      onFail: (errCode, { Message }) => {
         let result = false; 
 
         switch (errCode) {
@@ -127,7 +142,7 @@ function Login(props) {
             break;
 
           default:
-            result = trans('login.user_name_or_password_is_incorrect');
+            result = Message;
             break;
         }
 
@@ -170,6 +185,14 @@ function Login(props) {
       ]
     )}>
       <Grid container className={classes.mainPanel}>
+        <Alert
+          open={!!alert}
+          onClose={() => localDispatch(actionInitPage({ alert: false }))}
+          >
+          <AlertContent>
+            {alert}
+          </AlertContent>
+        </Alert>
         <Grid
           item xs={12} md={6}
           className={cx(classes.account)}
@@ -252,7 +275,7 @@ function Login(props) {
               )}
             </Formik>
             <Link
-              target='/forgot-password'
+              target='/forgotpwd'
               inverse={mediaUp(media.md)}
               className={classes.forgotPassword}
             >

@@ -4,7 +4,7 @@ import { requestPending, requestSuccess, requestFail } from './request'
 import { errorCode } from 'helpers/request'
 
 const defaultHeaders = () => {
-  const token = localStorage.getItem('vencru')
+  const auth = localStorage.getItem('auth')
 
   axios.defaults.baseURL = process.env.REACT_APP_SERVER
 
@@ -13,8 +13,8 @@ const defaultHeaders = () => {
     'Content-Type': 'application/json'
   }
 
-  if (token) {
-    headers['Authorization'] = token
+  if (auth) {
+    headers['Authorization'] = auth
   }
 
   return headers

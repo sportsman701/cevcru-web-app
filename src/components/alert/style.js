@@ -15,6 +15,7 @@ export default makeStyles(theme => ({
     padding: '10px',
     display: 'flex',
     alignItems: 'center',
+    fontSize: '20px',
 
     '& .icon': {
       marginRight: '10px'
