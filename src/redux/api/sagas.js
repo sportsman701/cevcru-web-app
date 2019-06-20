@@ -38,6 +38,7 @@ export default ({
   } = payload;
 
   try {
+    
     yield put({
       type: requestPending(type)
     });
@@ -62,7 +63,7 @@ export default ({
     onSuccess && typeof(onSuccess) === 'function' && onSuccess(data)
 
   } catch (err) {
-
+console.log(err)
     const { response, request, message } = err
 
     if (response) {

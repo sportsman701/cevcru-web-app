@@ -55,7 +55,7 @@ function VerifyMail() {
           open={showResult}
           onClose={() => setShowResult(false)}
           className={cx({ [classes.dockedAlert]: mediaUp(media.sm) })}
-          >
+        >
           <AlertContent>
             {trans('login.verification_code_is_incorrect')}
           </AlertContent>

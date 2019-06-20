@@ -128,7 +128,7 @@ function Login(props) {
         }
       },
       onFail: (errCode, { Message }) => {
-        let result = false; 
+        let result = false;
 
         switch (errCode) {
           case errorCode.noResponse:
