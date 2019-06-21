@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useEffect } from 'react'
+import React, { useState, useReducer } from 'react'
 import { createAction } from 'redux-actions'
 import { useDispatch, useSelector } from 'react-redux'
 

@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Router, Route, Redirect } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { IntlProvider } from 'react-intl';
 
-import { find } from 'lodash';
 import Container from '@material-ui/core/Container';
 
 import Login from 'pages/login/index/index';
@@ -17,6 +16,7 @@ import SetupBusinessStart from 'pages/login/setup-business/start'
 import Home from 'pages/home'
 
 import { history } from './redux/store'
+import { restoreSession } from './redux/session'
 import { initialSetup } from 'redux/account/selectors'
 
 import en from 'localization/en.json'
@@ -28,21 +28,37 @@ import './App.css'
 const languages = { en, es, fr };
 
 function App() {
-  const { emailConfirmed, businessSetup } = useSelector(initialSetup);
+  const { emailConfirmed, businessSetup } = useSelector(initialSetup, shallowEqual);
+  const session = useRef(false);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    try {
+      const account = JSON.parse(localStorage.getItem('account'));
+      session.current = true;
+      if (account) {
+        dispatch(restoreSession({
+          account
+        }))
+      }
+    } catch { }
+  }, []);
 
   const login = props => {
     const auth = localStorage.getItem('auth');
     
-    if (auth) {
+    if (auth && session.current) {
       return <Redirect to='/' />
     }
+
+    session.current = true;
     return <Login {...props} />;
   }
 
   const passAuthentication = Page => props => {
     const auth = localStorage.getItem('auth');
 
-    if (!auth) {
+    if (!auth || !session) {
       return <Redirect to='/login' />
     }
 
