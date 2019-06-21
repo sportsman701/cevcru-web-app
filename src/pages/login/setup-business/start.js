@@ -1,14 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { withRouter } from "react-router";
 
 import FormControl from '@material-ui/core/FormControl';
 import Box from '@material-ui/core/Box';
 import cx from 'classnames';
 
+import Button from 'components/button';
+import { Alert, AlertContent } from 'components/alert';
+
 import useGlobalStyles from 'hooks/styles';
 import { media, useMediaSmallerThan } from 'hooks/media';
 import useIntl from 'hooks/intl';
-import Button from 'components/button';
+import { pop } from 'helpers/navigateWithData';
 
 import image from 'resources/setup-business/setup-business-start.png';
 
@@ -20,9 +23,13 @@ function SetupBusinessStart(props) {
   const classes = useStyles();
   const globalClasses = useGlobalStyles();
   const mediaSmallerThan = useMediaSmallerThan();
+  const [ alert, setAlert ] = useState(null);
   const { history } = props
 
+  useEffect(() => setAlert(pop('alert')), []);
+
   const handleStartSetupBusiness = () => history.push('setup-business/create-card');
+
 
   return (
     <Box className={cx(
@@ -39,6 +46,12 @@ function SetupBusinessStart(props) {
           ]
         )}
       >
+        <Alert open={!!alert} onClose={() => setAlert(false)}>
+          <AlertContent>
+            {alert}
+          </AlertContent>
+        </Alert>
+
         <Box className={cx(
           globalClasses.formPanel,
           classes.content

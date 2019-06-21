@@ -31,8 +31,8 @@
     "Invalid email",
   "login.password_mismatch":
     "Password mismatches with confirmation",
-  "login.password_length_should_be_more_than_6":
-    "Password length should be more than 6",
+  "login.password_length_should_be_at_least_6":
+    "Password length should be at least 6 characters long",
   "login.get_started":
     "Get Started",
   "login.user_name_or_password_is_incorrect":
@@ -93,12 +93,16 @@
     "Failed to reset your password",
   "login.please_wait":
     "Please wait",
+  "login.enter_your_code":
+    "Enter your code",
   "login.we_ve_sent_a_verification_email":
     "We've sent a verification email",
   "login.failed_to_send_verification_email":
     "Failed to send a verification email",
   "login.verification_code_is_incorrect":
     "Verification code is incorrect",
+  "login.you_are_now_verified":
+    "You are now verified",
   "login.welcome_to_vencru":
     "Welcome to Vencru",
   "login.your_business_manager_is_just_ahead":

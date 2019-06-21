@@ -21,7 +21,7 @@ function LinkComponent(props) {
       {props.children}
     </Link>
   ) : (
-    <span {...other} className={style}>
+    <span onClick={!props.disabled ? props.onClick : undefined} className={style}>
       {props.children}
     </span>
   )

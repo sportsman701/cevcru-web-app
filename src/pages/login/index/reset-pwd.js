@@ -53,7 +53,7 @@ function ResetPassword(props) {
   const init = {
     tokenValidated: false,
     apiResult: false,
-    apiStatus: false
+    apiStatus: true
   };
 
   const [{
@@ -67,8 +67,8 @@ function ResetPassword(props) {
     
     if (!values.password) {
       errors.password = trans('login.required');
-    } else if (values.password.length < 7) {
-      errors.password = trans('login.password_length_should_be_more_than_6');
+    } else if (values.password.length < 6) {
+      errors.password = trans('login.password_length_should_be_at_least_6');
     } else if (values.password !== values.passwordConfirm) {
       errors.password = trans('login.password_mismatch');
       errors.passwordConfirm = true;
@@ -116,9 +116,6 @@ function ResetPassword(props) {
     handleSubmit => e => e.which === 13 && handleSubmit()
 
   useEffect(() => {
-    const action = actionThrowRequest();
-    localDispatch(action);
-
     dispatch(validatePasswordResetToken({
       body: { code, userid },
       onSuccess: ({ IsActive, isconfirmed }) => {

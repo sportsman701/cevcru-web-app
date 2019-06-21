@@ -55,6 +55,10 @@ export default makeStyles(theme => ({
     }
   },
 
+  loader: {
+    minHeight: '20px',
+  },
+  
   dockedAlert: {
     position: 'relative',
     width: 'calc(100% + 100px)',

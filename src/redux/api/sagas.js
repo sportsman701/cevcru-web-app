@@ -53,17 +53,17 @@ export default ({
 
     const { data } = res
 
+    success && typeof(success) === 'function' && success(data)
+    onSuccess && typeof(onSuccess) === 'function' && onSuccess(data)
+
     yield put({
       type: requestSuccess(type),
       payload: payloadSuccess && typeof(payloadSuccess) === 'function'
                 ? payloadSuccess(data) : data
     })
-
-    success && typeof(success) === 'function' && success(data)
-    onSuccess && typeof(onSuccess) === 'function' && onSuccess(data)
-
+    
   } catch (err) {
-console.log(err)
+
     const { response, request, message } = err
 
     if (response) {

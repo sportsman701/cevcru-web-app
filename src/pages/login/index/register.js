@@ -25,7 +25,7 @@ import useGlobalStyles from 'hooks/styles';
 import { media, useMediaUp, useMediaSmallerThan } from 'hooks/media';
 import { isEmail } from 'helpers/validate';
 import { errorCode } from 'helpers/request';
-import { pop, pushAndNavigate } from 'helpers/navigateWithData';
+import { pushAndNavigate } from 'helpers/navigateWithData';
 
 import { signUp, withGoogle } from 'redux/account/actions';
 
@@ -84,13 +84,7 @@ function Register(props) {
         confirmpassword: values.passwordConfirm
       },
       onSuccess: ({ emailconfirmed }) => {
-        if (emailconfirmed) {
-          const action = actionApiResult(false);
-          localDispatch(action);
-          // after login
-        } else {
-          pushAndNavigate('email', values.email, history, '/verify-email');
-        }
+        history.push('/');
       },
       onFail: (errCode, { Message }) => {
         let result = false; 
@@ -142,8 +136,8 @@ function Register(props) {
 
     if (!values.password) {
       errors.password = trans('login.required');
-    } else if (values.password.length < 7) {
-      errors.password = trans('login.password_length_should_be_more_than_6');
+    } else if (values.password.length < 6) {
+      errors.password = trans('login.password_length_should_be_at_least_6');
     } else if (values.password !== values.passwordConfirm) {
       errors.password = trans('login.password_mismatch');
       errors.passwordConfirm = true;

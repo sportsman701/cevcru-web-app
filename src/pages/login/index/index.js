@@ -119,13 +119,7 @@ function Login(props) {
         token
       },
       onSuccess: ({ emailconfirmed }) => {
-        if (emailconfirmed) {
-          const action = actionApiResult(false);
-          localDispatch(action);
-          //after login
-        } else {
-          pushAndNavigate('email', email, history, '/verify-email',);
-        }
+        history.push('/');
       },
       onFail: (errCode, { Message }) => {
         let result = false;

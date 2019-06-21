@@ -9,7 +9,13 @@ export default makeStyles({
     
     '& .adornment': {
       position: 'absolute',
-      right: 0
+      right: 0,
+
+      '& button': {
+        padding: '3px',
+        marginRight: '3px',
+        minWidth: 'inherit'
+      }
     }
   },
 

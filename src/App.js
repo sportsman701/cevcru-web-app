@@ -15,8 +15,9 @@ import VerifyEmail from 'pages/login/verify-mail'
 
 import SetupBusiness from 'pages/login/setup-business'
 import SetupBusinessStart from 'pages/login/setup-business/start'
+import Home from 'pages/home'
 
-import { authSelector } from 'redux/account/selectors'
+import { accountSelector } from 'redux/account/selectors'
 
 import en from 'localization/en.json'
 import es from 'localization/es.json'
@@ -27,20 +28,46 @@ import './App.css'
 const languages = { en, es, fr };
 
 function App() {
-
-  const auth = useSelector(authSelector);
+  const { accessToken, emailConfirmed } = useSelector(accountSelector);
+  const business = false;
 
   const login = props => {
-    if (auth) {
+    if (accessToken) {
       return <Redirect to='/' />
     }
     return <Login {...props} />;
   }
 
   const passAuthentication = Page => props => {
-    if (!auth) {
+    if (!accessToken) {
       return <Redirect to='/login' />
     }
+
+    switch (Page) {
+      case Home:
+        if (!emailConfirmed) return <Redirect to='/verify-email'/>
+        if (!business) return <Redirect to='/setup-business'/>
+        break;
+
+      case VerifyEmail:
+        if (emailConfirmed) {
+          if (business) {
+            return <Redirect to='/'/>
+          } else {
+            return <Redirect to='/setup-business'/>
+          }
+        }
+        break;
+
+      case SetupBusinessStart:
+        if (!emailConfirmed) return <Redirect to='/verify-email'/>
+        if (business) return <Redirect to='/'/>
+        break;
+
+      case SetupBusiness:
+      default:
+    }
+
     return <Page {...props} />
   }
 
@@ -63,7 +90,7 @@ function App() {
           
           <Route
             path="/" exact
-            render={passAuthentication(() => <div>logged in</div>)}/>
+            render={passAuthentication(Home)}/>
           <Route
             path='/verify-email'
             render={passAuthentication(VerifyEmail)} />
@@ -77,7 +104,7 @@ function App() {
           <Route path='/setup-business/business' component={SetupBusiness} /> */}
           {/* <Route path='/account-ready' component={AccountReady} /> */}
 
-          <Redirect to='/' />
+          {/* <Redirect to='/' /> */}
         </Router>
       </Container>
     </IntlProvider>

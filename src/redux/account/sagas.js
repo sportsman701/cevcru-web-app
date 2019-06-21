@@ -44,6 +44,21 @@ const resetPassword = api({
   url: '/account/resetPassword'
 })
 
+const confirmEmail = api({
+  type: types.CONFIRM_EMAIL,
+  method: 'post',
+  header: { emailUrl: 'isMobile' },
+  url: '/account/confirmEmail',
+  payloadSuccess: ({ isconfirmed }) => ({ emailconfirmed: isconfirmed })
+})
+
+const resendActivationEmail = api({
+  type: types.RESEND_ACTIVATION_EMAIL,
+  method: 'post',
+  header: { emailUrl: 'isMobile' },
+  url: '/account/resendActivationEmail'
+})
+
 export default function* rootSaga () {
   yield takeLatest(types.SIGN_IN, signIn)
   yield takeLatest(types.SIGN_UP, signUp)
@@ -52,4 +67,7 @@ export default function* rootSaga () {
   yield takeLatest(types.INITIATE_PASSWORD_CHANGE, initiatePasswordChange)
   yield takeLatest(types.VALIDATE_PASSWORD_RESET_TOKEN, validatePasswordResetToken)
   yield takeLatest(types.RESET_PASSWORD, resetPassword)
+
+  yield takeLatest(types.CONFIRM_EMAIL, confirmEmail)
+  yield takeLatest(types.RESEND_ACTIVATION_EMAIL, resendActivationEmail)
 }

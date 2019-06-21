@@ -5,6 +5,7 @@ export default makeStyles(theme => ({
   root: {
     backgroundColor: colors.status.success,
     justifyContent: 'center',
+    transition: 'background-color ease 60s',
     
     '&.fail': {
       backgroundColor: colors.status.error

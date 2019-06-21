@@ -2,14 +2,28 @@ import React from 'react';
 import InputBase from '@material-ui/core/InputBase';
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import Button from 'components/button';
 import cx from 'classnames';
 
 import useStyles from './style';
 
 function Input(props) {
-  const classes = useStyles(props);
-  const { frame, children, className, id, label, error, ...other } = props;
-  
+  const {
+    frame,
+    children,
+    className,
+    id,
+    label,
+    error,
+    iconButton,
+    buttonDisabled,
+    onIconButtonClick,
+    ...other
+  } = props;
+  const classes = useStyles({ adornment: iconButton && true });
+  const IconButton = iconButton;
+
   return frame ? (
     <TextField
       {...other}
@@ -42,6 +56,15 @@ function Input(props) {
           { [classes.error]: error }
         )}
         classes={{input: classes.input}}
+        endAdornment={
+          iconButton ? (
+            <InputAdornment position="end" className='adornment'>
+              <Button onClick={onIconButtonClick} disabled={buttonDisabled}>
+                <IconButton/>
+              </Button>
+            </InputAdornment>
+          ) : undefined
+        }
       />
     </>
   )
