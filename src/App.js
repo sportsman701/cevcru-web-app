@@ -124,6 +124,7 @@ function App() {
           {/* <Route path='/account-ready' component={AccountReady} /> */}
 
           {/* <Redirect to='/' /> */}
+            <Redirect from='*' to='/' />
         </Router>
       </Container>
     </IntlProvider>
