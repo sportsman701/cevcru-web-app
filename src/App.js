@@ -3,9 +3,8 @@ import { Router, Route, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { IntlProvider } from 'react-intl';
 
+import { find } from 'lodash';
 import Container from '@material-ui/core/Container';
-
-import { history } from './redux/store'
 
 import Login from 'pages/login/index/index';
 import Register from 'pages/login/index/register'
@@ -17,7 +16,8 @@ import SetupBusiness from 'pages/login/setup-business'
 import SetupBusinessStart from 'pages/login/setup-business/start'
 import Home from 'pages/home'
 
-import { accountSelector } from 'redux/account/selectors'
+import { history } from './redux/store'
+import { initialSetup } from 'redux/account/selectors'
 
 import en from 'localization/en.json'
 import es from 'localization/es.json'
@@ -28,30 +28,33 @@ import './App.css'
 const languages = { en, es, fr };
 
 function App() {
-  const { accessToken, emailConfirmed } = useSelector(accountSelector);
-  const business = false;
+  const { emailConfirmed, businessSetup } = useSelector(initialSetup);
 
   const login = props => {
-    if (accessToken) {
+    const auth = localStorage.getItem('auth');
+    
+    if (auth) {
       return <Redirect to='/' />
     }
     return <Login {...props} />;
   }
 
   const passAuthentication = Page => props => {
-    if (!accessToken) {
+    const auth = localStorage.getItem('auth');
+
+    if (!auth) {
       return <Redirect to='/login' />
     }
 
     switch (Page) {
       case Home:
         if (!emailConfirmed) return <Redirect to='/verify-email'/>
-        if (!business) return <Redirect to='/setup-business'/>
+        if (!businessSetup) return <Redirect to='/setup-business'/>
         break;
 
       case VerifyEmail:
         if (emailConfirmed) {
-          if (business) {
+          if (businessSetup) {
             return <Redirect to='/'/>
           } else {
             return <Redirect to='/setup-business'/>
@@ -61,7 +64,7 @@ function App() {
 
       case SetupBusinessStart:
         if (!emailConfirmed) return <Redirect to='/verify-email'/>
-        if (business) return <Redirect to='/'/>
+        if (businessSetup) return <Redirect to='/'/>
         break;
 
       case SetupBusiness:

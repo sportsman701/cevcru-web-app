@@ -4,7 +4,7 @@ import { requestSuccess } from '../api/request'
 import { types  } from './actions'
 
 export default handleActions({
-  [requestSuccess(types.SIGN_IN)]:
+  [requestSuccess(types.USER_INFO)]:
     (state, { payload }) => payload,
 
   [requestSuccess(types.CONFIRM_EMAIL)]:

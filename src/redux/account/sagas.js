@@ -1,5 +1,5 @@
-import { takeLatest } from 'redux-saga/effects'
-import { types } from './actions'
+import { takeLatest, call, put } from 'redux-saga/effects'
+import { types, userInfo as actionUserInfo } from './actions'
 import api from '../api/sagas'
 
 
@@ -7,20 +7,42 @@ const signIn = api({
   type: types.SIGN_IN,
   method: 'post',
   url: '/account/login',
-  success: ({ access_token }) => localStorage.setItem('auth', access_token)
+  success: function* ({ access_token, userId }) {
+    yield call([localStorage, 'setItem'], 'auth', access_token)
+    yield put(actionUserInfo({
+      params: { userId }
+    }))
+  }
 })
 
 const signUp = api({
   type: types.SIGN_UP,
   method: 'post',
   header: { emailUrl: 'isMobile' },
-  url: '/account/register'
+  url: '/account/register',
+  success: function* ({ access_token, userId }) {
+    yield call([localStorage, 'setItem'], 'auth', access_token)
+    yield put(actionUserInfo({ 
+      params: { userId }
+    }))
+  }
 })
 
 const withGoogle = api({
   type: types.SIGN_IN_GOOGLE,
   method: 'post',
-  url: '/account/external'
+  url: '/account/external',
+  success: function* ({ access_token, userId }) {
+    yield call([localStorage, 'setItem'], 'auth', access_token)
+    yield put(actionUserInfo({ 
+      params: { userId }
+    }))
+  }
+})
+
+const userInfo = api({
+  type: types.USER_INFO,
+  url: '/account/UserInfo'
 })
 
 const initiatePasswordChange = api({
@@ -70,4 +92,5 @@ export default function* rootSaga () {
 
   yield takeLatest(types.CONFIRM_EMAIL, confirmEmail)
   yield takeLatest(types.RESEND_ACTIVATION_EMAIL, resendActivationEmail)
+  yield takeLatest(types.USER_INFO, userInfo)
 }

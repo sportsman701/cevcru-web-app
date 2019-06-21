@@ -52,10 +52,13 @@ export default ({
     })
 
     const { data } = res
-
-    success && typeof(success) === 'function' && success(data)
+    
     onSuccess && typeof(onSuccess) === 'function' && onSuccess(data)
 
+    if (success && typeof(success) === 'function') {
+      yield call(success, data)
+    }
+    
     yield put({
       type: requestSuccess(type),
       payload: payloadSuccess && typeof(payloadSuccess) === 'function'

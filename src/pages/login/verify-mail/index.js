@@ -22,7 +22,7 @@ import {
 import useIntl from 'hooks/intl';
 import { errorCode } from 'helpers/request';
 
-import { accountSelector } from 'redux/account/selectors';
+import accountSelector from 'redux/account/selectors';
 import { confirmEmail, resendActivationEmail } from 'redux/account/actions';
 import { pushAndNavigate } from 'helpers/navigateWithData';
 

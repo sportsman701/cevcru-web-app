@@ -93,11 +93,11 @@ function Login(props) {
 
   const successGoogle = res => {
     const token = res.tokenObj.id_token;
+    const action = actionThrowRequest();
+    
+    localDispatch(action);
     dispatch(withGoogle({
-      body: { token },
-      onSuccess: data => {
-        // after login
-      }
+      body: { token }
     }));
   }
 
@@ -117,9 +117,6 @@ function Login(props) {
         password,
         deviceId,
         token
-      },
-      onSuccess: ({ emailconfirmed }) => {
-        history.push('/');
       },
       onFail: (errCode, { Message }) => {
         let result = false;
