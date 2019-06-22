@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 
 import { withRouter } from "react-router";
 import { FormattedMessage } from 'react-intl'
+import { Formik } from 'formik';
+import { keys } from 'lodash';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
@@ -27,10 +29,36 @@ import useStyles from './style';
 
 
 const steps = [
-  { name: 'create-card', title: 'login.create_your_business_card', content: <CreateCard/> },
-  { name: 'industry', title: 'login.about_your_industry', content: <Industry/> },
-  { name: 'business', title: 'login.about_your_business', content: <Business/> }
+  {
+    name: 'create-card',
+    title: 'login.create_your_business_card',
+    content: CreateCard,
+    initialValues: {
+      firstName: null,
+      lastName: null,
+      company: null,
+      phoneNumber: null,
+      addressCity: null,
+      addressStreet: null,
+      addressCountry: 0,
+      businessType: false
+    }
+  },
+  {
+    name: 'industry',
+    title: 'login.about_your_industry',
+    initialalues: { },
+    content: Industry
+  },
+  {
+    name: 'business',
+    title: 'login.about_your_business',
+    initialValues: { },
+    content: Business
+  }
 ]
+
+const initialValues = Object.assign({}, ...(steps.map(({ initialValues }) => initialValues)));
 
 function SetupBusiness(props) {
   const trans = useIntl();
@@ -41,14 +69,17 @@ function SetupBusiness(props) {
   const { match, history } = props;
   const step = match.params.step;
   const stepIndex = findIndex(steps, { name: step });
-  const stepInfo = steps[stepIndex]
+  const stepInfo = steps[stepIndex];
+  const StepContent = stepInfo.content;
 
   if (stepInfo < 0) {
     history.push('/setup-business');
     return null;
   }
 
-  const handleContinueClick = () => {
+  const handleContinueClick = (values, { setSubmitting }) => {
+    setSubmitting(false);
+    
     if (stepIndex < 2) {
       history.push(`/setup-business/${steps[stepIndex + 1].name}`);
     } else {
@@ -60,6 +91,18 @@ function SetupBusiness(props) {
     history.push(`/setup-business/${steps[stepIndex - 1].name}`);
   }
 
+  const validate = initialValues => values => {
+    const errors = {};
+
+    keys(initialValues).forEach(field => {
+      if (values[field] === null || values[field] === '') {
+        errors[field] = trans('login.required');
+      }
+    })
+
+    return errors;
+  }
+  
   return (
     <Box className={cx(
       classes.root,
@@ -82,26 +125,42 @@ function SetupBusiness(props) {
                 </Box>
               </Box>
               <Box className={classes.mainPanel}>
-                <Box className={classes.stepContent}>
-                  {stepInfo.content}
-                  <Grid container className={classes.navigation}>
-                    <Grid item xs={7} sm={4}>
-                      { stepIndex > 0 && (
-                        <Link
-                          className={classes.textPrimary}
-                          onClick={handlePrevClick}
-                        >
-                          <ChevronLeft/>
-                          <span>{trans('login.previous_step')}</span>
-                        </Link>
-                      )}
-                    </Grid>
-                    <Grid item xs={5} sm={4}>
-                      <Button fullWidth onClick={handleContinueClick}>{trans('login.continue')}</Button>
-                    </Grid>
-                    { mediaUp(media.sm) && <Grid item xs={4}/> }
-                  </Grid>
-                </Box>
+                <Formik
+                  initialValues={initialValues}
+                  onSubmit={handleContinueClick}
+                  validate={validate(stepInfo.initialValues)}
+                >
+                  {({ values, handleSubmit, handleChange, handleBlur, errors, touched }) => (
+                    <Box className={classes.stepContent}>
+                      <StepContent
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        errors={errors}
+                        touched={touched}
+                        values={values}
+                      />
+                      <Grid container className={classes.navigation}>
+                        <Grid item xs={7} sm={4}>
+                          { stepIndex > 0 && (
+                            <Link
+                              className={classes.textPrimary}
+                              onClick={handlePrevClick}
+                            >
+                              <ChevronLeft/>
+                              <span>{trans('login.previous_step')}</span>
+                            </Link>
+                          )}
+                        </Grid>
+                        <Grid item xs={5} sm={4}>
+                          <Button fullWidth onClick={handleSubmit}>
+                            {trans('login.continue')}
+                          </Button>
+                        </Grid>
+                        { mediaUp(media.sm) && <Grid item xs={4}/> }
+                      </Grid>
+                    </Box>
+                  )}
+                </Formik>
               </Box>
               <Box className={classes.stepList}>
                 {steps.map(({ name, title }, key) => (

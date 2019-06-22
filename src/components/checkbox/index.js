@@ -7,13 +7,21 @@ import useStyles from './style';
 
 
 function CheckboxComponent(props) {
-  const { children, button, checked, onClick, className, ...other } = props;
+  const {
+    children,
+    button,
+    checked,
+    onClick,
+    onChange,
+    className,
+    ...other
+  } = props;
   const classes = useStyles();
 
   const checkBox = (
     <Checkbox
       checked={checked}
-      onChange={onClick}
+      onChange={onChange}
       className={classes.root}
     />
   )

@@ -117,8 +117,8 @@ export default makeStyles(theme => ({
   stepList: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-around',
-    margin: '100px 0',
+    justifyContent: 'space-between',
+    margin: '200px 0',
     textAlign: 'left',
     position: 'relative',
     width: '30%',

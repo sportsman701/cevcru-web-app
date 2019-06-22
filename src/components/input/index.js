@@ -19,6 +19,7 @@ function Input(props) {
     iconButton,
     buttonDisabled,
     onIconButtonClick,
+    value,
     ...other
   } = props;
   const classes = useStyles({ adornment: iconButton && true });
@@ -52,6 +53,7 @@ function Input(props) {
       )}
       <InputBase
         {...other}
+        value={value === null ? '' : value}
         id={id}
         className={cx(
           classes.root,
