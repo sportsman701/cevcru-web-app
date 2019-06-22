@@ -31,7 +31,7 @@ const components = {
 function Searchable(props) {
   const classes = useStyles();
   const theme = useTheme();
-  const { data, label, id, placeholder, error, value, group, onChange } = props;
+  const { data, label, id, placeholder, error, group, className,...other } = props;
   
   const selectStyles = {
     input: base => ({
@@ -61,18 +61,19 @@ function Searchable(props) {
           {label}
         </InputLabel>
       )}
-      <Select
-        classes={classes}
-        styles={selectStyles}
-        inputId={id}
-        TextFieldProps={{ error }}
-        options={data}
-        components={components}
-        placeholder={placeholder || ''}
-        value={value}
-        formatGroupLabel={group ? GroupLabel : undefined}
-        onChange={onChange}
-      />
+      <div className={cx(className, classes.root)}>
+        <Select
+          {...other}
+          classes={classes}
+          styles={selectStyles}
+          inputId={id}
+          TextFieldProps={{ error }}
+          options={data}
+          components={components}
+          placeholder={placeholder || ''}
+          formatGroupLabel={group ? GroupLabel : undefined}
+        />
+      </div>
     </>
   );
 }

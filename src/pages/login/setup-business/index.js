@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { withRouter } from "react-router";
 import { FormattedMessage } from 'react-intl'
@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 
+import pn from 'awesome-phonenumber';
 import cx from 'classnames';
 import { findIndex } from 'lodash';
 
@@ -37,7 +38,7 @@ const steps = [
       firstName: null,
       lastName: null,
       company: null,
-      phoneNumber: null,
+      phoneNumber: '',
       addressCity: null,
       addressStreet: null,
       addressCountry: null,
@@ -91,14 +92,28 @@ function SetupBusiness(props) {
     history.push(`/setup-business/${steps[stepIndex - 1].name}`);
   }
 
-  const validate = initialValues => values => {
+  const validate = stepIndex => values => {
     const errors = {};
-    
-    keys(initialValues).forEach(field => {
+    keys(steps[stepIndex].initialValues).forEach(field => {
       if (values[field] === null || values[field] === '') {
         errors[field] = trans('login.required');
       }
     })
+    
+    switch (stepIndex) {
+      case 0:
+        if (!pn(values.phoneNumber).isValid()) {
+          errors.phoneNumber = trans('login.invalid_format');
+        }
+        break;
+
+      case 1:
+        break;
+
+      case 2:
+      default:
+        break;
+    }
 
     return errors;
   }
@@ -128,7 +143,7 @@ function SetupBusiness(props) {
                 <Formik
                   initialValues={initialValues}
                   onSubmit={handleContinueClick}
-                  validate={validate(stepInfo.initialValues)}
+                  validate={validate(stepIndex)}
                 >
                   {({ values, handleSubmit, handleChange, handleBlur, errors, touched }) => (
                     <Box className={classes.stepContent}>

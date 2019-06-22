@@ -8,6 +8,7 @@ function Option(props) {
     <MenuItem
       ref={props.innerRef}
       selected={props.isSelected}
+      className={props.selectProps.classes.menuItem}
       component="div"
       {...props.innerProps}
     >

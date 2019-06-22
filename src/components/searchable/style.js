@@ -2,6 +2,13 @@ import { emphasize, makeStyles } from '@material-ui/core/styles';
 import colors from 'helpers/colors';
 
 export default makeStyles(theme => ({
+  root: {
+    '& + .MuiFormHelperText-root': {
+      fontSize: 'smaller',
+      color: colors.status.error
+    },
+  },
+
   input: {
     display: 'flex',
     padding: 0,
@@ -50,10 +57,17 @@ export default makeStyles(theme => ({
     margin: 0,
     left: 0,
     right: 0,
+    boxShadow: '0px 5px 5px -3px rgba(0,0,0,0.2), 0px 8px 10px 1px rgba(0,0,0,0.14), 0px 3px 14px 2px rgba(0,0,0,0.12)',
+    borderRadius: '4px',
 
     '& div': {
       fontSize: '16px'
     }
+  },
+
+  menuItem: {
+    padding: '2px 15px',
+    minHeight: '20px'
   },
 
   divider: {

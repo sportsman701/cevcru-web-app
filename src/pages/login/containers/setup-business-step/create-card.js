@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import Grid from '@material-ui/core/Grid';
 // import MenuItem from '@material-ui/core/MenuItem';
@@ -8,11 +8,13 @@ import cx from 'classnames';
 import Input from 'components/input';
 import Searchable from 'components/searchable';
 import CheckBox from 'components/checkbox';
+import PhoneNumberInput from 'components/phonenumber';
 
 import useGlobalStyles from 'hooks/styles';
 import useIntl from 'hooks/intl';
 import countries from 'helpers/countries';
 import useStyles from './style';
+
 import 'flag-icon-css/css/flag-icon.min.css';
 
 
@@ -67,6 +69,7 @@ function CreateCard(props) {
         <Grid item xs={12} sm={6}>
           <Input
             fullWidth
+            id="firstName"
             name="firstName"
             onChange={onChange}
             onBlur={onBlur}
@@ -83,6 +86,7 @@ function CreateCard(props) {
         <Grid item xs={12} sm={6}>
           <Input
             fullWidth
+            id="lastName"
             name="lastName"
             onChange={onChange}
             onBlur={onBlur}
@@ -99,6 +103,7 @@ function CreateCard(props) {
         <Grid item xs={12} sm={6}>
           <Input
             fullWidth
+            id="company"
             name="company"
             onChange={onChange}
             onBlur={onBlur}
@@ -113,14 +118,15 @@ function CreateCard(props) {
           )}
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Input
-            fullWidth
+          <PhoneNumberInput
+            id="phoneNumber"
             name="phoneNumber"
             onChange={onChange}
             onBlur={onBlur}
             value={values.phoneNumber}
             error={errors.phoneNumber && touched.phoneNumber}
             label={trans("login.phone_number")}
+            searchPlaceholder={trans('login.search')}
           />
           {errors.phoneNumber && touched.phoneNumber && (
             <FormHelperText error>
@@ -131,6 +137,7 @@ function CreateCard(props) {
         <Grid item xs={12}>
           <Input
             fullWidth
+            id="addressStreet"
             name="addressStreet"
             onChange={onChange}
             onBlur={onBlur}
@@ -147,6 +154,7 @@ function CreateCard(props) {
         <Grid item xs={12} sm={6}>
           <Input
             fullWidth
+            id="addressCity"
             name="addressCity"
             onChange={onChange}
             onBlur={onBlur}
@@ -162,13 +170,20 @@ function CreateCard(props) {
         </Grid>
         <Grid item xs={12} sm={6}>
           <Searchable
+            id="addressCountry"
             name="addressCountry"
             data={countriesWithFlag}
             value={values.addressCountry}
+            onBlur={onBlur}
             onChange={handleCountryChange(onChange)}
             label={trans('login.address_country')}
             error={errors.addressCountry && touched.addressCountry}
           />
+          {errors.addressCountry && touched.addressCountry && (
+            <FormHelperText error>
+              {errors.addressCountry}
+            </FormHelperText>
+          )}
         </Grid>
       </Grid>
       <div className={classes.incorporatedLLC}>

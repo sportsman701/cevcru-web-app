@@ -127,6 +127,10 @@
     "Company",
   "login.phone_number":
     "Phone Number",
+  "login.invalid_format":
+    "Invalid format",
+  "login.search":
+    "Search",
   "login.address_street":
     "Address (street)",
   "login.address_city":
