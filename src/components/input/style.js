@@ -6,6 +6,11 @@ export default makeStyles({
     'label + &': {
       marginTop: '10px',
     },
+
+    '& + .MuiFormHelperText-root': {
+      fontSize: 'smaller',
+      color: colors.status.error
+    },
     
     '& .adornment': {
       position: 'absolute',
@@ -16,12 +21,6 @@ export default makeStyles({
         marginRight: '3px',
         minWidth: 'inherit'
       }
-    }
-  },
-
-  error: {
-    '& input': {
-      borderColor: `${colors.status.error} !important`
     }
   },
 
@@ -47,6 +46,14 @@ export default makeStyles({
 
     '&+.MuiInputBase-root': {
       marginTop: '8px'
+    }
+  },
+
+  error: {
+    color: colors.status.error,
+
+    '& input': {
+      borderColor: colors.status.error
     }
   },
 

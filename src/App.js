@@ -41,7 +41,7 @@ function App() {
           account
         }))
       }
-    } catch { }
+    } catch (e) { }
   }, []);
 
   const login = props => {

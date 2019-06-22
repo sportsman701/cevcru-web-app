@@ -42,7 +42,10 @@ function Input(props) {
         <InputLabel
           shrink
           htmlFor={id}
-          className={classes.label}
+          className={cx(
+            classes.label,
+            {[classes.error]: error}
+          )}
         >
           {label}
         </InputLabel>

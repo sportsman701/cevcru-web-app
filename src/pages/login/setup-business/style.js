@@ -3,7 +3,7 @@ import makeStyles from '@material-ui/styles/makeStyles';
 import backLogo from 'resources/logo/logo.svg';
 
 
-const mainPanelMinHeight = '680px';
+const mainPanelMinHeight = '720px';
 
 export default makeStyles(theme => ({
   root: {
@@ -161,6 +161,7 @@ export default makeStyles(theme => ({
       marginRight: '12px',
       border: `1px solid ${colors.text.primary.normal}`,
       backgroundColor: colors.background.white,
+      transition: 'background-color ease .5s',
 
       '&.active': {
         border: `1px solid ${colors.background.primary}`,

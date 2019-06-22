@@ -25,7 +25,7 @@ import useIntl from 'hooks/intl';
 
 import { isEmail } from 'helpers/validate';
 import { errorCode } from 'helpers/request';
-import { pop, pushAndNavigate } from 'helpers/navigateWithData';
+import { pop } from 'helpers/navigateWithData';
 
 import { signIn, withGoogle } from 'redux/account/actions';
 
