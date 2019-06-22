@@ -28,7 +28,7 @@ function Input(props) {
   return frame ? (
     <TextField
       {...other}
-      classes={{root: classes.frame}}
+      classes={{root: cx(classes.frame, {[classes.error]: error})}}
       className={className}
       variant="outlined"
       InputLabelProps={{

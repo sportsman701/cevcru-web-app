@@ -49,15 +49,12 @@ export default makeStyles({
     }
   },
 
-  error: {
-    color: colors.status.error,
-
-    '& input': {
-      borderColor: colors.status.error
-    }
-  },
-
   frame: {
+    '& + .MuiFormHelperText-root': {
+      fontSize: 'smaller',
+      color: colors.status.error
+    },
+    
     '& label': {
       color: colors.text.primary.normal
     },
@@ -70,7 +67,7 @@ export default makeStyles({
       fontSize: 'initial',
       
       '& input': {
-        padding: '12px'
+        padding: '11px 12px'
       },
 
       '& .MuiSelect-select': {
@@ -94,6 +91,31 @@ export default makeStyles({
       '&.Mui-focused fieldset': {
         border: `1px solid ${colors.input.border.focus}`
       }
+    }
+  },
+
+  error: {
+    color: colors.status.error,
+
+    '& input': {
+      borderColor: colors.status.error,
+      color: colors.status.error,
+
+      '&:focus': {
+        borderColor: colors.status.error
+      }
+    },
+    
+    '& .MuiOutlinedInput-root.Mui-focused fieldset': {
+      border: `1px solid ${colors.status.error}`
+    },
+
+    '& .MuiInputBase-root:hover .MuiOutlinedInput-notchedOutline': {
+      borderColor: colors.status.error
+    },
+
+    '& .MuiInputBase-root .MuiOutlinedInput-notchedOutline': {
+      borderColor: colors.status.error
     }
   }
 })

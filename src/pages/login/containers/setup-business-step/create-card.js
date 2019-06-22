@@ -1,17 +1,37 @@
 import React, { useEffect } from 'react'
 
 import Grid from '@material-ui/core/Grid';
-import MenuItem from '@material-ui/core/MenuItem';
+// import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import cx from 'classnames';
 
 import Input from 'components/input';
-import Select from 'components/select';
+import Searchable from 'components/searchable';
 import CheckBox from 'components/checkbox';
 
 import useGlobalStyles from 'hooks/styles';
 import useIntl from 'hooks/intl';
+import countries from 'helpers/countries';
 import useStyles from './style';
+import 'flag-icon-css/css/flag-icon.min.css';
+
+
+const countriesWithFlag = countries.map(({ label, options }) => ({
+  label,
+  options: options.map(({ code, name }) => ({
+    value: name,
+    data: code,
+    label: (
+      <span title={name.length > 25 ? name : undefined}>
+        <span
+          className={`flag-icon flag-icon-${code.toLowerCase()}`}
+          style={{marginRight: '10px', minWidth: '20px'}}
+        />
+        {name}
+      </span>
+    )
+  }))
+}))
 
 function CreateCard(props) {
   const trans = useIntl();
@@ -19,7 +39,14 @@ function CreateCard(props) {
   const globalClasses = useGlobalStyles();
   const { errors, onChange, onBlur, touched, values } = props
 
-  useEffect(() => console.log('hi'), []);
+  const handleCountryChange = onChange => value => {
+    onChange({
+      target: {
+        value,
+        name: 'addressCountry'
+      }
+    })
+  }
 
   return (
     <div>
@@ -40,7 +67,6 @@ function CreateCard(props) {
         <Grid item xs={12} sm={6}>
           <Input
             fullWidth
-            id="firstName"
             name="firstName"
             onChange={onChange}
             onBlur={onBlur}
@@ -57,7 +83,6 @@ function CreateCard(props) {
         <Grid item xs={12} sm={6}>
           <Input
             fullWidth
-            id="lastName"
             name="lastName"
             onChange={onChange}
             onBlur={onBlur}
@@ -74,7 +99,6 @@ function CreateCard(props) {
         <Grid item xs={12} sm={6}>
           <Input
             fullWidth
-            id="company"
             name="company"
             onChange={onChange}
             onBlur={onBlur}
@@ -91,7 +115,6 @@ function CreateCard(props) {
         <Grid item xs={12} sm={6}>
           <Input
             fullWidth
-            id="phoneNumber"
             name="phoneNumber"
             onChange={onChange}
             onBlur={onBlur}
@@ -108,7 +131,6 @@ function CreateCard(props) {
         <Grid item xs={12}>
           <Input
             fullWidth
-            id="addressStreet"
             name="addressStreet"
             onChange={onChange}
             onBlur={onBlur}
@@ -125,7 +147,6 @@ function CreateCard(props) {
         <Grid item xs={12} sm={6}>
           <Input
             fullWidth
-            id="addressCity"
             name="addressCity"
             onChange={onChange}
             onBlur={onBlur}
@@ -140,21 +161,14 @@ function CreateCard(props) {
           )}
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Select
-            fullWidth
-            id="addressCountry"
+          <Searchable
             name="addressCountry"
-            onChange={onChange}
+            data={countriesWithFlag}
             value={values.addressCountry}
-            label={trans("login.address_country")}
-          >
-            <MenuItem value={0}>
-              NG
-            </MenuItem>
-            <MenuItem value={1}>
-              AR
-            </MenuItem>
-          </Select>
+            onChange={handleCountryChange(onChange)}
+            label={trans('login.address_country')}
+            error={errors.addressCountry && touched.addressCountry}
+          />
         </Grid>
       </Grid>
       <div className={classes.incorporatedLLC}>

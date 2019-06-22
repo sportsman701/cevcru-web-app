@@ -40,7 +40,7 @@ const steps = [
       phoneNumber: null,
       addressCity: null,
       addressStreet: null,
-      addressCountry: 0,
+      addressCountry: null,
       businessType: false
     }
   },
@@ -93,7 +93,7 @@ function SetupBusiness(props) {
 
   const validate = initialValues => values => {
     const errors = {};
-
+    
     keys(initialValues).forEach(field => {
       if (values[field] === null || values[field] === '') {
         errors[field] = trans('login.required');
