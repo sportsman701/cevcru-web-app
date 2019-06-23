@@ -17,7 +17,7 @@ import BarLoader from 'components/loader';
 import { Alert, AlertContent } from 'components/alert';
 import useGlobalStyles from 'hooks/styles';
 import useIntl from 'hooks/intl';
-import { errorCode } from 'helpers/request';
+import { errorCode } from 'helpers/network-constants';
 import { pushAndNavigate } from 'helpers/navigateWithData';
 
 import { validatePasswordResetToken, resetPassword } from 'redux/account/actions';

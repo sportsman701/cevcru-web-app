@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { withRouter } from "react-router";
+import { useDispatch } from 'react-redux'
 
 import FormControl from '@material-ui/core/FormControl';
 import Box from '@material-ui/core/Box';
@@ -13,6 +14,7 @@ import { media, useMediaSmallerThan } from 'hooks/media';
 import useIntl from 'hooks/intl';
 import { pop } from 'helpers/navigateWithData';
 
+import { getCurrency } from 'redux/onboarding/actions'
 import image from 'resources/setup-business/setup-business-start.png';
 
 import useStyles from './style';
@@ -24,9 +26,13 @@ function SetupBusinessStart(props) {
   const globalClasses = useGlobalStyles();
   const mediaSmallerThan = useMediaSmallerThan();
   const [ alert, setAlert ] = useState(null);
-  const { history } = props
+  const dispatch = useDispatch();
+  const { history } = props;
 
-  useEffect(() => setAlert(pop('alert')), []);
+  useEffect(() => {
+    setAlert(pop('alert'));
+    dispatch(getCurrency());
+  }, []);
 
   const handleStartSetupBusiness = () => history.push('setup-business/create-card');
 

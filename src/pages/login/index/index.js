@@ -24,7 +24,7 @@ import { media, useMediaUp, useMediaSmallerThan } from 'hooks/media';
 import useIntl from 'hooks/intl';
 
 import { isEmail } from 'helpers/validate';
-import { errorCode } from 'helpers/request';
+import { errorCode } from 'helpers/network-constants';
 import { pop } from 'helpers/navigateWithData';
 
 import { signIn, withGoogle } from 'redux/account/actions';

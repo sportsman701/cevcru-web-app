@@ -1,6 +1,6 @@
 import { handleActions } from 'redux-actions'
 import { requestSuccess } from '../api/request'
-import { types as session } from '../session' 
+import { saveSession, types as session } from '../session' 
 import { types  } from './actions'
 
 export default handleActions({
@@ -8,15 +8,8 @@ export default handleActions({
     (state, { payload }) => payload.account,
 
   [requestSuccess(types.USER_INFO)]:
-    (state, { payload }) => {
-      localStorage.setItem('account', JSON.stringify(payload))
-      return payload
-    },
+    (state, { payload }) => saveSession('account', payload),
 
   [requestSuccess(types.CONFIRM_EMAIL)]:
-    (state, { payload }) => {
-      const newState = {...state, ...payload}
-      localStorage.setItem('account', JSON.stringify(newState))
-      return newState
-    }
+    (state, { payload }) => saveSession('account', {...state, ...payload})
 }, {})

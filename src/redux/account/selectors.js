@@ -41,7 +41,7 @@ export default ({ account }) => {
   return root;
 }
 
-export const initialSetup = ({ account }) => ({
+export const initialSetupSelector = ({ account }) => ({
   emailConfirmed: account.emailconfirmed,
   businessSetup: findIndex(account.business, ['id', account.currentbusinessid]) >= 0
 })

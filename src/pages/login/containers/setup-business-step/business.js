@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
+import { useSelector, shallowEqual } from 'react-redux';
 
 import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import cx from 'classnames';
 
 import Select from 'components/select';
@@ -12,15 +14,10 @@ import useGlobalStyles from 'hooks/styles';
 import useIntl from 'hooks/intl';
 import useStyles from './style';
 
-import image from 'resources/setup-business/business.svg';
+import { currencySelector } from 'redux/onboarding/selectors';
 
-const teamSize = {
-  justMe:   0,
-  s2_4:     1,
-  s5_9:     2,
-  s10_19:   3,
-  s20plus:  4
-}
+import image from 'resources/setup-business/business.svg';
+import { teamSize } from 'helpers/network-constants'
 
 const teamSizeOption = [
   { caption: 'Just me', value: teamSize.justMe },
@@ -34,14 +31,21 @@ function Business(props) {
   const trans = useIntl();
   const classes = useStyles();
   const globalClasses = useGlobalStyles();
-  const [onlinePayment, setOnlinePayment] = useState(true);
-  const [teamSize, setTeamSize] = useState(0)
+  const currencies = useSelector(currencySelector, shallowEqual);
+
+  const { history, onChange, errors, touched, values } = props
 
   const handleOnlinePaymentChange =
-    value => () => setOnlinePayment(value);
+    value => () => onChange({ target: { value, name: 'onlinePayment' } });
 
   const handleTeamSizeChange =
-    size => () => setTeamSize(size)
+    value => () => onChange({ target: { value, name: 'teamSize' } })
+
+  useEffect(() => {
+    if (!currencies || currencies.length === 0) {
+      history.push('/setup-business');
+    }
+  }, []);
 
   return (
     <div>
@@ -82,7 +86,7 @@ function Business(props) {
               <CheckBox
                 button
                 fullWidth
-                checked={teamSize === value}
+                checked={values.teamSize === value}
                 onClick={handleTeamSizeChange(value)}
               >
                 {caption}
@@ -94,14 +98,24 @@ function Business(props) {
         <Grid item xs={12} sm={6}>
           <Select
             fullWidth
-            value={0}
+            onChange={onChange}
+            value={values.currency}
             id='currency'
+            name='currency'
+            error={errors.currency && touched.currency}
             label={trans('login.choose_currency')}
           >
-            <MenuItem key={1} value={0}>
-              ₦ - Nigerian Naira
-            </MenuItem>
+            {currencies && currencies.map((currency, key) => (
+              <MenuItem key={key} value={key}>
+                {currency}
+              </MenuItem>
+            ))}
           </Select>
+          {errors.currency && touched.currency && (
+            <FormHelperText error>
+              {errors.currency}
+            </FormHelperText>
+          )}
         </Grid>
         <Grid item xs={12}>
           <p className={cx(
@@ -115,13 +129,13 @@ function Business(props) {
           <div className={classes.onlinePayment}>
             <RadioButton
               onClick={handleOnlinePaymentChange(true)}
-              checked={onlinePayment}
+              checked={values.onlinePayment}
             >
               {trans('login.yes')}
             </RadioButton>
             <RadioButton
               onClick={handleOnlinePaymentChange(false)}
-              checked={!onlinePayment}
+              checked={!values.onlinePayment}
             >
               {trans('login.no')}
             </RadioButton>

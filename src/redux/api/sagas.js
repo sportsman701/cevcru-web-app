@@ -1,7 +1,7 @@
 import { put, call } from 'redux-saga/effects'
 import axios from 'axios'
 import { requestPending, requestSuccess, requestFail } from './request'
-import { errorCode } from 'helpers/request'
+import { errorCode } from 'helpers/network-constants'
 
 const defaultHeaders = () => {
   const auth = localStorage.getItem('auth')
@@ -35,7 +35,7 @@ export default ({
     params,
     onSuccess,
     onFail
-  } = payload;
+  } = payload || {};
 
   try {
     

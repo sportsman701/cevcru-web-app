@@ -1,6 +1,6 @@
 import React, { useState, useReducer } from 'react'
 import { createAction } from 'redux-actions'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector, shallowEqual } from 'react-redux'
 
 import FormControl from '@material-ui/core/FormControl';
 import Box from '@material-ui/core/Box';
@@ -20,7 +20,7 @@ import {
   useMediaSmallerThan
 } from 'hooks/media';
 import useIntl from 'hooks/intl';
-import { errorCode } from 'helpers/request';
+import { errorCode } from 'helpers/network-constants';
 
 import accountSelector from 'redux/account/selectors';
 import { confirmEmail, resendActivationEmail } from 'redux/account/actions';
@@ -52,7 +52,7 @@ function VerifyMail(props) {
   const mediaSmallerThan = useMediaSmallerThan();
   const dispatch = useDispatch();
   const [ code, setCode ] = useState('');
-  const { userId, email } = useSelector(accountSelector); 
+  const { userId, email } = useSelector(accountSelector, shallowEqual); 
 
   const init = {
     apiResult: {  // false for hide result, other (below) to show alert

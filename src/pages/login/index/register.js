@@ -24,7 +24,7 @@ import useIntl from 'hooks/intl';
 import useGlobalStyles from 'hooks/styles';
 import { media, useMediaUp, useMediaSmallerThan } from 'hooks/media';
 import { isEmail } from 'helpers/validate';
-import { errorCode } from 'helpers/request';
+import { errorCode } from 'helpers/network-constants';
 import { pushAndNavigate } from 'helpers/navigateWithData';
 
 import { signUp, withGoogle } from 'redux/account/actions';

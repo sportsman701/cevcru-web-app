@@ -17,7 +17,7 @@ import Home from 'pages/home'
 
 import { history } from './redux/store'
 import { restoreSession } from './redux/session'
-import { initialSetup } from 'redux/account/selectors'
+import { initialSetupSelector } from 'redux/account/selectors'
 
 import en from 'localization/en.json'
 import es from 'localization/es.json'
@@ -28,19 +28,19 @@ import './App.css'
 const languages = { en, es, fr };
 
 function App() {
-  const { emailConfirmed, businessSetup } = useSelector(initialSetup, shallowEqual);
+  const { emailConfirmed, businessSetup } = useSelector(initialSetupSelector, shallowEqual);
   const session = useRef(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
     try {
-      const account = JSON.parse(localStorage.getItem('account'));
+      const reducers = ['account', 'onboarding'];
+      const restored = reducers.map(reducer => JSON.parse(localStorage.getItem(reducer)));
+      
       session.current = true;
-      if (account) {
-        dispatch(restoreSession({
-          account
-        }))
-      }
+      dispatch(restoreSession(
+        Object.assign({}, ...(restored.map((store, key) => !!store ? { [reducers[key]]: store } : {})))
+      ));
     } catch (e) { }
   }, []);
 

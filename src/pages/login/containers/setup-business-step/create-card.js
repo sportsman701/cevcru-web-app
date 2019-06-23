@@ -40,7 +40,7 @@ function CreateCard(props) {
   const globalClasses = useGlobalStyles();
   const { errors, onChange, onBlur, touched, values } = props
 
-  const handleCountryChange = onChange => value => {
+  const handleCountryChange = value => {
     onChange({
       target: {
         value,
@@ -174,7 +174,7 @@ function CreateCard(props) {
             data={countriesWithFlag}
             value={values.addressCountry}
             onBlur={onBlur}
-            onChange={handleCountryChange(onChange)}
+            onChange={handleCountryChange}
             label={trans('login.address_country')}
             error={errors.addressCountry && touched.addressCountry}
           />

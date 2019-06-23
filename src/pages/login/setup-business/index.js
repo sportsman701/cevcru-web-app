@@ -3,7 +3,6 @@ import React from 'react'
 import { withRouter } from "react-router";
 import { FormattedMessage } from 'react-intl'
 import { Formik } from 'formik';
-import { keys } from 'lodash';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
@@ -26,6 +25,7 @@ import setupBusiness from 'resources/setup-business/setup-business.svg';
 import vencru from 'resources/logo/vencru.svg';
 import hand from 'resources/setup-business/hand.svg';
 
+import { teamSize } from 'helpers/network-constants'
 import useStyles from './style';
 
 
@@ -55,6 +55,7 @@ const steps = [
       'businessType'
     ]
   },
+
   {
     name: 'industry',
     title: 'login.about_your_industry',
@@ -62,18 +63,24 @@ const steps = [
     initialValues: { 
       industry: null,
       hearFrom: null,
-      referral: null
+      referralCode: null
     },
     required: [
       'industry',
       'hearFrom'
     ]
   },
+  
   {
     name: 'business',
     title: 'login.about_your_business',
-    initialValues: { },
-    content: Business
+    content: Business,
+    initialValues: {
+      teamSize: teamSize.justMe,
+      currency: null,
+      onlinePayment: false
+    },
+    required: [ 'currency' ]
   }
 ]
 
@@ -97,12 +104,13 @@ function SetupBusiness(props) {
   }
 
   const handleContinueClick = (values, { setSubmitting }) => {
-    setSubmitting(false);
-    
     if (stepIndex < 2) {
       history.push(`/setup-business/${steps[stepIndex + 1].name}`);
     } else {
-      
+      values.addressCountry = values.addressCountry.data;
+      values.phoneNumber = values.phoneNumber.replace(/ |\+|-|\(|\)/g, '')
+      setSubmitting(false);
+      console.log(values)
     }
   }
 
@@ -118,19 +126,10 @@ function SetupBusiness(props) {
       }
     })
     
-    switch (stepIndex) {
-      case 0:
-        if (!pn(values.phoneNumber).isValid()) {
-          errors.phoneNumber = trans('login.invalid_format');
-        }
-        break;
-
-      case 1:
-        break;
-
-      case 2:
-      default:
-        break;
+    if (stepIndex === 0) {
+      if (!pn(values.phoneNumber).isValid()) {
+        errors.phoneNumber = trans('login.invalid_format');
+      }
     }
 
     return errors;
@@ -166,6 +165,7 @@ function SetupBusiness(props) {
                   {({ values, handleSubmit, handleChange, handleBlur, errors, touched }) => (
                     <Box className={classes.stepContent}>
                       <StepContent
+                        {...props}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         errors={errors}

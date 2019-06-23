@@ -18,7 +18,7 @@ import { Alert, AlertContent } from 'components/alert';
 import useGlobalStyles from 'hooks/styles';
 import useIntl from 'hooks/intl';
 import { isEmail } from 'helpers/validate';
-import { errorCode } from 'helpers/request';
+import { errorCode } from 'helpers/network-constants';
 import { pop, pushAndNavigate } from 'helpers/navigateWithData';
 
 import { initiatePasswordChange } from 'redux/account/actions';
