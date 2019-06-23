@@ -159,6 +159,38 @@
     "Help us learn about your business to better serve you.",
   "login.choose_your_industry":
     "Choose your industry",
+  "login.event_planning":
+    "Event Planning",
+  "login.trades_and_services":
+    "Trades and Services",
+  "login.fashion_accessories":
+    "Fashion / Accessories",
+  "login.development_and_it":
+    "Development and IT",
+  "login.photography":
+    "Photography",
+  "login.bakery_desert":
+    "Bakery / Desert",
+  "login.graphic_design":
+    "Graphic Design",
+  "login.business_consulting":
+    "Business Consulting",
+  "login.planning":
+    "Planning",
+  "login.videography":
+    "Videography",
+  "login.marketing_pr":
+    "Marketing / PR",
+  "login.venue":
+    "Venue",
+  "login.rentals_photo_booths":
+    "Rentals / Photo Booths",
+  "login.hair_makeup":
+    "Hair / Makeup",
+  "login.catering":
+    "Catering",
+  "login.interior_design":
+    "Interior Design",
   "login.how_did_you_hear_about_vencru":
     "How did you hear about Vencru",
   "login.friend":

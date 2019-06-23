@@ -43,13 +43,31 @@ const steps = [
       addressStreet: null,
       addressCountry: null,
       businessType: false
-    }
+    },
+    required: [
+      'firstName',
+      'lastName',
+      'company',
+      'phoneNumber',
+      'addressCity',
+      'addressStreet',
+      'addressCountry',
+      'businessType'
+    ]
   },
   {
     name: 'industry',
     title: 'login.about_your_industry',
-    initialalues: { },
-    content: Industry
+    content: Industry,
+    initialValues: { 
+      industry: null,
+      hearFrom: null,
+      referral: null
+    },
+    required: [
+      'industry',
+      'hearFrom'
+    ]
   },
   {
     name: 'business',
@@ -94,7 +112,7 @@ function SetupBusiness(props) {
 
   const validate = stepIndex => values => {
     const errors = {};
-    keys(steps[stepIndex].initialValues).forEach(field => {
+    steps[stepIndex].required.forEach(field => {
       if (values[field] === null || values[field] === '') {
         errors[field] = trans('login.required');
       }

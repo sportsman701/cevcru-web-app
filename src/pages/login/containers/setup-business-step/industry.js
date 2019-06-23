@@ -2,6 +2,7 @@ import React, { useRef } from 'react'
 
 import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import cx from 'classnames';
 
 import Input from 'components/input';
@@ -13,7 +14,7 @@ import useStyles from './style';
 
 import image from 'resources/setup-business/industry.svg';
 
-const hearAboutVencru = [
+const hearFrom = [
   'login.friend',
   'login.website',
   'login.instagram_facebook',
@@ -24,10 +25,30 @@ const hearAboutVencru = [
   'login.other'
 ]
 
+const industries = [
+  'login.event_planning',
+  'login.trades_and_services',
+  'login.fashion_accessories',
+  'login.development_and_it',
+  'login.photography',
+  'login.bakery_desert',
+  'login.graphic_design',
+  'login.business_consulting',
+  'login.planning',
+  'login.videography',
+  'login.marketing_pr',
+  'login.venue',
+  'login.rentals_photo_booths',
+  'login.hair_makeup',
+  'login.catering',
+  'login.interior_design'
+]
+
 function Industry(props) {
   const trans = useIntl();
   const classes = useStyles();
   const globalClasses = useGlobalStyles();
+  const { errors, onChange, onBlur, touched, values } = props
 
   return (
     <div>
@@ -50,33 +71,58 @@ function Industry(props) {
           <Select
             fullWidth
             id='industry'
+            name="industry"
+            onBlur={onBlur}
+            onChange={onChange}
+            value={values.industry}
+            error={errors.industry && touched.industry}
             label={trans('login.choose_your_industry')}
           >
-            <MenuItem key={1} value={0}>
-              NG
-            </MenuItem>
-          </Select>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <Select
-            fullWidth
-            value={0}
-            id='hearFrom'
-            label={trans('login.how_did_you_hear_about_vencru')}
-          >
-            {hearAboutVencru.map((item, key) => (
+            {industries.map((item, key) => (
               <MenuItem key={key} value={key}>
                 {trans(item)}
               </MenuItem>
             ))}
           </Select>
+          {errors.industry && touched.industry && (
+            <FormHelperText error>
+              {errors.industry}
+            </FormHelperText>
+          )}
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Select
+            fullWidth
+            id='hearFrom'
+            name="hearFrom"
+            onBlur={onBlur}
+            onChange={onChange}
+            value={values.hearFrom}
+            error={errors.hearFrom && touched.hearFrom}
+            label={trans('login.how_did_you_hear_about_vencru')}
+          >
+            {hearFrom.map((item, key) => (
+              <MenuItem key={key} value={key}>
+                {trans(item)}
+              </MenuItem>
+            ))}
+          </Select>
+          {errors.hearFrom && touched.hearFrom && (
+            <FormHelperText error>
+              {errors.hearFrom}
+            </FormHelperText>
+          )}
         </Grid>
         <Grid item xs={12}>
           <Input
             fullWidth
+            id='referralCode'
+            name="referralCode"
+            onBlur={onBlur}
+            onChange={onChange}
+            value={values.referralCode}
             label={trans('login.enter_the_code_for_your_referral')}
             placeholder={trans('login.enter_referral_code')}
-            id='referralCode'
           />
           <p className={cx(
             globalClasses.textPrimary,
