@@ -9,7 +9,8 @@ import ChevronLeft from '@material-ui/icons/ChevronLeft';
 
 import pn from 'awesome-phonenumber';
 import cx from 'classnames';
-import { findIndex } from 'lodash';
+import { findIndex, keys } from 'lodash';
+import fp from 'lodash/fp';
 
 import useGlobalStyles from 'hooks/styles';
 import { media, useMediaUp } from 'hooks/media';
@@ -103,13 +104,21 @@ function SetupBusiness(props) {
     return null;
   }
 
-  const handleContinueClick = (values, { setSubmitting }) => {
+  const handleContinueClick = (values, { setSubmitting, setTouched }) => {
+    const resetTouched = fp.compose(
+      fp.fromPairs,
+      fp.map(v => [v, false]),
+      fp.flatMap(({ initialValues }) => keys(initialValues))
+    )(steps)
+    
+    setTouched(resetTouched);
+    setSubmitting(false);
+
     if (stepIndex < 2) {
       history.push(`/setup-business/${steps[stepIndex + 1].name}`);
     } else {
       values.addressCountry = values.addressCountry.data;
       values.phoneNumber = values.phoneNumber.replace(/ |\+|-|\(|\)/g, '')
-      setSubmitting(false);
       console.log(values)
     }
   }
