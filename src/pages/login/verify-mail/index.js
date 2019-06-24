@@ -22,7 +22,7 @@ import {
 import useIntl from 'hooks/intl';
 import { errorCode } from 'helpers/network-constants';
 
-import accountSelector from 'redux/account/selectors';
+import { identitySelector } from 'redux/account/selectors';
 import { confirmEmail, resendActivationEmail } from 'redux/account/actions';
 import { pushAndNavigate } from 'helpers/navigateWithData';
 
@@ -52,7 +52,7 @@ function VerifyMail(props) {
   const mediaSmallerThan = useMediaSmallerThan();
   const dispatch = useDispatch();
   const [ code, setCode ] = useState('');
-  const { userId, email } = useSelector(accountSelector, shallowEqual); 
+  const { userId, email } = useSelector(identitySelector, shallowEqual); 
 
   const init = {
     apiResult: {  // false for hide result, other (below) to show alert

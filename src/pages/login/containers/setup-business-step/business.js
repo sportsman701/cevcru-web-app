@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useSelector, shallowEqual } from 'react-redux';
 
 import Grid from '@material-ui/core/Grid';
@@ -41,11 +41,10 @@ function Business(props) {
   const handleTeamSizeChange =
     value => () => onChange({ target: { value, name: 'teamSize' } })
 
-  useEffect(() => {
-    if (!currencies || currencies.length === 0) {
-      history.push('/setup-business');
-    }
-  }, []);
+  if (!currencies || currencies.length === 0) {
+    history.push('/setup-business');
+    return null;
+  }
 
   return (
     <div>
@@ -105,8 +104,8 @@ function Business(props) {
             error={errors.currency && touched.currency}
             label={trans('login.choose_currency')}
           >
-            {currencies && currencies.map((currency, key) => (
-              <MenuItem key={key} value={key}>
+            {currencies.map((currency, key) => (
+              <MenuItem key={key} value={currency}>
                 {currency}
               </MenuItem>
             ))}

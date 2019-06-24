@@ -41,6 +41,11 @@ export default ({ account }) => {
   return root;
 }
 
+export const identitySelector = ({ account }) => ({
+  userId: account.userid,
+  email: account.email
+})
+
 export const initialSetupSelector = ({ account }) => ({
   emailConfirmed: account.emailconfirmed,
   businessSetup: findIndex(account.business, ['id', account.currentbusinessid]) >= 0

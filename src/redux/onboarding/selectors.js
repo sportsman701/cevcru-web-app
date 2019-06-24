@@ -8,3 +8,5 @@ export default ({ onboarding }) => {
 }
 
 export const currencySelector = ({ onboarding }) => onboarding.currency
+
+export const otherIndustrySelector = ({ onboarding }) => onboarding.otherIndustry

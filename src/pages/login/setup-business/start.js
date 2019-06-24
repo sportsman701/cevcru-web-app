@@ -14,7 +14,7 @@ import { media, useMediaSmallerThan } from 'hooks/media';
 import useIntl from 'hooks/intl';
 import { pop } from 'helpers/navigateWithData';
 
-import { getCurrency } from 'redux/onboarding/actions'
+import { getCurrency, getOtherIndustry } from 'redux/onboarding/actions'
 import image from 'resources/setup-business/setup-business-start.png';
 
 import useStyles from './style';
@@ -32,6 +32,7 @@ function SetupBusinessStart(props) {
   useEffect(() => {
     setAlert(pop('alert'));
     dispatch(getCurrency());
+    dispatch(getOtherIndustry());
   }, []);
 
   const handleStartSetupBusiness = () => history.push('setup-business/create-card');

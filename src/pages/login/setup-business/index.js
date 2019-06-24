@@ -1,7 +1,7 @@
 import React from 'react'
-
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { withRouter } from "react-router";
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage } from 'react-intl';
 import { Formik } from 'formik';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -22,7 +22,10 @@ import CreateCard from '../containers/setup-business-step/create-card';
 import Industry from '../containers/setup-business-step/industry';
 import Business from '../containers/setup-business-step/business';
 
-import setupBusiness from 'resources/setup-business/setup-business.svg';
+import { identitySelector } from 'redux/account/selectors';
+import { addOnboardingSetupBusiness } from 'redux/onboarding/actions';
+import setupBusiness from 'resources/setup-business/setup-business.svg';import { join } from 'redux-saga/effects';
+
 import vencru from 'resources/logo/vencru.svg';
 import hand from 'resources/setup-business/hand.svg';
 
@@ -92,6 +95,8 @@ function SetupBusiness(props) {
   const classes = useStyles();
   const globalClasses = useGlobalStyles();
   const mediaUp = useMediaUp();
+  const dispatch = useDispatch();
+  const { userId } = useSelector(identitySelector, shallowEqual);
 
   const { match, history } = props;
   const step = match.params.step;
@@ -119,7 +124,29 @@ function SetupBusiness(props) {
     } else {
       values.addressCountry = values.addressCountry.data;
       values.phoneNumber = values.phoneNumber.replace(/ |\+|-|\(|\)/g, '')
-      console.log(values)
+      
+      dispatch(addOnboardingSetupBusiness({
+        body: {
+          userId,
+          firstName: values.firstName,
+          lastName: values.lastName,
+          phoneNumber: values.phoneNumber,
+          companyName: values.company,
+          isIncorporated: values.businessType ? 1 : 0,
+          address: [
+            values.addressStreet,
+            values.addressCity,
+            values.addressCountry].join(', '),
+          city: values.addressCity,
+          country: values.addressCountry,
+          industry: values.industry,
+          employeeSize: values.teamSize,
+          currency: values.currency,
+          onlinePayment: values.onlinePayment
+          // values.heardFrom
+          // values.referralCode
+        }
+      }));
     }
   }
 

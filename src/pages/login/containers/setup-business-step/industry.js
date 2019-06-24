@@ -1,4 +1,5 @@
-import React, { useRef } from 'react'
+import React from 'react'
+import { useSelector, shallowEqual } from 'react-redux';
 
 import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -11,6 +12,8 @@ import Select from 'components/select';
 import useGlobalStyles from 'hooks/styles';
 import useIntl from 'hooks/intl';
 import useStyles from './style';
+
+import { otherIndustrySelector } from 'redux/onboarding/selectors';
 
 import image from 'resources/setup-business/industry.svg';
 
@@ -25,30 +28,24 @@ const hearFrom = [
   'login.other'
 ]
 
-const industries = [
-  'login.event_planning',
+const mainIndustries = [
   'login.trades_and_services',
-  'login.fashion_accessories',
-  'login.development_and_it',
-  'login.photography',
-  'login.bakery_desert',
-  'login.graphic_design',
-  'login.business_consulting',
-  'login.planning',
-  'login.videography',
-  'login.marketing_pr',
-  'login.venue',
-  'login.rentals_photo_booths',
-  'login.hair_makeup',
-  'login.catering',
-  'login.interior_design'
+  'login.development_and_it'
 ]
 
 function Industry(props) {
   const trans = useIntl();
   const classes = useStyles();
   const globalClasses = useGlobalStyles();
-  const { errors, onChange, onBlur, touched, values } = props
+  const { errors, onChange, onBlur, touched, values, history } = props
+  const otherIndustries = useSelector(otherIndustrySelector, shallowEqual);
+  
+  if (!otherIndustries || otherIndustries.length === 0) {
+    history.push('/setup-business');
+    return null;
+  }
+
+  const industries = mainIndustries.map(v => trans(v)).concat(otherIndustries);
 
   return (
     <div>
@@ -79,8 +76,8 @@ function Industry(props) {
             label={trans('login.choose_your_industry')}
           >
             {industries.map((item, key) => (
-              <MenuItem key={key} value={key}>
-                {trans(item)}
+              <MenuItem key={key} value={item}>
+                {item}
               </MenuItem>
             ))}
           </Select>
