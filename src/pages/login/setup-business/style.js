@@ -89,7 +89,7 @@ export default makeStyles(theme => ({
     boxShadow: '0px 2px 9px rgba(0, 0, 0, 0.1)',
     backgroundColor: colors.background.white,
     flexGrow: '1',
-    padding: '40px',
+    padding: '20px 40px',
     minHeight: mainPanelMinHeight,
 
     [theme.breakpoints.up('lg')]: {
@@ -201,5 +201,11 @@ export default makeStyles(theme => ({
   setupBusiness: {
     maxWidth: '200px',
     width: '100%'
+  },
+
+  loader: {
+    minHeight: '20px',
+    display: 'flex',
+    justifyContent: 'center'
   }
 }));

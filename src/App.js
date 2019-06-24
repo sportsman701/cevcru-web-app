@@ -84,6 +84,9 @@ function App() {
         break;
 
       case SetupBusiness:
+        if (businessSetup) return <Redirect to='/'/>
+        break;
+      
       default:
     }
 
@@ -119,12 +122,8 @@ function App() {
           <Route
             path='/setup-business/:step'
             render={passAuthentication(SetupBusiness)} />
-          {/* <Route path='/setup-business/industry' component={SetupBusiness} />
-          <Route path='/setup-business/business' component={SetupBusiness} /> */}
-          {/* <Route path='/account-ready' component={AccountReady} /> */}
-
-          {/* <Redirect to='/' /> */}
-            <Redirect from='*' to='/' />
+            
+          <Redirect from='*' to='/login' />
         </Router>
       </Container>
     </IntlProvider>

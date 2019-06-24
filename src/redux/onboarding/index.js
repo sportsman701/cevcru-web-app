@@ -18,10 +18,5 @@ export default handleActions({
     (state, { payload }) => saveSession('onboarding', {
       ...state,
       otherIndustry: uniq(payload)
-    }),
-
-  [requestSuccess(types.ADD_ONBOARDING_SETUP_BUSINESS)]:
-    (state, { payload }) => saveSession('onboarding', {
-      state
     })
 }, {})

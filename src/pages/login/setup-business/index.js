@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { withRouter } from "react-router";
 import { FormattedMessage } from 'react-intl';
@@ -17,6 +17,7 @@ import { media, useMediaUp } from 'hooks/media';
 import useIntl from 'hooks/intl';
 import Button from 'components/button';
 import Link from 'components/link';
+import BarLoader from 'components/loader';
 
 import CreateCard from '../containers/setup-business-step/create-card';
 import Industry from '../containers/setup-business-step/industry';
@@ -96,6 +97,7 @@ function SetupBusiness(props) {
   const globalClasses = useGlobalStyles();
   const mediaUp = useMediaUp();
   const dispatch = useDispatch();
+  const [ apiStatus, setApiStatus ] = useState(false);
   const { userId } = useSelector(identitySelector, shallowEqual);
 
   const { match, history } = props;
@@ -126,6 +128,7 @@ function SetupBusiness(props) {
       values.addressCountry = values.addressCountry.data;
       values.phoneNumber = values.phoneNumber.replace(/ |\+|-|\(|\)/g, '')
       
+      setApiStatus(true);
       dispatch(addOnboardingSetupBusiness({
         body: {
           userId,
@@ -204,19 +207,26 @@ function SetupBusiness(props) {
                 >
                   {({ values, handleSubmit, handleChange, handleBlur, errors, touched }) => (
                     <Box className={classes.stepContent}>
-                      <StepContent
-                        {...props}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        errors={errors}
-                        touched={touched}
-                        values={values}
-                      />
+                      <div>
+                        <BarLoader
+                          loading={apiStatus}
+                          className={classes.loader}
+                        />
+                        <StepContent
+                          {...props}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          errors={errors}
+                          touched={touched}
+                          values={values}
+                        />
+                      </div>
                       <Grid container className={classes.navigation}>
                         <Grid item xs={7} sm={4}>
                           { stepIndex > 0 && (
                             <Link
                               className={classes.textPrimary}
+                              disabled={apiStatus}
                               onClick={handlePrevClick}
                             >
                               <ChevronLeft/>
@@ -225,7 +235,11 @@ function SetupBusiness(props) {
                           )}
                         </Grid>
                         <Grid item xs={5} sm={4}>
-                          <Button fullWidth onClick={handleSubmit}>
+                          <Button
+                            fullWidth
+                            onClick={handleSubmit}
+                            disabled={apiStatus}
+                          >
                             {trans('login.continue')}
                           </Button>
                         </Grid>
