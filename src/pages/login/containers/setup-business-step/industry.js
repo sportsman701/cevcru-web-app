@@ -99,7 +99,7 @@ function Industry(props) {
             label={trans('login.how_did_you_hear_about_vencru')}
           >
             {hearFrom.map((item, key) => (
-              <MenuItem key={key} value={key}>
+              <MenuItem key={key} value={item}>
                 {trans(item)}
               </MenuItem>
             ))}

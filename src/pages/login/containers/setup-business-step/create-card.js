@@ -97,7 +97,7 @@ function CreateCard(props) {
             </FormHelperText>
           )}
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} md={6}>
           <Input
             fullWidth
             id="company"
@@ -114,7 +114,7 @@ function CreateCard(props) {
             </FormHelperText>
           )}
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} md={6}>
           <PhoneNumberInput
             id="phoneNumber"
             name="phoneNumber"

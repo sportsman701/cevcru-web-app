@@ -101,14 +101,15 @@ function SetupBusiness(props) {
   const { match, history } = props;
   const step = match.params.step;
   const stepIndex = findIndex(steps, { name: step });
-  const stepInfo = steps[stepIndex];
-  const StepContent = stepInfo.content;
-
-  if (stepInfo < 0) {
+  
+  if (stepIndex < 0) {
     history.push('/setup-business');
     return null;
   }
-
+  
+  const stepInfo = steps[stepIndex];
+  const StepContent = stepInfo.content;
+  
   const handleContinueClick = (values, { setSubmitting, setTouched }) => {
     const resetTouched = fp.compose(
       fp.fromPairs,
@@ -142,9 +143,12 @@ function SetupBusiness(props) {
           industry: values.industry,
           employeeSize: values.teamSize,
           currency: values.currency,
-          onlinePayment: values.onlinePayment
-          // values.heardFrom
-          // values.referralCode
+          onlinePayment: values.onlinePayment ? 1 : 0,
+
+          users: [{
+            vencruHeard: values.hearFrom,
+            referralCode: values.referralCode
+          }]
         }
       }));
     }
