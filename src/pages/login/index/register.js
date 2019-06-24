@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux'
 import { Formik } from 'formik';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import MenuItem from '@material-ui/core/MenuItem';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import cx from 'classnames';
@@ -15,23 +14,25 @@ import Welcome from '../containers/welcome';
 import Input from 'components/input';
 import Password from 'components/input/password';
 import Button from 'components/button';
-import Select from 'components/select';
 import Link from 'components/link';
 import BarLoader from 'components/loader';
+import Searchable from 'components/searchable';
+import PhoneNumberInput from 'components/phonenumber';
 import GoogleLogin from 'react-google-login';
+import pn from 'awesome-phonenumber';
 
 import useIntl from 'hooks/intl';
 import useGlobalStyles from 'hooks/styles';
 import { media, useMediaUp, useMediaSmallerThan } from 'hooks/media';
-import { isEmail } from 'helpers/validate';
+import { isEmail, phoneNumber2pure } from 'helpers/validate';
 import { errorCode } from 'helpers/network-constants';
-import { pushAndNavigate } from 'helpers/navigateWithData';
 
 import { signUp, withGoogle } from 'redux/account/actions';
 
 import vencruVerticalMobile from 'resources/logo/vencru-vertical-mobile.svg';
 import google from 'resources/registration/google.svg';
 
+import countries from 'helpers/countries';
 import useStyles from './style';
 
 
@@ -49,6 +50,22 @@ const reducer = (state, { type, payload }) => {
   }
 }
 
+const countriesWithFlag = countries.map(({ label, options }, key) => ({
+  label: key ? 'All' : 'Top',
+  options: options.map(({ code, name }) => ({
+    value: code,
+    label: (
+      <span title={name.length > 25 ? name : undefined}>
+        <span
+          className={`flag-icon flag-icon-${code.toLowerCase()}`}
+          style={{marginRight: '10px', minWidth: '20px'}}
+        />
+        {code}
+      </span>
+    )
+  }))
+}))
+
 function Register(props) {
   const trans = useIntl();
   const classes = useStyles();
@@ -57,7 +74,6 @@ function Register(props) {
   const mediaSmallerThan = useMediaSmallerThan();
   const dispatch = useDispatch();
   const timer = useRef(null);
-  const { history } = props;
 
   const init = {
     apiResult: false,
@@ -81,7 +97,9 @@ function Register(props) {
       body: {
         email: values.email,
         password: values.password,
-        confirmpassword: values.passwordConfirm
+        confirmPassword: values.passwordConfirm,
+        country: values.country.value,
+        phoneNumber: phoneNumber2pure(values.phoneNumber)
       },
       onFail: (errCode, { Message }) => {
         let result = false; 
@@ -139,12 +157,31 @@ function Register(props) {
       errors.password = trans('login.password_mismatch');
       errors.passwordConfirm = true;
     }
+    
+    if (!values.country) {
+      errors.country = trans('login.required')
+    }
+
+    if (!values.phoneNumber) {
+      errors.phoneNumber = trans('login.required')
+    }
+
+    if (!pn(values.phoneNumber).isValid()) {
+      errors.phoneNumber = trans('login.invalid_format');
+    }
 
     return errors;
   }
 
   const handlePasswordConfirmKeyUp =
     handleSubmit => e => e.which === 13 && handleSubmit()
+
+  const handleCountryChange = handleChange => value => handleChange({
+    target: {
+      value,
+      name: 'country'
+    }
+  })
 
   return (
     <Box className={cx(
@@ -192,11 +229,11 @@ function Register(props) {
               </p>
             )}
             <Formik
-              initialValues={{ email: null, password: null }}
+              initialValues={{ email: null, password: null, country: null, phoneNumber: '' }}
               onSubmit={handleSignupClick}
               validate={validate}
             >
-              {({ handleSubmit, handleChange, handleBlur, errors, touched }) => (
+              {({ handleSubmit, handleChange, handleBlur, errors, touched, values }) => (
                 <>
                   <FormControl>
                     <Input
@@ -231,18 +268,45 @@ function Register(props) {
                       name='passwordConfirm'
                       placeholder={trans('login.confirm_password')}
                       onChange={handleChange}
-                      error={errors.passwordConfirm && touched.passwordConfirm}
+                      error={errors.passwordConfirm}
                       onKeyUp={handlePasswordConfirmKeyUp(handleSubmit)}
                       onBlur={handleBlur}
                     />
                   </FormControl>
-                  <FormControl className={classes.phone}>
-                    <Select value={0}>
-                      <MenuItem value={0}>NG</MenuItem>
-                      <MenuItem value={1}>AU</MenuItem>
-                    </Select>
-                    <Input placeholder={'+234 (0) 123-456-7890'} />
-                  </FormControl>
+                  <div className={classes.phone}>
+                    <div>
+                      <Searchable
+                        name="country"
+                        data={countriesWithFlag}
+                        onBlur={handleBlur}
+                        error={errors.country && touched.country}
+                        className={classes.country}
+                        onChange={handleCountryChange(handleChange)}
+                      />
+                      {errors.country && touched.country && (
+                        <FormHelperText className={classes.countryError} error>
+                          {errors.country}
+                        </FormHelperText>
+                      )}
+                    </div>
+                    <div>
+                      <FormControl>
+                        <PhoneNumberInput
+                          name="phoneNumber"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.phoneNumber}
+                          error={errors.phoneNumber && touched.phoneNumber}
+                          searchPlaceholder={trans('login.search')}
+                        />
+                        {errors.phoneNumber && touched.phoneNumber && (
+                          <FormHelperText error>
+                            {errors.phoneNumber}
+                          </FormHelperText>
+                        )}
+                      </FormControl>
+                    </div>
+                  </div>
                   { apiResult && (
                     <p className={classes.invalidCredential}>
                       { apiResult }

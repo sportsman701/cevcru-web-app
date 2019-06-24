@@ -13,11 +13,12 @@ export default makeStyles(theme => ({
     display: 'flex',
     padding: 0,
     height: 'auto',
+    zIndex: 1
   },
 
   valueContainer: {
     display: 'flex',
-    padding: '7px 12px',
+    padding: '7px 0 7px 12px',
     flex: 1,
     alignItems: 'center',
     overflow: 'hidden',

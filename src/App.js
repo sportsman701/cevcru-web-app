@@ -123,7 +123,7 @@ function App() {
             path='/setup-business/:step'
             render={passAuthentication(SetupBusiness)} />
             
-          <Redirect from='*' to='/login' />
+          {/* <Redirect from='*' to='/login' /> */}
         </Router>
       </Container>
     </IntlProvider>

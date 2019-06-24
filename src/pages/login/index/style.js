@@ -69,12 +69,16 @@ export default makeStyles(theme => ({
 
     '&>div:first-child': {
       marginRight: '10px',
-      width: '100px'
+      minWidth: '110px'
     },
 
     '&>div:last-child': {
       flexGrow: 1
     }
+  },
+
+  countryError: {
+    margin: 0
   },
   
   or: {

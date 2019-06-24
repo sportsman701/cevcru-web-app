@@ -31,6 +31,7 @@ import vencru from 'resources/logo/vencru.svg';
 import hand from 'resources/setup-business/hand.svg';
 
 import { teamSize } from 'helpers/network-constants'
+import { phoneNumber2pure } from 'helpers/validate'
 import useStyles from './style';
 
 
@@ -126,7 +127,7 @@ function SetupBusiness(props) {
       history.push(`/setup-business/${steps[stepIndex + 1].name}`);
     } else {
       values.addressCountry = values.addressCountry.data;
-      values.phoneNumber = values.phoneNumber.replace(/ |\+|-|\(|\)/g, '')
+      values.phoneNumber = phoneNumber2pure(values.phoneNumber)
       
       setApiStatus(true);
       dispatch(addOnboardingSetupBusiness({

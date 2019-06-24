@@ -81,6 +81,7 @@ export default makeStyles({
 
       '& fieldset': {
         transition: 'border-color ease .5s',
+        backgroundColor: colors.background.white,
         borderColor: colors.input.border.normal
       },
 
