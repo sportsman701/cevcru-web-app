@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Router, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect, BrowserRouter } from 'react-router-dom';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { IntlProvider } from 'react-intl';
 
@@ -57,9 +57,27 @@ function App() {
 
   const passAuthentication = Page => props => {
     const auth = localStorage.getItem('auth');
+    const page = props.match.params.page;
+    const pages = [
+      'expenses',
+      'help',
+      'inventory',
+      'sales',
+      'settings',
+      'share',
+      'clients'
+    ];
 
-    if (!auth || !session) {
+    if (!auth) {
       return <Redirect to='/login' />
+    }
+
+    if (!session.current) {
+      return null;
+    }
+
+    if (!!page && !pages.includes(page)) {
+      return <Redirect to='/' />
     }
 
     switch (Page) {
@@ -96,35 +114,36 @@ function App() {
   return (
     <IntlProvider locale='en' messages={languages['en']}>
       <Container className='App'>
-        <Router history={history}>
-          <Route
-            path='/login/:account?'
-            render={login} />
-          <Route
-            path='/register'
-            component={Register} />
-          <Route
-            path='/forgot-password'
-            component={ForgotPassword} />
-          <Route
-            path='/reset-password'
-            component={ResetPassword} />
-          
-          <Route
-            path="/" exact
-            render={passAuthentication(Home)}/>
-          <Route
-            path='/verify-email'
-            render={passAuthentication(VerifyEmail)} />
-          <Route
-            path='/setup-business' exact
-            render={passAuthentication(SetupBusinessStart)} />
-          <Route
-            path='/setup-business/:step'
-            render={passAuthentication(SetupBusiness)} />
-            
-          {/* <Redirect from='*' to='/login' /> */}
-        </Router>
+        <BrowserRouter>
+          <Switch>
+            <Route
+              path='/login/:account?'
+              render={login} />
+            <Route
+              path='/register'
+              component={Register} />
+            <Route
+              path='/forgot-password'
+              component={ForgotPassword} />
+            <Route
+              path='/reset-password'
+              component={ResetPassword} />
+
+            <Route
+              path='/verify-email'
+              render={passAuthentication(VerifyEmail)} />
+            <Route
+              path='/setup-business'
+              render={passAuthentication(SetupBusinessStart)} />
+            <Route
+              path='/setup-business/:step'
+              render={passAuthentication(SetupBusiness)} />
+              
+            <Route
+              path="/:page?"
+              render={passAuthentication(Home)}/>
+          </Switch>
+        </BrowserRouter>
       </Container>
     </IntlProvider>
   );
