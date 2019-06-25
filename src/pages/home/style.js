@@ -9,23 +9,19 @@ const iconSize = 24;
 export default makeStyles(theme => ({
   appBar: {
     backgroundColor: colors.background.white,
-    marginLeft: drawWidthCollapse,
-    boxShadow: 'none',
     minHeight: '80px',
     color: 'black',
     transition: 'all ease .5s',
+    width: `calc(100% - ${drawWidthCollapse}px)`,
+    boxShadow: '0px 4px 20px rgba(21, 58, 112, 0.1)',
 
     '&.expand': {
-      width: drawerWidthExpand
+      width: `calc(100% - ${drawerWidthExpand}px)`
     },
 
-    [theme.breakpoints.up('sm')]: {
-      width: `calc(100% - ${drawWidthCollapse}px)`,
-      boxShadow: '0px 4px 20px rgba(21, 58, 112, 0.1)',
-
-      '&.expand': {
-        width: `calc(100% - ${drawerWidthExpand}px)`,
-      }
+    [theme.breakpoints.only('xs')]: {
+      width: '100% !important',
+      boxShadow: 'none'
     }
   },
 
@@ -52,11 +48,15 @@ export default makeStyles(theme => ({
 
     '&.expand': {
       width: drawerWidthExpand
+    },
+
+    [theme.breakpoints.only('xs')]: {
+      width: '0 !important'
     }
   },
 
   menubarItem: {
-    padding: `32px ${(drawWidthCollapse - iconSize) / 2}px`,
+    padding: `24px ${(drawWidthCollapse - iconSize) / 2}px`,
     transition: 'padding ease .5s',
 
     '& .MuiListItemText-root': {
@@ -68,6 +68,54 @@ export default makeStyles(theme => ({
 
       '.expand &': {
         minWidth: `${iconSize + 16}px`
+      }
+    }
+  },
+
+  bottomNavigator: {
+    display: 'flex',
+    justifyContent: 'center',
+    position: 'fixed',
+    top: 'auto',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    zIndex: 1201,
+    minHeight: 0,
+    height: '60px',
+    transition: 'all ease .5s',
+    backgroundColor: colors.background.white,
+    boxShadow: `0px 0px 7px 0px ${colors.text.primary.gray}5`,
+
+    [theme.breakpoints.up('sm')]: {
+      height: 0
+    }
+  },
+
+  tab: {
+    paddingTop: 0,
+
+    '& span': {
+      textTransform: 'none',
+      fontSize: 'smaller'
+    },
+
+    '& svg': {
+      width: 20,
+      height: 20,
+      transition: 'all ease .5s',
+      fill: colors.text.primary.normal,
+      fillOpacity: 0.4
+    },
+
+    '&.Mui-selected': {
+      '& span': {
+        color: colors.text.primary.primary
+      },
+
+      '& svg': {
+        fill: colors.text.primary.primary,
+        fillOpacity: 1
       }
     }
   },

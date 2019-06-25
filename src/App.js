@@ -15,7 +15,6 @@ import SetupBusiness from 'pages/login/setup-business'
 import SetupBusinessStart from 'pages/login/setup-business/start'
 import Home from 'pages/home'
 
-import { history } from './redux/store'
 import { restoreSession } from './redux/session'
 import { initialSetupSelector } from 'redux/account/selectors'
 
@@ -59,6 +58,7 @@ function App() {
     const auth = localStorage.getItem('auth');
     const page = props.match.params.page;
     const pages = [
+      'dashboard',
       'expenses',
       'help',
       'inventory',
