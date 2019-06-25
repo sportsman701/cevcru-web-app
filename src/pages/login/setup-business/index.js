@@ -25,7 +25,7 @@ import Business from '../containers/setup-business-step/business';
 
 import { identitySelector } from 'redux/account/selectors';
 import { addOnboardingSetupBusiness } from 'redux/onboarding/actions';
-import setupBusiness from 'resources/setup-business/setup-business.svg';import { join } from 'redux-saga/effects';
+import setupBusiness from 'resources/setup-business/setup-business.svg';
 
 import vencru from 'resources/logo/vencru.svg';
 import hand from 'resources/setup-business/hand.svg';
@@ -153,7 +153,8 @@ function SetupBusiness(props) {
             vencruHeard: values.hearFrom,
             referralCode: values.referralCode
           }]
-        }
+        },
+        onSuccess: () => localStorage.setItem('ready-congrats', true)
       }));
     }
   }
