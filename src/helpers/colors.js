@@ -6,6 +6,7 @@ const colors = {
     normal: '#2D74DA',
     hover: '#4684dd',
     active: '#1055b7',
+    light: '#79A6F6'
   },
 
   inverse: {

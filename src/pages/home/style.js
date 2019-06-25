@@ -2,53 +2,86 @@ import { makeStyles } from '@material-ui/core/styles';
 import colors from 'helpers/colors';
 
 
-const drawerWidth = 240;
+const drawerWidthExpand = 240;
+const drawWidthCollapse = 80;
+const iconSize = 24;
 
 export default makeStyles(theme => ({
-  root: {
-    display: 'flex',
-  },
-
-  drawer: {
-    [theme.breakpoints.up('sm')]: {
-      width: drawerWidth,
-      flexShrink: 0,
-    },
-  },
-
   appBar: {
     backgroundColor: colors.background.white,
-    marginLeft: drawerWidth,
+    marginLeft: drawWidthCollapse,
     boxShadow: 'none',
+    minHeight: '80px',
+    color: 'black',
+    transition: 'all ease .5s',
+
+    '&.expand': {
+      width: drawerWidthExpand
+    },
 
     [theme.breakpoints.up('sm')]: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      boxShadow: '0px 4px 20px rgba(21, 58, 112, 0.1)'
-    },
+      width: `calc(100% - ${drawWidthCollapse}px)`,
+      boxShadow: '0px 4px 20px rgba(21, 58, 112, 0.1)',
+
+      '&.expand': {
+        width: `calc(100% - ${drawerWidthExpand}px)`,
+      }
+    }
   },
 
-  menuButton: {
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
-      display: 'none',
-    },
+  leftMenuToggleBar: {
+    minHeight: '80px',
+    display: 'flex',
+    backgroundColor: colors.primary.normal,
+
+    '& div:last-child': {
+      flexGrow: 1,
+      backgroundColor: colors.primary.light
+    }
   },
 
-  toolbar: theme.mixins.toolbar,
+  toggleMenu: {
+    width: '80px',
+    borderRadius: 0
+  },
 
   drawerPaper: {
-    width: drawerWidth,
+    width: drawWidthCollapse,
+    transition: 'all ease .5s',
+    overflow: 'hidden',
+
+    '&.expand': {
+      width: drawerWidthExpand
+    }
   },
 
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
+  menubarItem: {
+    padding: `32px ${(drawWidthCollapse - iconSize) / 2}px`,
+    transition: 'padding ease .5s',
+
+    '& .MuiListItemText-root': {
+      margin: 0
+    },
+    
+    '& .MuiListItemIcon-root': {
+      minWidth: iconSize,
+
+      '.expand &': {
+        minWidth: `${iconSize + 16}px`
+      }
+    }
   },
 
   menubarIcon: {
-    width: 24,
-    height: 24,
+    width: iconSize,
+    height: iconSize,
     fill: colors.text.primary.normal,
-    fillOpacity: 0.4
+    fillOpacity: 0.4,
+    transition: 'all ease .5s',
+  
+    '&.active': {
+      fill: colors.text.primary.primary,
+      fillOpacity: 1
+    }
   }
 }));
