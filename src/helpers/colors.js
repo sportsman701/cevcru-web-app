@@ -19,7 +19,8 @@ const colors = {
     white: '#FFFFFF',
     primary: '#2D74DA',
     dark: '#264678',
-    light: '#F9F9F9'
+    light: '#F9F9F9',
+    modal: '#00000020'
   },
 
   input: {

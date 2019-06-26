@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { findIndex } from 'lodash'
 
 import AppBar from '@material-ui/core/AppBar';
+import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
 import ListItem from '@material-ui/core/ListItem';
@@ -12,10 +13,18 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
+import Dialog from '@material-ui/core/Dialog';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import AddIcon from '@material-ui/icons/Add';
+import CheckIcon from '@material-ui/icons/Check';
 
+import useIntl from 'hooks/intl';
 import { ReactComponent as ToggleLeftMenuIcon } from 'resources/home/toggle-left-menu.svg';
+import { ReactComponent as BusinessIcon } from 'resources/home/business.svg';
 import { ReactComponent as HomeIcon } from 'resources/home/home.svg';
 import { ReactComponent as MoreIcon } from 'resources/home/more.svg';
 import { ReactComponent as DashboardIcon } from 'resources/home/dashboard.svg';
@@ -32,36 +41,112 @@ import useStyles from './style';
 
 
 const menubar = [
-  { icon: HomeIcon, label: 'Home', link: '/' },
-  { icon: DashboardIcon, label: 'Dashboard', link: '/dashboard' },
-  { icon: SalesIcon, label: 'Sales', link: '/sales' },
-  { icon: ExpenseIcon, label: 'Expenses', link: '/expenses' },
-  { icon: ClientIcon, label: 'Clients', link: '/clients' },
-  { icon: InventoryIcon, label: 'Inventory', link: '/inventory' },
-  { icon: SettingIcon, label: 'Account Settings', link: '/settings' },
-  { icon: ShareIcon, label: 'Share & Earn', link: '/share' },
-  { icon: HelpIcon, label: 'Help', link: '/help' }
+  { icon: HomeIcon, label: 'home.home', link: '/' },
+  { icon: DashboardIcon, label: 'home.dashboard', link: '/dashboard' },
+  { icon: SalesIcon, label: 'home.sales', link: '/sales' },
+  { icon: ExpenseIcon, label: 'home.expenses', link: '/expenses' },
+  { icon: ClientIcon, label: 'home.clients', link: '/clients' },
+  { icon: InventoryIcon, label: 'home.inventory', link: '/inventory' },
+  { icon: SettingIcon, label: 'home.account_settings', link: '/settings' },
+  { icon: ShareIcon, label: 'home.share_earn', link: '/share' },
+  { icon: HelpIcon, label: 'home.help', link: '/help' }
 ]
 
 const sidebar = [
-
+  { icon: InventoryIcon, label: 'home.items', link: '/inventory' },
+  { icon: ClientIcon, label: 'home.clients', link: '/clients' },
+  { },
+  { icon: DashboardIcon, label: 'home.dashboard', link: '/dashboard' },
+  { icon: SalesIcon, label: 'home.sales', link: '/sales' },
+  { icon: ExpenseIcon, label: 'home.expenses', link: '/expenses' },
+  { },
+  { icon: SettingIcon, label: 'home.account_settings', link: '/settings' },
+  { icon: ShareIcon, label: 'home.share_earn', link: '/share' },
+  { icon: HelpIcon, label: 'home.help', link: '/help' }
 ]
 
-const bottombar = [
+function AccountDialog(props) {
+  const trans = useIntl();
+  const { data, onClose, selected, ...other } = props;
+  const classes = useStyles();
+  
+  return (
+    <Dialog onClose={() => onClose(selected)} {...other}>
+      <DialogTitle>
+        {trans('home.your_business_accounts')}
+      </DialogTitle>
+      <List>
+        {data.map(({ name, email }, key) => (
+          <ListItem
+            button
+            key={key}
+            onClick={() => onClose(key)}
+            className={cx(
+              classes.accountMenuItem,
+              {[classes.accountSelected]: key === selected}
+            )}
+          >
+            <ListItemAvatar>
+              <Avatar>
+                <BusinessIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText
+              primary={name}
+              secondary={email}
+            />
+            {selected === key && (
+              <CheckIcon/>
+            )}
+          </ListItem>
+        ))}
 
+        <ListItem button onClick={() => onClose(-1)}>
+          <ListItemAvatar>
+            <Avatar>
+              <AddIcon />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText
+            className={classes.accountMenuItem}
+            primary={trans('home.add_new_account')}
+          />
+        </ListItem>
+      </List>
+    </Dialog>
+  );
+}
+
+const accounts = [
+  { name: 'Rochelle', email: 'Vencru.creative@gmail.com', value: 0 },
+  { name: 'Le Hombre Salon', email: 'team.support@gmail.com', value: 1 }
 ]
 
 function Home(props) {
   const globalClasses = useGlobalStyles();
+  const trans = useIntl();
   const classes = useStyles();
-  const [expandLeftMenu, setExpandLeftMenu] = useState(true);
-  const { history } = props;
+  const [ expandLeftMenu, setExpandLeftMenu ] = useState(true);
+  const [ openSideBar, setOpenSideBar ] = useState(false);
+  const [ accountDialog, setAccountDialog ] = useState(false);
+  const [ account, setAccount ] = useState(0)
+
   const page = props.match.params.page || '';
   const pageIndex = findIndex(menubar, { link: `/${page}`});
 
+  const initial = accounts[account].name.split(' ').map(v => v.toUpperCase()[0]).join('');
+
   const handleToggleLeftMenuClick = () => setExpandLeftMenu(stat => !stat)
 
-  const handleBottomNavigatorChange = (event, newValue) => {}
+  const handleBottomMoreClick = () => setOpenSideBar(true)
+
+  const handleAccountDialogClose = value => {
+    setAccountDialog(false);
+    if (value >= 0 && account !== value) {
+      setAccount(value);
+    }
+  }
+
 
   return (
     <>
@@ -109,7 +194,7 @@ function Home(props) {
               </ListItemIcon>
               {expandLeftMenu && (
                 <ListItemText
-                  primary={label}
+                  primary={trans(label)}
                   className={globalClasses.textContrast}
                 />
               )}
@@ -117,20 +202,74 @@ function Home(props) {
           ))}
         </List>
       </Drawer>
-      <div className={classes.bottomNavigator}>
+      <SwipeableDrawer
+        anchor="right"
+        open={openSideBar}
+        className={classes.sideDrawer}
+        onOpen={() => setOpenSideBar(true)}
+        onClose={() => setOpenSideBar(false)}
+      >
+          <div
+            role="presentation"
+            className={classes.sidebar}
+            onClick={() => setOpenSideBar(false)}
+            onKeyDown={() => setOpenSideBar(false)}
+          >
+            <div className={classes.sidebarAvatar}>
+              <Button fullWidth onClick={() => setAccountDialog(true)}>
+                <div className={globalClasses.textInverseHighlight}>
+                  <p>{ accounts[account].name }</p>
+                  <p>{ accounts[account].email }</p>
+                </div>
+                <Avatar
+                  className={classes.avatar}
+                  style={{ fontSize:
+                    initial.length > 3 ? '14px' :
+                    initial.length === 3 ? '18px' : '24px'
+                  }}
+                >
+                  {initial}
+                </Avatar>
+              </Button>
+            </div>
+            <List>
+              {sidebar.map(({ icon: Icon, label, link}, key) =>
+                link ? (
+                  <ListItem
+                    button
+                    to={link}
+                    key={key}
+                    component={Link}
+                    className={classes.sidebarItem}
+                  >
+                    <ListItemIcon className={classes.sidebarIcon}>
+                      <Icon className={cx({active: link === `/${page}`})}/>
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={trans(label)}
+                      className={globalClasses.textNormal}
+                    />
+                  </ListItem>
+                ) : <Divider key={key} />
+              )}
+            </List>
+          </div>
+      </SwipeableDrawer>
+      <div
+        className={classes.bottomNavigator}
+        onClick={openSideBar ? () => setOpenSideBar(false) : undefined}
+      >
         <Tabs
-          value={pageIndex < 4 ? pageIndex : -1}
-          // onChange={handleChange}
+          value={pageIndex < 4 ? pageIndex : undefined}
           variant="scrollable"
           scrollButtons="off"
           indicatorColor="primary"
           textColor="primary"
-          onChange={handleBottomNavigatorChange} 
         >
           {menubar.slice(0, 4).map(({ icon: Icon, label, link}, key) => (
             <Tab
               key={key}
-              label={label}
+              label={trans(label)}
               component={Link}
               to={link}
               icon={<Icon/>}
@@ -138,12 +277,19 @@ function Home(props) {
             />  
           ))}
           <Tab
+            onClick={handleBottomMoreClick}
             label="More"
             icon={<MoreIcon />}
             className={classes.tab}
           />
         </Tabs>
       </div>
+      <AccountDialog
+        data={accounts}
+        open={accountDialog}
+        selected={account}
+        onClose={handleAccountDialogClose}
+      />
     </>
   )
 }

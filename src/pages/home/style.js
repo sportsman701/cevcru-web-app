@@ -5,11 +5,14 @@ import colors from 'helpers/colors';
 const drawerWidthExpand = 240;
 const drawWidthCollapse = 80;
 const iconSize = 24;
+const bottomNavHeight = 60;
+const appbarHeight = 80;
+const appbarMobileHeight = 60;
 
 export default makeStyles(theme => ({
   appBar: {
     backgroundColor: colors.background.white,
-    minHeight: '80px',
+    minHeight: appbarHeight,
     color: 'black',
     transition: 'all ease .5s',
     width: `calc(100% - ${drawWidthCollapse}px)`,
@@ -20,19 +23,55 @@ export default makeStyles(theme => ({
     },
 
     [theme.breakpoints.only('xs')]: {
+      minHeight: appbarMobileHeight,
       width: '100% !important',
       boxShadow: 'none'
     }
   },
 
+  sidebarAvatar: {
+    minHeight: appbarMobileHeight,
+    backgroundColor: colors.primary.normal,
+
+    '& button': {
+      display: 'flex',
+      padding: '10px 15px',
+      alignItems: 'center',
+      borderRadius: 0,
+      textTransform: 'none',
+
+      '& div:first-child': {
+        flexGrow: 1,
+        textAlign: 'right',
+        marginRight: 15,
+  
+        '& p': {
+          margin: '0',
+          fontSize: 'smaller'
+        }
+      }
+    }
+  },
+
+  avatar: {
+    width: 40,
+    height: 40,
+    borderRadius: '10%'
+  },
+
   leftMenuToggleBar: {
-    minHeight: '80px',
+    minHeight: appbarHeight,
     display: 'flex',
     backgroundColor: colors.primary.normal,
+    transition: 'all ease .5s',
 
     '& div:last-child': {
       flexGrow: 1,
       backgroundColor: colors.primary.light
+    },
+
+    [theme.breakpoints.only('xs')]: {
+      minHeight: appbarMobileHeight,
     }
   },
 
@@ -72,6 +111,56 @@ export default makeStyles(theme => ({
     }
   },
 
+  accountMenuItem: {
+    '& .MuiListItemText-secondary': {
+      color: colors.text.primary.gray
+    },
+  },
+
+  accountSelected: {
+    backgroundColor: `${colors.primary.light}50`,
+
+    '& .MuiSvgIcon-root': {
+      marginLeft: '40px',
+      fill: colors.primary.normal
+    }
+  },
+
+  sideDrawer: {
+    zIndex: '1200 !important',
+
+    '& .MuiBackdrop-root': {
+      backgroundColor: `${colors.background.modal}`
+    },
+
+    [theme.breakpoints.up('sm')]: {
+      display: 'none'
+    }
+  },
+
+  sidebar: {
+    width: 260,
+  },
+
+  sidebarItem: {
+    padding: '16px',
+
+    '& .MuiListItemText-root': {
+      margin: 0
+    }
+  },
+
+  sidebarIcon: {
+    minWidth: 32,
+
+    '& svg': {
+      width: 16,
+      height: 16,
+      fill: colors.text.primary.contrast,
+      fillOpacity: 0.4,
+    }
+  },
+
   bottomNavigator: {
     display: 'flex',
     justifyContent: 'center',
@@ -82,7 +171,7 @@ export default makeStyles(theme => ({
     right: 0,
     zIndex: 1201,
     minHeight: 0,
-    height: '60px',
+    height: bottomNavHeight,
     transition: 'all ease .5s',
     backgroundColor: colors.background.white,
     boxShadow: `0px 0px 7px 0px ${colors.text.primary.gray}5`,
@@ -94,6 +183,11 @@ export default makeStyles(theme => ({
 
   tab: {
     paddingTop: 0,
+    transition: 'background-color ease .5s',
+
+    '&:hover': {
+      backgroundColor: `${colors.text.primary.gray}4`
+    },
 
     '& span': {
       textTransform: 'none',
@@ -104,7 +198,7 @@ export default makeStyles(theme => ({
       width: 20,
       height: 20,
       transition: 'all ease .5s',
-      fill: colors.text.primary.normal,
+      fill: colors.text.primary.contrast,
       fillOpacity: 0.4
     },
 

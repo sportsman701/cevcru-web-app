@@ -232,5 +232,30 @@
   "login.yes":
     "Yes",
   "login.no":
-    "No"
+    "No",
+
+  "home.home":
+    "Home",
+  "home.your_business_accounts":
+    "Your Business Accounts",
+  "home.add_new_account":
+    "Add new account",
+  "home.dashboard":
+    "Dashboard",
+  "home.sales":
+    "Sales",
+  "home.expenses":
+    "Expenses",
+  "home.clients":
+    "Clients",
+  "home.inventory":
+    "Inventory",
+  "home.account_settings":
+    "Account Settings",
+  "home.share_earn":
+    "Share & Earn",
+  "home.help":
+    "Help",
+  "home.items":
+    "Items"
 }
