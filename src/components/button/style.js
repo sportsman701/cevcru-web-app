@@ -9,6 +9,12 @@ export default makeStyles({
     boxShadow: 'none',
     color: colors.text.inverse.highlight,
 
+    '&.hasIconRight': {
+      '& svg:last-child': {
+        marginRight: 0
+      }
+    },
+    
     '& .MuiButton-label': {
       '& svg:first-child': {
         marginRight: '10px'

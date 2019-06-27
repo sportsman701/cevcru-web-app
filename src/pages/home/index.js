@@ -187,7 +187,7 @@ function Home(props) {
                   </Button>
                 </Grid>
                 <Grid item>
-                  <Button thin>
+                  <Button thin hasIconRight>
                     {trans('home.create_new')}
                     <ExpandMoreIcon/>
                   </Button>
@@ -210,6 +210,7 @@ function Home(props) {
       >
         <div className={classes.leftMenuToggleBar}>
           <Button
+            hasIconRight
             className={classes.toggleMenu}
             onClick={handleToggleLeftMenuClick}
           >
