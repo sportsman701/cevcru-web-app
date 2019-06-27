@@ -34,10 +34,34 @@ export default makeStyles(theme => ({
   toolbar: {
     flexGrow: 1,
     padding: 0,
-    justifyContent: 'space-between',
+    color: colors.text.inverse.highlight,
 
     [theme.breakpoints.up('sm')]: {
       borderLeft: `1px solid ${colors.primary.light}C0`
+    }
+  },
+
+  mobileHeader: {
+    alignItems: 'center',
+
+    '&>div:first-child': {
+      textAlign: 'right',
+
+      '& button': {
+        width: 36,
+        height: 35,
+        boxShadow: 'none',
+        color: colors.text.inverse.highlight,
+        backgroundColor: colors.primary.normal,
+        border: `2px solid ${colors.text.inverse.highlight}`
+      }
+    },
+
+    '&>div:last-child': {
+      display: 'flex',
+      alignItems: 'center',
+      paddingRight: '15px',
+      justifyContent: 'flex-end'
     }
   },
 
@@ -160,12 +184,32 @@ export default makeStyles(theme => ({
   notification: {
     margin: '0 10px',
 
+    [theme.breakpoints.only('xs')]: {
+      margin: '0 30px 0 0'
+    },
+
     '& .MuiBadge-badge': {
       marginTop: '3px',
       width: 7,
       height: 7,
-      backgroundColor: colors.primary.normal
+      backgroundColor: colors.primary.normal,
+
+      [theme.breakpoints.only('xs')]: {
+        backgroundColor: '#FE8500'
+      }
+    },
+
+    '& svg': {
+      fill: colors.text.primary.normal,
+
+      [theme.breakpoints.only('xs')]: {
+        fill: colors.background.white
+      }
     }
+  },
+
+  createNew: {
+    lineHeight: 1
   },
 
   toggleMenu: {

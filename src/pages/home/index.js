@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { findIndex } from 'lodash'
 
 import AppBar from '@material-ui/core/AppBar';
+import Fab from '@material-ui/core/Fab';
 import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -73,6 +74,11 @@ const sidebar = [
   { icon: HelpIcon, label: 'home.help', link: '/help' }
 ]
 
+const accounts = [
+  { name: 'Rochelle', email: 'Vencru.creative@gmail.com', value: 0 },
+  { name: 'Le Hombre Salon', email: 'team.support@gmail.com', value: 1 }
+]
+
 function AccountDialog(props) {
   const trans = useIntl();
   const { data, onClose, selected, menuExpand, ...other } = props;
@@ -134,10 +140,21 @@ function AccountDialog(props) {
   );
 }
 
-const accounts = [
-  { name: 'Rochelle', email: 'Vencru.creative@gmail.com', value: 0 },
-  { name: 'Le Hombre Salon', email: 'team.support@gmail.com', value: 1 }
-]
+function AccountInitial({initial}) {
+  const classes = useStyles();
+
+  return (
+    <Avatar
+      className={classes.avatar}
+      style={{ fontSize:
+        initial.length > 3 ? '14px' :
+        initial.length === 3 ? '18px' : '24px'
+      }}
+    >
+      {initial}
+    </Avatar>
+  )
+}
 
 function Home(props) {
   const globalClasses = useGlobalStyles();
@@ -177,19 +194,22 @@ function Home(props) {
               <div className={classes.accountSelector}>
                 <Button onClick={() => setAccountDialog(stat => !stat)}>
                   <BusinessIcon />
-                  {accounts[account].name}
+                    {accounts[account].name}
                   <ExpandMoreIcon/>
                 </Button>
               </div>
+
               <Grid container spacing={2}>
+                {mediaUp(media.md) && (
+                  <Grid item>
+                    <Button thin inverse>
+                      <SendIcon/>
+                      {trans('home.invite')}
+                    </Button>
+                  </Grid>
+                )}
                 <Grid item>
-                  <Button thin inverse>
-                    <SendIcon/>
-                    {trans('home.invite')}
-                  </Button>
-                </Grid>
-                <Grid item>
-                  <Button thin hasIconRight>
+                  <Button thin hasIconRight className={classes.createNew}>
                     {trans('home.create_new')}
                     <ExpandMoreIcon/>
                   </Button>
@@ -199,12 +219,28 @@ function Home(props) {
                     <NotificationIcon/>
                   </Badge>
                 </Grid>
+                <Grid item>
+                  <AccountInitial initial={initial} />
+                </Grid>
               </Grid>
             </>
           ) : (
-            <>
-              mobile
-            </>
+            <Grid className={classes.mobileHeader} container>
+              <Grid item xs={4}>
+                <Fab size='small'>
+                  <AddIcon />
+                </Fab>
+              </Grid>
+              <Grid item xs={4} className={globalClasses.textSizeD}>
+                Home
+              </Grid>
+              <Grid item xs={4}>
+                <Badge variant='dot' className={classes.notification}>
+                  <NotificationIcon/>
+                </Badge>
+                <AccountInitial initial={initial} />
+              </Grid>
+            </Grid>
           )}
         </Toolbar>
       </AppBar>
@@ -273,15 +309,7 @@ function Home(props) {
                   <p>{ accounts[account].name }</p>
                   <p>{ accounts[account].email }</p>
                 </div>
-                <Avatar
-                  className={classes.avatar}
-                  style={{ fontSize:
-                    initial.length > 3 ? '14px' :
-                    initial.length === 3 ? '18px' : '24px'
-                  }}
-                >
-                  {initial}
-                </Avatar>
+                <AccountInitial initial={initial} />
               </Button>
             </div>
             <List>
