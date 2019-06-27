@@ -10,32 +10,101 @@ const appbarHeight = 80;
 const appbarMobileHeight = 60;
 
 export default makeStyles(theme => ({
-  appBar: {
+  appbar: {
     backgroundColor: colors.background.white,
     minHeight: appbarHeight,
     color: 'black',
     transition: 'all ease .5s',
     width: `calc(100% - ${drawWidthCollapse}px)`,
     boxShadow: '0px 4px 20px rgba(21, 58, 112, 0.1)',
+    zIndex: '1201',
 
     '&.expand': {
       width: `calc(100% - ${drawerWidthExpand}px)`
     },
 
     [theme.breakpoints.only('xs')]: {
+      backgroundColor: colors.primary.normal,
       minHeight: appbarMobileHeight,
       width: '100% !important',
       boxShadow: 'none'
     }
   },
 
+  toolbar: {
+    flexGrow: 1,
+    padding: 0,
+
+    [theme.breakpoints.up('sm')]: {
+      borderLeft: `1px solid ${colors.primary.light}C0`
+    }
+  },
+
+  accountSelector: {
+    background: colors.primary.light,
+    
+    '& button': {
+      display: 'flex',
+      borderRadius: 0,
+      alignItems: 'center',
+      padding: '10px 15px',
+      height: appbarHeight,
+      color: colors.text.inverse.highlight,
+
+      '& svg:first-child': {
+        marginRight: '10px'
+      }
+    }
+  },
+
+  accountDialog: {
+    '& .MuiBackdrop-root': {
+      backgroundColor: '#0006'
+    },
+
+    '& .MuiDialog-container': {
+      position: 'relative',
+      transition: 'all ease .5s !important',
+    },
+
+    '&.expand .MuiDialog-container': {
+      [theme.breakpoints.up('sm')]: {
+        left: drawerWidthExpand
+      }
+    },
+
+    [theme.breakpoints.up('sm')]: {
+      top: `${appbarHeight}px !important`,
+      
+      '& .MuiBackdrop-root': {
+        top: appbarHeight
+      },
+
+      '& .MuiDialog-container': {
+        height: 'auto',
+        justifyContent: 'start',
+        left: drawWidthCollapse,
+      
+        '& .MuiDialog-paper': {
+          borderRadius: 0,
+          margin: 0,
+  
+          '& .MuiDialogTitle-root .MuiTypography-root': {
+            fontSize: '20px'
+          }
+        }
+      }
+    }
+  },
+
   sidebarAvatar: {
-    minHeight: appbarMobileHeight,
+    height: appbarMobileHeight,
     backgroundColor: colors.primary.normal,
 
     '& button': {
       display: 'flex',
-      padding: '10px 15px',
+      height: '100%',
+      padding: '0 10px',
       alignItems: 'center',
       borderRadius: 0,
       textTransform: 'none',
@@ -84,6 +153,8 @@ export default makeStyles(theme => ({
     width: drawWidthCollapse,
     transition: 'all ease .5s',
     overflow: 'hidden',
+    borderRight: 'none',
+    boxShadow: '4px 0 20px rgba(21, 58, 112, 0.1)',
 
     '&.expand': {
       width: drawerWidthExpand
@@ -127,7 +198,7 @@ export default makeStyles(theme => ({
   },
 
   sideDrawer: {
-    zIndex: '1200 !important',
+    zIndex: '1201 !important',
 
     '& .MuiBackdrop-root': {
       backgroundColor: `${colors.background.modal}`
@@ -169,7 +240,7 @@ export default makeStyles(theme => ({
     bottom: 0,
     left: 0,
     right: 0,
-    zIndex: 1201,
+    zIndex: 1202,
     minHeight: 0,
     height: bottomNavHeight,
     transition: 'all ease .5s',

@@ -21,8 +21,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import AddIcon from '@material-ui/icons/Add';
 import CheckIcon from '@material-ui/icons/Check';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
+import { useMediaUp, media } from 'hooks/media';
 import useIntl from 'hooks/intl';
+
 import { ReactComponent as ToggleLeftMenuIcon } from 'resources/home/toggle-left-menu.svg';
 import { ReactComponent as BusinessIcon } from 'resources/home/business.svg';
 import { ReactComponent as HomeIcon } from 'resources/home/home.svg';
@@ -67,11 +70,18 @@ const sidebar = [
 
 function AccountDialog(props) {
   const trans = useIntl();
-  const { data, onClose, selected, ...other } = props;
+  const { data, onClose, selected, menuExpand, ...other } = props;
   const classes = useStyles();
   
   return (
-    <Dialog onClose={() => onClose(selected)} {...other}>
+    <Dialog
+      className={cx(
+        classes.accountDialog,
+        { 'expand': menuExpand }
+      )}
+      onClose={() => onClose(selected)}
+      {...other}
+    >
       <DialogTitle>
         {trans('home.your_business_accounts')}
       </DialogTitle>
@@ -125,6 +135,7 @@ const accounts = [
 function Home(props) {
   const globalClasses = useGlobalStyles();
   const trans = useIntl();
+  const mediaUp = useMediaUp();
   const classes = useStyles();
   const [ expandLeftMenu, setExpandLeftMenu ] = useState(true);
   const [ openSideBar, setOpenSideBar ] = useState(false);
@@ -147,14 +158,28 @@ function Home(props) {
     }
   }
 
-
   return (
     <>
       <AppBar className={cx(
-        classes.appBar,
+        classes.appbar,
         { expand: expandLeftMenu }
       )}>
-        <Toolbar>sd
+        <Toolbar className={classes.toolbar}>
+          { mediaUp(media.sm) ? (
+            <>
+              <div className={classes.accountSelector}>
+                <Button onClick={() => setAccountDialog(true)}>
+                  <BusinessIcon />
+                  {accounts[account].name}
+                  <ExpandMoreIcon/>
+                </Button>
+              </div>
+            </>
+          ) : (
+            <>
+              mobile
+            </>
+          )}
         </Toolbar>
       </AppBar>
       <Drawer
@@ -289,6 +314,7 @@ function Home(props) {
         open={accountDialog}
         selected={account}
         onClose={handleAccountDialogClose}
+        menuExpand={expandLeftMenu}
       />
     </>
   )
