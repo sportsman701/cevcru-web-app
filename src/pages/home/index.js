@@ -13,6 +13,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
+import Badge from '@material-ui/core/Badge';
 import Dialog from '@material-ui/core/Dialog';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -29,6 +30,7 @@ import { useMediaUp, media } from 'hooks/media';
 import useIntl from 'hooks/intl';
 
 import { ReactComponent as ToggleLeftMenuIcon } from 'resources/home/toggle-left-menu.svg';
+import { ReactComponent as NotificationIcon } from 'resources/home/notification.svg';
 import { ReactComponent as BusinessIcon } from 'resources/home/business.svg';
 import { ReactComponent as HomeIcon } from 'resources/home/home.svg';
 import { ReactComponent as MoreIcon } from 'resources/home/more.svg';
@@ -191,6 +193,11 @@ function Home(props) {
                     {trans('home.create_new')}
                     <ExpandMoreIcon/>
                   </Button>
+                </Grid>
+                <Grid item>
+                  <Badge variant='dot' className={classes.notification}>
+                    <NotificationIcon/>
+                  </Badge>
                 </Grid>
               </Grid>
             </>

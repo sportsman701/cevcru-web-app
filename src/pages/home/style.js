@@ -157,6 +157,17 @@ export default makeStyles(theme => ({
     }
   },
 
+  notification: {
+    margin: '0 10px',
+
+    '& .MuiBadge-badge': {
+      marginTop: '3px',
+      width: 7,
+      height: 7,
+      backgroundColor: colors.primary.normal
+    }
+  },
+
   toggleMenu: {
     width: '80px',
     borderRadius: 0
