@@ -257,5 +257,9 @@
   "home.help":
     "Help",
   "home.items":
-    "Items"
+    "Items",
+  "home.invite":
+    "Invite",
+  "home.create_new":
+    "Create New..."
 }

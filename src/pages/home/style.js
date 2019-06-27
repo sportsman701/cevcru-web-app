@@ -34,6 +34,7 @@ export default makeStyles(theme => ({
   toolbar: {
     flexGrow: 1,
     padding: 0,
+    justifyContent: 'space-between',
 
     [theme.breakpoints.up('sm')]: {
       borderLeft: `1px solid ${colors.primary.light}C0`
@@ -49,11 +50,23 @@ export default makeStyles(theme => ({
       alignItems: 'center',
       padding: '10px 15px',
       height: appbarHeight,
+      backgroundColor: 'initial',
       color: colors.text.inverse.highlight,
+
+      '& .MuiButton-label': {
+        textTransform: 'uppercase !important'
+      },
 
       '& svg:first-child': {
         marginRight: '10px'
       }
+    },
+
+    '& + div': {
+      padding: '0 20px',
+      justifyContent: 'flex-end',
+      flexWrap: 'nowrap',
+      alignItems: 'center'
     }
   },
 

@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import { findIndex } from 'lodash'
 
 import AppBar from '@material-ui/core/AppBar';
+import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
@@ -19,10 +19,12 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import AddIcon from '@material-ui/icons/Add';
 import CheckIcon from '@material-ui/icons/Check';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
+import Button from 'components/button';
 import { useMediaUp, media } from 'hooks/media';
 import useIntl from 'hooks/intl';
 
@@ -38,6 +40,7 @@ import { ReactComponent as InventoryIcon } from 'resources/home/inventory.svg';
 import { ReactComponent as SettingIcon } from 'resources/home/setting.svg';
 import { ReactComponent as ShareIcon } from 'resources/home/share.svg';
 import { ReactComponent as HelpIcon } from 'resources/home/help.svg';
+import { ReactComponent as SendIcon } from 'resources/home/send.svg';
 
 import useGlobalStyles from 'hooks/styles';
 import useStyles from './style';
@@ -74,56 +77,58 @@ function AccountDialog(props) {
   const classes = useStyles();
   
   return (
-    <Dialog
-      className={cx(
-        classes.accountDialog,
-        { 'expand': menuExpand }
-      )}
-      onClose={() => onClose(selected)}
-      {...other}
-    >
-      <DialogTitle>
-        {trans('home.your_business_accounts')}
-      </DialogTitle>
-      <List>
-        {data.map(({ name, email }, key) => (
-          <ListItem
-            button
-            key={key}
-            onClick={() => onClose(key)}
-            className={cx(
-              classes.accountMenuItem,
-              {[classes.accountSelected]: key === selected}
-            )}
-          >
+    <ClickAwayListener onClickAway={onClose}>
+      <Dialog
+        className={cx(
+          classes.accountDialog,
+          { 'expand': menuExpand }
+        )}
+        onClose={() => onClose(selected)}
+        {...other}
+      >
+        <DialogTitle>
+          {trans('home.your_business_accounts')}
+        </DialogTitle>
+        <List>
+          {data.map(({ name, email }, key) => (
+            <ListItem
+              button
+              key={key}
+              onClick={() => onClose(key)}
+              className={cx(
+                classes.accountMenuItem,
+                {[classes.accountSelected]: key === selected}
+              )}
+            >
+              <ListItemAvatar>
+                <Avatar>
+                  <BusinessIcon />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText
+                primary={name}
+                secondary={email}
+              />
+              {selected === key && (
+                <CheckIcon/>
+              )}
+            </ListItem>
+          ))}
+
+          <ListItem button onClick={() => onClose(-1)}>
             <ListItemAvatar>
               <Avatar>
-                <BusinessIcon />
+                <AddIcon />
               </Avatar>
             </ListItemAvatar>
             <ListItemText
-              primary={name}
-              secondary={email}
+              className={classes.accountMenuItem}
+              primary={trans('home.add_new_account')}
             />
-            {selected === key && (
-              <CheckIcon/>
-            )}
           </ListItem>
-        ))}
-
-        <ListItem button onClick={() => onClose(-1)}>
-          <ListItemAvatar>
-            <Avatar>
-              <AddIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText
-            className={classes.accountMenuItem}
-            primary={trans('home.add_new_account')}
-          />
-        </ListItem>
-      </List>
-    </Dialog>
+        </List>
+      </Dialog>
+    </ClickAwayListener>
   );
 }
 
@@ -168,12 +173,26 @@ function Home(props) {
           { mediaUp(media.sm) ? (
             <>
               <div className={classes.accountSelector}>
-                <Button onClick={() => setAccountDialog(true)}>
+                <Button onClick={() => setAccountDialog(stat => !stat)}>
                   <BusinessIcon />
                   {accounts[account].name}
                   <ExpandMoreIcon/>
                 </Button>
               </div>
+              <Grid container spacing={2}>
+                <Grid item>
+                  <Button thin inverse>
+                    <SendIcon/>
+                    {trans('home.invite')}
+                  </Button>
+                </Grid>
+                <Grid item>
+                  <Button thin>
+                    {trans('home.create_new')}
+                    <ExpandMoreIcon/>
+                  </Button>
+                </Grid>
+              </Grid>
             </>
           ) : (
             <>

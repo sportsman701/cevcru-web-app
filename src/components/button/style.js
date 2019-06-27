@@ -9,6 +9,16 @@ export default makeStyles({
     boxShadow: 'none',
     color: colors.text.inverse.highlight,
 
+    '& .MuiButton-label': {
+      '& svg:first-child': {
+        marginRight: '10px'
+      },
+
+      '& img:first-child': {
+        marginRight: '10px'
+      }
+    },
+
     '&:hover': {
       backgroundColor: colors.primary.hover
     },
@@ -21,13 +31,17 @@ export default makeStyles({
       backgroundColor: '#EEE'
     }
   },
+
+  thin: {
+    padding: '6px 15px',
+
+    '&.outlined': {
+      padding: '4px 15px'
+    }
+  },
   
   label: {
     textTransform: 'none'
-  },
-
-  icon: {
-    margin: '0 10px 0 0'
   },
 
   grayText: {
