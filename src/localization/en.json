@@ -263,5 +263,7 @@
   "home.create_new":
     "Create New...",
   "home.sign_out":
-    "Sign out"
+    "Sign out",
+  "home.more":
+    "More"
 }

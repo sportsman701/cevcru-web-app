@@ -86,13 +86,19 @@ export default makeStyles(theme => ({
       overflowY: 'auto'
     },
 
-    '& .MuiListItemText-primary': {
-      lineHeight: 1
+    '& .MuiListItemText-root': {
+      margin: 0,
+      
+      '& .MuiListItemText-primary': {
+        lineHeight: 1
+      },
+  
+      '& .MuiListItemText-secondary': {
+        fontSize: 'smaller',
+        marginTop: '5px'
+      }
     },
 
-    '& .MuiListItemText-secondary': {
-      fontSize: 'smaller'
-    },
 
     '&::before': {
       content: '\' \'',

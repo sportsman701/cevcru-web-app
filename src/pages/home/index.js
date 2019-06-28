@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useReducer } from 'react';
+import { createAction } from 'redux-actions';
 import cx from 'classnames';
 import { Link } from 'react-router-dom';
 import { findIndex } from 'lodash'
@@ -52,7 +53,7 @@ import useGlobalStyles from 'hooks/styles';
 import useStyles from './style';
 
 
-const menubar = [
+const menubarContent = [
   { icon: HomeIcon, label: 'home.home', link: '/' },
   { icon: DashboardIcon, label: 'home.dashboard', link: '/dashboard' },
   { icon: SalesIcon, label: 'home.sales', link: '/sales' },
@@ -64,7 +65,7 @@ const menubar = [
   { icon: HelpIcon, label: 'home.help', link: '/help' }
 ]
 
-const sidebar = [
+const sidebarContent = [
   { icon: InventoryIcon, label: 'home.items', link: '/inventory' },
   { icon: ClientIcon, label: 'home.clients', link: '/clients' },
   { },
@@ -82,6 +83,31 @@ const accounts = [
   { name: 'Rochelle', email: 'Vencru.creative@gmail.com', value: 0 },
   { name: 'Le Hombre Salon', email: 'team.support@gmail.com', value: 1 }
 ]
+
+const actionShowPopup = createAction('SHOW_POPUP');
+
+const reducer = (state, { type, payload }) => {
+  switch (type) {
+    case 'SHOW_POPUP':
+      const { popup, show } = payload;
+      const popups = {
+        sidebar: false,
+        accountDialog: false,
+        avatarMenu: false,
+        notifyMenu: false
+      }
+
+      popups[popup] = true;
+
+      if (show === false) {
+        return {...state, [popup]: false}
+      } else {
+        return {...state, ...popups}
+      }
+
+    default:
+  }
+}
 
 function AccountDialog(props) {
   const trans = useIntl();
@@ -166,28 +192,27 @@ function Home(props) {
   const trans = useIntl();
   const mediaUp = useMediaUp();
   const classes = useStyles();
+  const [{
+    sidebar,
+    accountDialog,
+    avatarMenu,
+    notifyMenu
+  }, dispatch] = useReducer(reducer, {});
   const [ expandLeftMenu, setExpandLeftMenu ] = useState(true);
-  const [ openSideBar, setOpenSideBar ] = useState(false);
-  const [ accountDialog, setAccountDialog ] = useState(false);
-  const [ avatarMenu, setAvatarMenu ] = useState(false);
-  const [ notifyMenu, setNotifyMenu ] = useState(false);
   const [ account, setAccount ] = useState(0)
 
   const page = props.match.params.page || '';
-  const pageIndex = findIndex(menubar, { link: `/${page}`});
+  const pageIndex = findIndex(menubarContent, { link: `/${page}`});
 
   const initial = accounts[account].name.split(' ').map(v => v.toUpperCase()[0]).join('');
 
   const handleToggleLeftMenuClick = () => setExpandLeftMenu(stat => !stat)
-
-  const handleBottomMoreClick = () => setOpenSideBar(true)
-
-  const handleNotifyMenuClose = e => setNotifyMenu(false)
   
-  const handleAvatarMenuClose = e => setAvatarMenu(false)
-
+  const showPopup = (popup, show) =>
+    dispatch(actionShowPopup({ popup, show }))
+  
   const handleAccountDialogClose = value => {
-    setAccountDialog(false);
+    showPopup('accountDialog', false);
     if (value >= 0 && account !== value) {
       setAccount(value);
     }
@@ -203,7 +228,7 @@ function Home(props) {
           { mediaUp(media.sm) ? (
             <>
               <div className={classes.accountSelector}>
-                <Button onClick={() => setAccountDialog(stat => !stat)}>
+                <Button onClick={() => showPopup('accountDialog', !accountDialog)}>
                   <BusinessIcon />
                     {accounts[account].name}
                   <ExpandMoreIcon/>
@@ -227,13 +252,13 @@ function Home(props) {
                 </Grid>
                 <Grid item>
                   <Badge variant='dot' className={classes.notification}>
-                    <NotificationIcon onClick={() => setNotifyMenu(true)}/>
+                    <NotificationIcon onClick={() => showPopup('notifyMenu', !notifyMenu)} />
                   </Badge>
                 </Grid>
                 <Grid item>
                   <AccountInitial
                     initial={initial}
-                    onClick={() => setAvatarMenu(true)}
+                    onClick={() => showPopup('avatarMenu', !avatarMenu)}
                 />
                 </Grid>
               </Grid>
@@ -250,11 +275,11 @@ function Home(props) {
               </Grid>
               <Grid item xs={4}>
                 <Badge variant='dot' className={classes.notification}>
-                  <NotificationIcon onClick={() => setNotifyMenu(true)}/>
+                  <NotificationIcon onClick={() => showPopup('notifyMenu', !notifyMenu)}/>
                 </Badge>
                 <AccountInitial
                   initial={initial}
-                  onClick={() => setAvatarMenu(true)}
+                  onClick={() => showPopup('avatarMenu', !avatarMenu)}
                 />
               </Grid>
             </Grid>
@@ -262,11 +287,11 @@ function Home(props) {
         </Toolbar>
       </AppBar>
 
-      <ClickAwayListener onClickAway={handleNotifyMenuClose}>
-        <Grow in={notifyMenu}>
+      <ClickAwayListener onClickAway={() => showPopup('notifyMenu', false)}>
+        <Grow in={!!notifyMenu}>
           <Paper className={classes.notifyMenu}>
             <List component='nav'>
-              <ListItem button onClick={handleNotifyMenuClose}>
+              <ListItem button onClick={() => showPopup('notifyMenu', false)}>
                 <ListItemIcon>
                   <div className={classes.notifyMenuIcon}>
                     <ExpenseIcon/>
@@ -277,7 +302,7 @@ function Home(props) {
                   secondary='1h 57min ago'
                 />
               </ListItem>
-              <ListItem button onClick={handleNotifyMenuClose}>
+              <ListItem button onClick={() => showPopup('notifyMenu', false)}>
                 <ListItemIcon>
                   <div className={classes.notifyMenuIcon}>
                     <ExpenseIcon/>
@@ -293,22 +318,22 @@ function Home(props) {
         </Grow>
       </ClickAwayListener>
       
-      <ClickAwayListener onClickAway={handleAvatarMenuClose}>
-        <Grow in={avatarMenu}>
+      <ClickAwayListener onClickAway={() => showPopup('avatarMenu', false)}>
+        <Grow in={!!avatarMenu}>
           <Paper className={classes.avatarMenu}>
             <List component='nav'>
               <ListItem
                 button
                 component={Link}
                 to='/settings'
-                onClick={handleAvatarMenuClose}
+                onClick={() => showPopup('avatarMenu', false)}
               >
                 <ListItemIcon>
                   <SettingIcon/>
                 </ListItemIcon>
                 <ListItemText primary={trans('home.account_settings')} />
               </ListItem>
-              <ListItem button onClick={handleAvatarMenuClose}>
+              <ListItem button onClick={() => showPopup('avatarMenu', false)}>
                 <ListItemIcon>
                   <SignoutIcon/>
                 </ListItemIcon>
@@ -338,7 +363,7 @@ function Home(props) {
         </div>
         <Divider/>
         <List>
-          {menubar.map(({ icon: Icon, label, link}, key) => (
+          {menubarContent.map(({ icon: Icon, label, link}, key) => (
             <ListItem
               button
               component={Link}
@@ -367,19 +392,19 @@ function Home(props) {
       </Drawer>
       <SwipeableDrawer
         anchor="right"
-        open={openSideBar}
+        open={!!sidebar}
         className={classes.sideDrawer}
-        onOpen={() => setOpenSideBar(true)}
-        onClose={() => setOpenSideBar(false)}
+        onOpen={() => showPopup('sidebar')}
+        onClose={() => showPopup('sidebar', false)}
       >
         <div
           role="presentation"
           className={classes.sidebar}
-          onClick={() => setOpenSideBar(false)}
-          onKeyDown={() => setOpenSideBar(false)}
+          onClick={() => showPopup('sidebar', false)}
+          onKeyDown={() => showPopup('sidebar', false)}
         >
           <div className={classes.sidebarAvatar}>
-            <Button fullWidth onClick={() => setAccountDialog(true)}>
+            <Button fullWidth onClick={() => showPopup('accountDialog')}>
               <div className={globalClasses.textInverseHighlight}>
                 <p>{ accounts[account].name }</p>
                 <p>{ accounts[account].email }</p>
@@ -388,7 +413,7 @@ function Home(props) {
             </Button>
           </div>
           <List>
-            {sidebar.map(({ icon: Icon, label, link}, key) =>
+            {sidebarContent.map(({ icon: Icon, label, link}, key) =>
               label ? (
                 <ListItem
                   button
@@ -412,7 +437,7 @@ function Home(props) {
       </SwipeableDrawer>
       <div
         className={classes.bottomNavigator}
-        onClick={openSideBar ? () => setOpenSideBar(false) : undefined}
+        onClick={sidebar ? () => showPopup('sidebar', false) : undefined}
       >
         <Tabs
           value={pageIndex < 4 ? pageIndex : undefined}
@@ -421,7 +446,7 @@ function Home(props) {
           indicatorColor="primary"
           textColor="primary"
         >
-          {menubar.slice(0, 4).map(({ icon: Icon, label, link}, key) => (
+          {menubarContent.slice(0, 4).map(({ icon: Icon, label, link}, key) => (
             <Tab
               key={key}
               label={trans(label)}
@@ -432,8 +457,8 @@ function Home(props) {
             />  
           ))}
           <Tab
-            onClick={handleBottomMoreClick}
-            label="More"
+            onClick={() => showPopup('sidebar')}
+            label={trans('home.more')}
             icon={<MoreIcon />}
             className={classes.tab}
           />
@@ -441,7 +466,7 @@ function Home(props) {
       </div>
       <AccountDialog
         data={accounts}
-        open={accountDialog}
+        open={!!accountDialog}
         selected={account}
         onClose={handleAccountDialogClose}
         menuExpand={expandLeftMenu}
