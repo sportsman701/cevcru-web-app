@@ -261,5 +261,7 @@
   "home.invite":
     "Invite",
   "home.create_new":
-    "Create New..."
+    "Create New...",
+  "home.sign_out":
+    "Sign out"
 }

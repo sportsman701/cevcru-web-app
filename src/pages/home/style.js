@@ -37,6 +37,7 @@ export default makeStyles(theme => ({
     color: colors.text.inverse.highlight,
 
     [theme.breakpoints.up('sm')]: {
+      justifyContent: 'space-between',
       borderLeft: `1px solid ${colors.primary.light}C0`
     }
   },
@@ -109,6 +110,46 @@ export default makeStyles(theme => ({
     }
   },
 
+  avatarMenu: {
+    zIndex: 3000,
+    position: 'absolute',
+    right: 0,
+    top: 90,
+    marginLeft: 15,
+    marginRight: 10,
+    boxShadow: '0px 11px 15px -7px rgba(0,0,0,0.2), ' +
+               '0px 24px 38px 3px rgba(0,0,0,0.14), ' +
+               '0px 9px 46px 8px rgba(0,0,0,0.12)',
+
+    '& .MuiListItem-root': {
+      '& .MuiListItemIcon-root': {
+        minWidth: 36,
+
+        '& svg': {
+          width: 24,
+          height: 24,
+          fill: colors.text.primary.contrast,
+          fillOpacity: 0.4,
+        }
+      }
+    },
+
+    '&::before': {
+      content: '\' \'',
+      position: 'absolute',
+      border: '15px solid white',
+      borderLeft: '15px solid transparent',
+      borderRight: '15px solid transparent',
+      borderTop: 'none',
+      right: '15px',
+      top: '-15px'
+    },
+
+    [theme.breakpoints.only('xs')]: {
+      top: 70
+    }
+  },
+
   notifyMenuIcon: {
     width: 40,
     height: 40,
@@ -149,7 +190,8 @@ export default makeStyles(theme => ({
       padding: '0 20px',
       justifyContent: 'flex-end',
       flexWrap: 'nowrap',
-      alignItems: 'center'
+      alignItems: 'center',
+      width: 'auto'
     }
   },
 
@@ -221,7 +263,13 @@ export default makeStyles(theme => ({
   avatar: {
     width: 40,
     height: 40,
-    borderRadius: '10%'
+    borderRadius: '10%',
+    cursor: 'pointer',
+    transition: 'background-color ease .5s',
+
+    '&:hover': {
+      backgroundColor: colors.text.primary.placeholder
+    }
   },
 
   leftMenuToggleBar: {
@@ -229,10 +277,6 @@ export default makeStyles(theme => ({
     display: 'flex',
     backgroundColor: colors.primary.normal,
     transition: 'all ease .5s',
-
-    '& button:active': {
-      boxShadow: 'none'
-    },
 
     '& div:last-child': {
       flexGrow: 1,
@@ -292,12 +336,15 @@ export default makeStyles(theme => ({
   drawerPaper: {
     width: drawWidthCollapse,
     transition: 'all ease .5s',
-    overflow: 'hidden',
     borderRight: 'none',
     boxShadow: '4px 0 20px rgba(21, 58, 112, 0.1)',
 
     '&.expand': {
       width: drawerWidthExpand
+    },
+
+    '& .MuiList-root': {
+      overflowY: 'auto',
     },
 
     [theme.breakpoints.only('xs')]: {
@@ -351,6 +398,11 @@ export default makeStyles(theme => ({
 
   sidebar: {
     width: 260,
+
+    '& .MuiList-root': {
+      overflowY: 'auto',
+      height: `calc(100vh - ${bottomNavHeight + appbarMobileHeight}px)`
+    }
   },
 
   sidebarItem: {

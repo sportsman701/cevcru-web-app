@@ -43,6 +43,7 @@ import { ReactComponent as ExpenseIcon } from 'resources/home/expense.svg';
 import { ReactComponent as ClientIcon } from 'resources/home/client.svg';
 import { ReactComponent as InventoryIcon } from 'resources/home/inventory.svg';
 import { ReactComponent as SettingIcon } from 'resources/home/setting.svg';
+import { ReactComponent as SignoutIcon } from 'resources/home/setting.svg';
 import { ReactComponent as ShareIcon } from 'resources/home/share.svg';
 import { ReactComponent as HelpIcon } from 'resources/home/help.svg';
 import { ReactComponent as SendIcon } from 'resources/home/send.svg';
@@ -73,6 +74,7 @@ const sidebar = [
   { },
   { icon: SettingIcon, label: 'home.account_settings', link: '/settings' },
   { icon: ShareIcon, label: 'home.share_earn', link: '/share' },
+  { icon: SignoutIcon, label: 'home.sign_out', link: undefined },
   { icon: HelpIcon, label: 'home.help', link: '/help' }
 ]
 
@@ -142,11 +144,12 @@ function AccountDialog(props) {
   );
 }
 
-function AccountInitial({initial}) {
+function AccountInitial({initial, ...other}) {
   const classes = useStyles();
 
   return (
     <Avatar
+      {...other}
       className={classes.avatar}
       style={{ fontSize:
         initial.length > 3 ? '14px' :
@@ -166,6 +169,7 @@ function Home(props) {
   const [ expandLeftMenu, setExpandLeftMenu ] = useState(true);
   const [ openSideBar, setOpenSideBar ] = useState(false);
   const [ accountDialog, setAccountDialog ] = useState(false);
+  const [ avatarMenu, setAvatarMenu ] = useState(false);
   const [ notifyMenu, setNotifyMenu ] = useState(false);
   const [ account, setAccount ] = useState(0)
 
@@ -179,6 +183,8 @@ function Home(props) {
   const handleBottomMoreClick = () => setOpenSideBar(true)
 
   const handleNotifyMenuClose = e => setNotifyMenu(false)
+  
+  const handleAvatarMenuClose = e => setAvatarMenu(false)
 
   const handleAccountDialogClose = value => {
     setAccountDialog(false);
@@ -225,7 +231,10 @@ function Home(props) {
                   </Badge>
                 </Grid>
                 <Grid item>
-                  <AccountInitial initial={initial} />
+                  <AccountInitial
+                    initial={initial}
+                    onClick={() => setAvatarMenu(true)}
+                />
                 </Grid>
               </Grid>
             </>
@@ -243,7 +252,10 @@ function Home(props) {
                 <Badge variant='dot' className={classes.notification}>
                   <NotificationIcon onClick={() => setNotifyMenu(true)}/>
                 </Badge>
-                <AccountInitial initial={initial} />
+                <AccountInitial
+                  initial={initial}
+                  onClick={() => setAvatarMenu(true)}
+                />
               </Grid>
             </Grid>
           )}
@@ -275,6 +287,32 @@ function Home(props) {
                   primary='You have not uploaded your expenses in 30 days'
                   secondary='23min ago'
                 />
+              </ListItem>
+            </List>
+          </Paper>
+        </Grow>
+      </ClickAwayListener>
+      
+      <ClickAwayListener onClickAway={handleAvatarMenuClose}>
+        <Grow in={avatarMenu}>
+          <Paper className={classes.avatarMenu}>
+            <List component='nav'>
+              <ListItem
+                button
+                component={Link}
+                to='/settings'
+                onClick={handleAvatarMenuClose}
+              >
+                <ListItemIcon>
+                  <SettingIcon/>
+                </ListItemIcon>
+                <ListItemText primary={trans('home.account_settings')} />
+              </ListItem>
+              <ListItem button onClick={handleAvatarMenuClose}>
+                <ListItemIcon>
+                  <SignoutIcon/>
+                </ListItemIcon>
+                <ListItemText primary={trans('home.sign_out')}/>
               </ListItem>
             </List>
           </Paper>
@@ -351,12 +389,12 @@ function Home(props) {
           </div>
           <List>
             {sidebar.map(({ icon: Icon, label, link}, key) =>
-              link ? (
+              label ? (
                 <ListItem
                   button
                   to={link}
                   key={key}
-                  component={Link}
+                  component={link && Link}
                   className={classes.sidebarItem}
                 >
                   <ListItemIcon className={classes.sidebarIcon}>

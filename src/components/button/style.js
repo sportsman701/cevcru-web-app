@@ -9,6 +9,10 @@ export default makeStyles({
     boxShadow: 'none',
     color: colors.text.inverse.highlight,
 
+    '&:active': {
+      boxShadow: 'none'
+    },
+
     '&.hasIconRight': {
       '& svg:last-child': {
         marginRight: 0
