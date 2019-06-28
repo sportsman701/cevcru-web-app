@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import cx from 'classnames';
 import { Link } from 'react-router-dom';
 import { findIndex } from 'lodash'
@@ -6,7 +6,9 @@ import { findIndex } from 'lodash'
 import AppBar from '@material-ui/core/AppBar';
 import Fab from '@material-ui/core/Fab';
 import Grid from '@material-ui/core/Grid';
+import Grow from '@material-ui/core/Grow';
 import Avatar from '@material-ui/core/Avatar';
+import Paper from '@material-ui/core/Paper';
 import Toolbar from '@material-ui/core/Toolbar';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
@@ -164,6 +166,7 @@ function Home(props) {
   const [ expandLeftMenu, setExpandLeftMenu ] = useState(true);
   const [ openSideBar, setOpenSideBar ] = useState(false);
   const [ accountDialog, setAccountDialog ] = useState(false);
+  const [ notifyMenu, setNotifyMenu ] = useState(false);
   const [ account, setAccount ] = useState(0)
 
   const page = props.match.params.page || '';
@@ -174,6 +177,8 @@ function Home(props) {
   const handleToggleLeftMenuClick = () => setExpandLeftMenu(stat => !stat)
 
   const handleBottomMoreClick = () => setOpenSideBar(true)
+
+  const handleNotifyMenuClose = e => setNotifyMenu(false)
 
   const handleAccountDialogClose = value => {
     setAccountDialog(false);
@@ -216,7 +221,7 @@ function Home(props) {
                 </Grid>
                 <Grid item>
                   <Badge variant='dot' className={classes.notification}>
-                    <NotificationIcon/>
+                    <NotificationIcon onClick={() => setNotifyMenu(true)}/>
                   </Badge>
                 </Grid>
                 <Grid item>
@@ -236,7 +241,7 @@ function Home(props) {
               </Grid>
               <Grid item xs={4}>
                 <Badge variant='dot' className={classes.notification}>
-                  <NotificationIcon/>
+                  <NotificationIcon onClick={() => setNotifyMenu(true)}/>
                 </Badge>
                 <AccountInitial initial={initial} />
               </Grid>
@@ -244,6 +249,38 @@ function Home(props) {
           )}
         </Toolbar>
       </AppBar>
+
+      <ClickAwayListener onClickAway={handleNotifyMenuClose}>
+        <Grow in={notifyMenu}>
+          <Paper className={classes.notifyMenu}>
+            <List component='nav'>
+              <ListItem button onClick={handleNotifyMenuClose}>
+                <ListItemIcon>
+                  <div className={classes.notifyMenuIcon}>
+                    <ExpenseIcon/>
+                  </div>
+                </ListItemIcon>
+                <ListItemText
+                  primary='You have X paid invoices and Y overdue invoices'
+                  secondary='1h 57min ago'
+                />
+              </ListItem>
+              <ListItem button onClick={handleNotifyMenuClose}>
+                <ListItemIcon>
+                  <div className={classes.notifyMenuIcon}>
+                    <ExpenseIcon/>
+                  </div>
+                </ListItemIcon>
+                <ListItemText
+                  primary='You have not uploaded your expenses in 30 days'
+                  secondary='23min ago'
+                />
+              </ListItem>
+            </List>
+          </Paper>
+        </Grow>
+      </ClickAwayListener>
+
       <Drawer
         variant="permanent"
         classes={{paper: cx(
@@ -297,43 +334,43 @@ function Home(props) {
         onOpen={() => setOpenSideBar(true)}
         onClose={() => setOpenSideBar(false)}
       >
-          <div
-            role="presentation"
-            className={classes.sidebar}
-            onClick={() => setOpenSideBar(false)}
-            onKeyDown={() => setOpenSideBar(false)}
-          >
-            <div className={classes.sidebarAvatar}>
-              <Button fullWidth onClick={() => setAccountDialog(true)}>
-                <div className={globalClasses.textInverseHighlight}>
-                  <p>{ accounts[account].name }</p>
-                  <p>{ accounts[account].email }</p>
-                </div>
-                <AccountInitial initial={initial} />
-              </Button>
-            </div>
-            <List>
-              {sidebar.map(({ icon: Icon, label, link}, key) =>
-                link ? (
-                  <ListItem
-                    button
-                    to={link}
-                    key={key}
-                    component={Link}
-                    className={classes.sidebarItem}
-                  >
-                    <ListItemIcon className={classes.sidebarIcon}>
-                      <Icon className={cx({active: link === `/${page}`})}/>
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={trans(label)}
-                      className={globalClasses.textNormal}
-                    />
-                  </ListItem>
-                ) : <Divider key={key} />
-              )}
-            </List>
+        <div
+          role="presentation"
+          className={classes.sidebar}
+          onClick={() => setOpenSideBar(false)}
+          onKeyDown={() => setOpenSideBar(false)}
+        >
+          <div className={classes.sidebarAvatar}>
+            <Button fullWidth onClick={() => setAccountDialog(true)}>
+              <div className={globalClasses.textInverseHighlight}>
+                <p>{ accounts[account].name }</p>
+                <p>{ accounts[account].email }</p>
+              </div>
+              <AccountInitial initial={initial} />
+            </Button>
           </div>
+          <List>
+            {sidebar.map(({ icon: Icon, label, link}, key) =>
+              link ? (
+                <ListItem
+                  button
+                  to={link}
+                  key={key}
+                  component={Link}
+                  className={classes.sidebarItem}
+                >
+                  <ListItemIcon className={classes.sidebarIcon}>
+                    <Icon className={cx({active: link === `/${page}`})}/>
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={trans(label)}
+                    className={globalClasses.textNormal}
+                  />
+                </ListItem>
+              ) : <Divider key={key} />
+            )}
+          </List>
+        </div>
       </SwipeableDrawer>
       <div
         className={classes.bottomNavigator}

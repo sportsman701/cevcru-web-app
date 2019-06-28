@@ -53,7 +53,11 @@ export default makeStyles(theme => ({
         boxShadow: 'none',
         color: colors.text.inverse.highlight,
         backgroundColor: colors.primary.normal,
-        border: `2px solid ${colors.text.inverse.highlight}`
+        border: `2px solid ${colors.text.inverse.highlight}`,
+
+        '&:hover': {
+          backgroundColor: `${colors.primary.light}80`
+        }
       }
     },
 
@@ -65,6 +69,60 @@ export default makeStyles(theme => ({
     }
   },
 
+  notifyMenu: {
+    zIndex: 3000,
+    position: 'absolute',
+    right: 0,
+    top: 90,
+    marginLeft: 30,
+    marginRight: 30,
+    boxShadow: '0px 11px 15px -7px rgba(0,0,0,0.2), ' +
+               '0px 24px 38px 3px rgba(0,0,0,0.14), ' +
+               '0px 9px 46px 8px rgba(0,0,0,0.12)',
+
+    '& nav': {
+      maxHeight: 400,
+      overflowY: 'auto'
+    },
+
+    '& .MuiListItemText-primary': {
+      lineHeight: 1
+    },
+
+    '& .MuiListItemText-secondary': {
+      fontSize: 'smaller'
+    },
+
+    '&::before': {
+      content: '\' \'',
+      position: 'absolute',
+      border: '15px solid white',
+      borderLeft: '15px solid transparent',
+      borderRight: '15px solid transparent',
+      borderTop: 'none',
+      right: '50px',
+      top: '-15px'
+    },
+
+    [theme.breakpoints.only('xs')]: {
+      top: 70
+    }
+  },
+
+  notifyMenuIcon: {
+    width: 40,
+    height: 40,
+    padding: 10,
+    borderRadius: '50%',
+    backgroundColor: colors.primary.normal,
+
+    '& svg': {
+      fill: colors.background.white,
+      width: 20,
+      height: 20
+    }
+  },
+  
   accountSelector: {
     background: colors.primary.light,
     
@@ -78,7 +136,8 @@ export default makeStyles(theme => ({
       color: colors.text.inverse.highlight,
 
       '& .MuiButton-label': {
-        textTransform: 'uppercase !important'
+        textTransform: 'uppercase !important',
+        lineHeight: '1.25'
       },
 
       '& svg:first-child': {
@@ -171,6 +230,10 @@ export default makeStyles(theme => ({
     backgroundColor: colors.primary.normal,
     transition: 'all ease .5s',
 
+    '& button:active': {
+      boxShadow: 'none'
+    },
+
     '& div:last-child': {
       flexGrow: 1,
       backgroundColor: colors.primary.light
@@ -201,9 +264,18 @@ export default makeStyles(theme => ({
 
     '& svg': {
       fill: colors.text.primary.normal,
+      cursor: 'pointer',
+
+      '&:hover': {
+        fill: `${colors.text.primary.normal}B0`
+      },
 
       [theme.breakpoints.only('xs')]: {
-        fill: colors.background.white
+        fill: colors.background.white,
+
+        '&:hover': {
+          fill: `${colors.background.white}B0`
+        }
       }
     }
   },
