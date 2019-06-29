@@ -16,7 +16,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { ReactComponent as BusinessIcon } from 'resources/mainframe/business.svg';
 
 import useIntl from 'hooks/intl';
-import useStyles from './style';
+import useStyles from './styles';
 
 function SwitchAccount(props) {
   const trans = useIntl();

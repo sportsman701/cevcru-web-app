@@ -25,7 +25,7 @@ import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import AddIcon from '@material-ui/icons/Add';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-import SwitchAccount from './switch-account';
+import SwitchAccount from './containers/switch-account';
 import Button from 'components/button';
 import { useMediaUp, media } from 'hooks/media';
 import useIntl from 'hooks/intl';
