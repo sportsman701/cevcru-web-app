@@ -13,7 +13,7 @@ import VerifyEmail from 'pages/login/verify-mail'
 
 import SetupBusiness from 'pages/login/setup-business'
 import SetupBusinessStart from 'pages/login/setup-business/start'
-import Home from 'pages/home'
+import MainFrame from 'pages/mainframe'
 
 import { restoreSession } from './redux/session'
 import { initialSetupSelector } from 'redux/account/selectors'
@@ -81,7 +81,7 @@ function App() {
     }
 
     switch (Page) {
-      case Home:
+      case MainFrame:
         if (!emailConfirmed) return <Redirect to='/verify-email'/>
         if (!businessSetup) return <Redirect to='/setup-business'/>
         break;
@@ -141,7 +141,7 @@ function App() {
               
             <Route
               path="/:page?"
-              render={passAuthentication(Home)}/>
+              render={passAuthentication(MainFrame)}/>
           </Switch>
         </BrowserRouter>
       </Container>

@@ -18,65 +18,62 @@ import Tab from '@material-ui/core/Tab';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Badge from '@material-ui/core/Badge';
-import Dialog from '@material-ui/core/Dialog';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import AddIcon from '@material-ui/icons/Add';
-import CheckIcon from '@material-ui/icons/Check';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
+import SwitchAccount from './switch-account';
 import Button from 'components/button';
 import { useMediaUp, media } from 'hooks/media';
 import useIntl from 'hooks/intl';
 
-import { ReactComponent as ToggleLeftMenuIcon } from 'resources/home/toggle-left-menu.svg';
-import { ReactComponent as NotificationIcon } from 'resources/home/notification.svg';
-import { ReactComponent as BusinessIcon } from 'resources/home/business.svg';
-import { ReactComponent as HomeIcon } from 'resources/home/home.svg';
-import { ReactComponent as MoreIcon } from 'resources/home/more.svg';
-import { ReactComponent as DashboardIcon } from 'resources/home/dashboard.svg';
-import { ReactComponent as SalesIcon } from 'resources/home/sale.svg';
-import { ReactComponent as ExpenseIcon } from 'resources/home/expense.svg';
-import { ReactComponent as ClientIcon } from 'resources/home/client.svg';
-import { ReactComponent as InventoryIcon } from 'resources/home/inventory.svg';
-import { ReactComponent as SettingIcon } from 'resources/home/setting.svg';
-import { ReactComponent as SignoutIcon } from 'resources/home/setting.svg';
-import { ReactComponent as ShareIcon } from 'resources/home/share.svg';
-import { ReactComponent as HelpIcon } from 'resources/home/help.svg';
-import { ReactComponent as SendIcon } from 'resources/home/send.svg';
+import { ReactComponent as ToggleLeftMenuIcon } from 'resources/mainframe/toggle-left-menu.svg';
+import { ReactComponent as NotificationIcon } from 'resources/mainframe/notification.svg';
+import { ReactComponent as BusinessIcon } from 'resources/mainframe/business.svg';
+import { ReactComponent as HomeIcon } from 'resources/mainframe/home.svg';
+import { ReactComponent as MoreIcon } from 'resources/mainframe/more.svg';
+import { ReactComponent as DashboardIcon } from 'resources/mainframe/dashboard.svg';
+import { ReactComponent as SalesIcon } from 'resources/mainframe/sale.svg';
+import { ReactComponent as ExpenseIcon } from 'resources/mainframe/expense.svg';
+import { ReactComponent as ClientIcon } from 'resources/mainframe/client.svg';
+import { ReactComponent as InventoryIcon } from 'resources/mainframe/inventory.svg';
+import { ReactComponent as SettingIcon } from 'resources/mainframe/setting.svg';
+import { ReactComponent as SignoutIcon } from 'resources/mainframe/setting.svg';
+import { ReactComponent as ShareIcon } from 'resources/mainframe/share.svg';
+import { ReactComponent as HelpIcon } from 'resources/mainframe/help.svg';
+import { ReactComponent as SendIcon } from 'resources/mainframe/send.svg';
 
 import useGlobalStyles from 'hooks/styles';
 import useStyles from './style';
 
 
 const menubarContent = [
-  { icon: HomeIcon, label: 'home.home', link: '/' },
-  { icon: DashboardIcon, label: 'home.dashboard', link: '/dashboard' },
-  { icon: SalesIcon, label: 'home.sales', link: '/sales' },
-  { icon: ExpenseIcon, label: 'home.expenses', link: '/expenses' },
-  { icon: ClientIcon, label: 'home.clients', link: '/clients' },
-  { icon: InventoryIcon, label: 'home.inventory', link: '/inventory' },
-  { icon: SettingIcon, label: 'home.account_settings', link: '/settings' },
-  { icon: ShareIcon, label: 'home.share_earn', link: '/share' },
-  { icon: HelpIcon, label: 'home.help', link: '/help' }
+  { icon: HomeIcon, label: 'mainframe.home', link: '/' },
+  { icon: DashboardIcon, label: 'mainframe.dashboard', link: '/dashboard' },
+  { icon: SalesIcon, label: 'mainframe.sales', link: '/sales' },
+  { icon: ExpenseIcon, label: 'mainframe.expenses', link: '/expenses' },
+  { icon: ClientIcon, label: 'mainframe.clients', link: '/clients' },
+  { icon: InventoryIcon, label: 'mainframe.inventory', link: '/inventory' },
+  { icon: SettingIcon, label: 'mainframe.account_settings', link: '/settings' },
+  { icon: ShareIcon, label: 'mainframe.share_earn', link: '/share' },
+  { icon: HelpIcon, label: 'mainframe.help', link: '/help' }
 ]
 
 const sidebarContent = [
-  { icon: InventoryIcon, label: 'home.items', link: '/inventory' },
-  { icon: ClientIcon, label: 'home.clients', link: '/clients' },
+  { icon: InventoryIcon, label: 'mainframe.items', link: '/inventory' },
+  { icon: ClientIcon, label: 'mainframe.clients', link: '/clients' },
   { },
-  { icon: DashboardIcon, label: 'home.dashboard', link: '/dashboard' },
-  { icon: SalesIcon, label: 'home.sales', link: '/sales' },
-  { icon: ExpenseIcon, label: 'home.expenses', link: '/expenses' },
+  { icon: DashboardIcon, label: 'mainframe.dashboard', link: '/dashboard' },
+  { icon: SalesIcon, label: 'mainframe.sales', link: '/sales' },
+  { icon: ExpenseIcon, label: 'mainframe.expenses', link: '/expenses' },
   { },
-  { icon: SettingIcon, label: 'home.account_settings', link: '/settings' },
-  { icon: ShareIcon, label: 'home.share_earn', link: '/share' },
-  { icon: SignoutIcon, label: 'home.sign_out', link: undefined },
-  { icon: HelpIcon, label: 'home.help', link: '/help' }
+  { icon: SettingIcon, label: 'mainframe.account_settings', link: '/settings' },
+  { icon: ShareIcon, label: 'mainframe.share_earn', link: '/share' },
+  { icon: SignoutIcon, label: 'mainframe.sign_out', link: undefined },
+  { icon: HelpIcon, label: 'mainframe.help', link: '/help' }
 ]
 
 const accounts = [
@@ -109,67 +106,6 @@ const reducer = (state, { type, payload }) => {
   }
 }
 
-function AccountDialog(props) {
-  const trans = useIntl();
-  const { data, onClose, selected, menuExpand, ...other } = props;
-  const classes = useStyles();
-  
-  return (
-    <ClickAwayListener onClickAway={onClose}>
-      <Dialog
-        className={cx(
-          classes.accountDialog,
-          { 'expand': menuExpand }
-        )}
-        onClose={() => onClose(selected)}
-        {...other}
-      >
-        <DialogTitle>
-          {trans('home.your_business_accounts')}
-        </DialogTitle>
-        <List>
-          {data.map(({ name, email }, key) => (
-            <ListItem
-              button
-              key={key}
-              onClick={() => onClose(key)}
-              className={cx(
-                classes.accountMenuItem,
-                {[classes.accountSelected]: key === selected}
-              )}
-            >
-              <ListItemAvatar>
-                <Avatar>
-                  <BusinessIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary={name}
-                secondary={email}
-              />
-              {selected === key && (
-                <CheckIcon/>
-              )}
-            </ListItem>
-          ))}
-
-          <ListItem button onClick={() => onClose(-1)}>
-            <ListItemAvatar>
-              <Avatar>
-                <AddIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText
-              className={classes.accountMenuItem}
-              primary={trans('home.add_new_account')}
-            />
-          </ListItem>
-        </List>
-      </Dialog>
-    </ClickAwayListener>
-  );
-}
-
 function AccountInitial({initial, ...other}) {
   const classes = useStyles();
 
@@ -187,7 +123,7 @@ function AccountInitial({initial, ...other}) {
   )
 }
 
-function Home(props) {
+function MainFrame(props) {
   const globalClasses = useGlobalStyles();
   const trans = useIntl();
   const mediaUp = useMediaUp();
@@ -240,13 +176,13 @@ function Home(props) {
                   <Grid item>
                     <Button thin inverse>
                       <SendIcon/>
-                      {trans('home.invite')}
+                      {trans('mainframe.invite')}
                     </Button>
                   </Grid>
                 )}
                 <Grid item>
                   <Button thin hasIconRight className={classes.createNew}>
-                    {trans('home.create_new')}
+                    {trans('mainframe.create_new')}
                     <ExpandMoreIcon/>
                   </Button>
                 </Grid>
@@ -331,13 +267,13 @@ function Home(props) {
                 <ListItemIcon>
                   <SettingIcon/>
                 </ListItemIcon>
-                <ListItemText primary={trans('home.account_settings')} />
+                <ListItemText primary={trans('mainframe.account_settings')} />
               </ListItem>
               <ListItem button onClick={() => showPopup('avatarMenu', false)}>
                 <ListItemIcon>
                   <SignoutIcon/>
                 </ListItemIcon>
-                <ListItemText primary={trans('home.sign_out')}/>
+                <ListItemText primary={trans('mainframe.sign_out')}/>
               </ListItem>
             </List>
           </Paper>
@@ -458,13 +394,13 @@ function Home(props) {
           ))}
           <Tab
             onClick={() => showPopup('sidebar')}
-            label={trans('home.more')}
+            label={trans('mainframe.more')}
             icon={<MoreIcon />}
             className={classes.tab}
           />
         </Tabs>
       </div>
-      <AccountDialog
+      <SwitchAccount
         data={accounts}
         open={!!accountDialog}
         selected={account}
@@ -475,4 +411,4 @@ function Home(props) {
   )
 }
 
-export default React.memo(Home);
+export default React.memo(MainFrame);

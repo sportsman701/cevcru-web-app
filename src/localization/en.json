@@ -234,36 +234,36 @@
   "login.no":
     "No",
 
-  "home.home":
+  "mainframe.home":
     "Home",
-  "home.your_business_accounts":
+  "mainframe.your_business_accounts":
     "Your Business Accounts",
-  "home.add_new_account":
+  "mainframe.add_new_account":
     "Add new account",
-  "home.dashboard":
+  "mainframe.dashboard":
     "Dashboard",
-  "home.sales":
+  "mainframe.sales":
     "Sales",
-  "home.expenses":
+  "mainframe.expenses":
     "Expenses",
-  "home.clients":
+  "mainframe.clients":
     "Clients",
-  "home.inventory":
+  "mainframe.inventory":
     "Inventory",
-  "home.account_settings":
+  "mainframe.account_settings":
     "Account Settings",
-  "home.share_earn":
+  "mainframe.share_earn":
     "Share & Earn",
-  "home.help":
+  "mainframe.help":
     "Help",
-  "home.items":
+  "mainframe.items":
     "Items",
-  "home.invite":
+  "mainframe.invite":
     "Invite",
-  "home.create_new":
+  "mainframe.create_new":
     "Create New...",
-  "home.sign_out":
+  "mainframe.sign_out":
     "Sign out",
-  "home.more":
+  "mainframe.more":
     "More"
 }
