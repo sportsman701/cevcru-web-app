@@ -109,11 +109,7 @@ function App() {
       default:
     }
 
-    return (
-      <Page {...props}>
-        <Subview {...props} />
-      </Page>
-    )
+    return <Page {...props} subview={Subview} />
   }
 
   return (
@@ -135,11 +131,7 @@ function App() {
               component={ResetPassword} />
             <Route
               path='/inv'
-              render={props => (
-                <MainFrame {...props}>
-                  <Invoice {...props} />
-                </MainFrame>
-              )} />
+              render={props => <MainFrame {...props} subview={Invoice} />} />
 
             <Route
               path='/verify-email'
@@ -153,7 +145,6 @@ function App() {
               
             <Route
               path="/:page?"
-              view={Invoice}
               render={passAuthentication(MainFrame, Invoice)} />
           </Switch>
         </BrowserRouter>

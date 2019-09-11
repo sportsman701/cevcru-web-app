@@ -74,6 +74,7 @@ export default makeStyles(theme => ({
     position: 'absolute',
     width: '100%',
     left: 0,
+    height: '100%',
     paddingTop: appbarHeight,
     paddingLeft: drawWidthCollapse,
 

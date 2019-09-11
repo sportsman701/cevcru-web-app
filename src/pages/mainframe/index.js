@@ -27,6 +27,7 @@ import AddIcon from '@material-ui/icons/Add';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import SwitchAccount from './containers/switch-account';
+import ViewLoader from './containers/view-loader';
 import Button from 'components/button';
 import { useMediaUp, media } from 'hooks/media';
 import useIntl from 'hooks/intl';
@@ -230,7 +231,7 @@ function MainFrame(props) {
         { expand: expandLeftMenu }
       )}>
         <Box p={3}>
-          {props.children}
+          <ViewLoader {...props} subview={props.subview} />
         </Box>
       </Box>
 
