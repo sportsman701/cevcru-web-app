@@ -145,7 +145,7 @@ function App() {
               
             <Route
               path="/:page?"
-              render={passAuthentication(MainFrame, Invoice)} />
+              render={passAuthentication(MainFrame)} />
           </Switch>
         </BrowserRouter>
       </Container>

@@ -45,13 +45,15 @@ function ViewLoader(props) {
           </div>
         </div>
       )}
-      <Box display={{ xs: apiState === apiStates.success ? 'block' : 'none' }}>
-        <SubView
-          {...subprops}
-          onApiSuccess={handleApiSuccess}
-          onApiFail={handleApiFail}
-        />
-      </Box>
+      {SubView && (
+        <Box display={{ xs: apiState === apiStates.success ? 'block' : 'none' }}>
+          <SubView
+            {...subprops}
+            onApiSuccess={handleApiSuccess}
+            onApiFail={handleApiFail}
+          />
+        </Box>
+      )}
     </>
   )
 }

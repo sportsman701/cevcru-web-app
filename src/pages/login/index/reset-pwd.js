@@ -20,7 +20,10 @@ import useIntl from 'hooks/intl';
 import { errorCode } from 'helpers/network-constants';
 import { pushAndNavigate } from 'helpers/navigateWithData';
 
-import { validatePasswordResetToken, resetPassword } from 'redux/account/actions';
+import {
+  validatePasswordResetToken,
+  resetPassword
+} from 'redux/account/actions';
 
 import vencruVerticalMobile from 'resources/logo/vencru-vertical-mobile.svg';
 
