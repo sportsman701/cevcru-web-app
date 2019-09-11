@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
+import cx from 'classnames';
 import qs from 'qs';
 import { capitalize } from 'lodash'
 import { FormattedMessage } from 'react-intl'
@@ -16,6 +17,8 @@ import accountLogo from 'resources/sale/larochelle.png'
 import stampFullyPaid from 'resources/sale/invoice-fully-paid.svg'
 import stampOverdue from 'resources/sale/invoice-over-due.svg'
 import stampDeposit from 'resources/sale/invoice-deposit-paid.svg'
+
+import useIntl from 'hooks/intl';
 import useStyles from './style';
 
 
@@ -23,6 +26,7 @@ function Invoice(props) {
   const dispatch = useDispatch();
   const [invoiceData, setInvoiceData] = useState();
   const [showSnack, setShowSnack] = useState(true);
+  const trans = useIntl();
   
   const globalClasses = useGlobalStyles();
   const classes = useStyles();
@@ -74,6 +78,8 @@ function Invoice(props) {
     return undefined;
   }
 
+  const {invoice} = invoiceData;
+
   return (
     <>
       <SnackBar
@@ -83,31 +89,75 @@ function Invoice(props) {
         <FormattedMessage
           id='sales.get_invoice_snack_message'
           values={{
-            name: <b>{invoiceData.invoice.client.firstname}</b>,
+            name: <b>{invoice.client.firstname}</b>,
             account: <b>La Rochelle Bakery</b>
           }}
         />
       </SnackBar>
 
-      <Typography className={classes.title}>
-        Invoice 00000010 for Jane Data
-      </Typography>
+      <p className={cx(classes.title, globalClasses.textSubTitle)}>
+        Invoice {invoice.invoicenumber} for {invoice.client.firstname} {invoice.client.lastname}
+      </p>
 
       <Box className={globalClasses.section}>
-        <Grid container>
-          <Grid item>
+        <Grid
+          justify='space-between'
+          alignItems='center'
+          className={classes.overview}
+          container
+        >
+          <Grid item xs className={classes.overviewLeft}>
             <img
               src={accountLogo}
               className={classes.accountLogo}
               alt=''
             />
-            <b></b>
+            <p className={cx(
+              globalClasses.textPrimary,
+              globalClasses.textLarge
+            )}>
+              <b>{trans('sales.billed_to')}</b>
+            </p>
+            <div>{invoice.client.firstname} {invoice.client.lastname}</div>
+            <div className={globalClasses.textPrimary}>{invoice.client.email}</div>
+            <div>+{invoice.client.phonenumber}</div>
           </Grid>
-          <Grid item>
+
+          <Grid item xs className={classes.overviewStamp}>
             <img src={stampFullyPaid} alt='' />
           </Grid>
-          <Grid item>
 
+          <Grid item xs className={classes.overviewRight}>
+            <Box mb={2} className={globalClasses.textPrimary}>
+              <b>La Rochelle sweets</b>
+            </Box>
+            <div>No 7 ajah estate, lagos</div>
+            {/* <div>{invoice.client.street}, {invoice.client.city}, {invoice.client.country}</div> */}
+            <div>{invoice.client.phonenumber}</div>
+            <div>{invoice.email}</div>
+
+            <Box mt={4}>
+              <div className={classes.overviewMeta}>
+                <div className={globalClasses.textPrimary}>
+                  <b>{trans('sales.invoice_number')}</b>
+                </div>
+                <div>{invoice.invoicenumber}</div>
+              </div>
+
+              <div className={classes.overviewMeta}>
+                <div className={globalClasses.textPrimary}>
+                  <b>{trans('sales.date_of_issue')}</b>
+                </div>
+                <div>31/07/2019</div>
+              </div>
+
+              <div className={classes.overviewMeta}>
+                <div className={globalClasses.textPrimary}>
+                  <b>{trans('sales.due_date')}</b>
+                </div>
+                <div>31/08/2019</div>
+              </div>
+            </Box>
           </Grid>
         </Grid>
         <hr className={globalClasses.hbar}/>

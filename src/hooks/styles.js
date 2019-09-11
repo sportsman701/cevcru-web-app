@@ -69,6 +69,14 @@ export default makeStyles(theme => ({
     fontSize: '20px',
   },
 
+  textLarge: {
+    fontSize: 'larger'
+  },
+
+  textSmall: {
+    fontSize: 'smaller'
+  },
+
   textPrimary: {
     color: colors.text.primary.primary
   },

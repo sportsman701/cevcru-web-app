@@ -19,13 +19,15 @@ export default makeStyles(theme => ({
     height: '100%',
     padding: '1.5em 3em',
     display: 'none',
+    fontSize: 14,
 
     '&.show': {
       display: 'block'
     },
 
     [theme.breakpoints.only('xs')]: {
-      padding: '0.7em'
+      padding: '0.7em',
+      fontSize: 12
     }
   }
 }));

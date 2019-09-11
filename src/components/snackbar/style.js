@@ -13,10 +13,7 @@ export default makeStyles(theme => ({
   content: {
     padding: '1em 0 1em 1em',
     textAlign: 'left',
-
-    [theme.breakpoints.only('xs')]: {
-      fontSize: 'smaller'
-    }
+    fontSize: 'larger'
   },
 
   closeButton: {

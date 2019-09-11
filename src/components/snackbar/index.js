@@ -12,7 +12,6 @@ function Snackbar(props) {
   return props.show ? (
     <div className={cx(
       classes.root,
-      globalClasses.textPrimary,
       globalClasses.textPrimary
     )}>
       <div className={classes.content}>
