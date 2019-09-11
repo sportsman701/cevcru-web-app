@@ -53,7 +53,7 @@ import useStyles from './style';
 const menubarContent = [
   { icon: HomeIcon, label: 'mainframe.home', link: '/' },
   { icon: DashboardIcon, label: 'mainframe.dashboard', link: '/dashboard' },
-  { icon: SalesIcon, label: 'mainframe.sales', link: '/sales' },
+  { icon: SalesIcon, label: 'mainframe.sales', link: ['/sales', '/inv'] },
   { icon: ExpenseIcon, label: 'mainframe.expenses', link: '/expenses' },
   { icon: ClientIcon, label: 'mainframe.clients', link: '/clients' },
   { icon: InventoryIcon, label: 'mainframe.inventory', link: '/inventory' },
@@ -67,7 +67,7 @@ const sidebarContent = [
   { icon: ClientIcon, label: 'mainframe.clients', link: '/clients' },
   { },
   { icon: DashboardIcon, label: 'mainframe.dashboard', link: '/dashboard' },
-  { icon: SalesIcon, label: 'mainframe.sales', link: '/sales' },
+  { icon: SalesIcon, label: 'mainframe.sales', link: ['/sales', '/inv'] },
   { icon: ExpenseIcon, label: 'mainframe.expenses', link: '/expenses' },
   { },
   { icon: SettingIcon, label: 'mainframe.account_settings', link: '/settings' },
@@ -106,7 +106,7 @@ const reducer = (state, { type, payload }) => {
   }
 }
 
-function AccountInitial({initial, ...other}) {
+function AccountInitial({ initial, ...other }) {
   const classes = useStyles();
 
   return (
@@ -135,10 +135,11 @@ function MainFrame(props) {
     notifyMenu
   }, dispatch] = useReducer(reducer, {});
   const [ expandLeftMenu, setExpandLeftMenu ] = useState(true);
-  const [ account, setAccount ] = useState(0)
+  const [ account, setAccount ] = useState(0);
 
-  const page = props.match.params.page || '';
-  const pageIndex = findIndex(menubarContent, { link: `/${page}`});
+  const path = props.match.url;
+  const pageIndex = findIndex(menubarContent, ({ link }) =>
+    Array.isArray(link) ? link.includes(path) : link === path);
 
   const initial = accounts[account].name.split(' ').map(v => v.toUpperCase()[0]).join('');
 
@@ -195,7 +196,7 @@ function MainFrame(props) {
                   <AccountInitial
                     initial={initial}
                     onClick={() => showPopup('avatarMenu', !avatarMenu)}
-                />
+                  />
                 </Grid>
               </Grid>
             </>
@@ -303,7 +304,7 @@ function MainFrame(props) {
             <ListItem
               button
               component={Link}
-              to={link}
+              to={Array.isArray(link) ? link[0] : link}
               key={key}
               className={cx(
                 classes.menubarItem,
@@ -353,13 +354,17 @@ function MainFrame(props) {
               label ? (
                 <ListItem
                   button
-                  to={link}
+                  to={Array.isArray(link) ? link[0] : link}
                   key={key}
                   component={link && Link}
                   className={classes.sidebarItem}
                 >
                   <ListItemIcon className={classes.sidebarIcon}>
-                    <Icon className={cx({active: link === `/${page}`})}/>
+                    <Icon className={cx({active:
+                      Array.isArray(link)
+                        ? link.includes(path)
+                        : link === path
+                    })}/>
                   </ListItemIcon>
                   <ListItemText
                     primary={trans(label)}
@@ -387,7 +392,7 @@ function MainFrame(props) {
               key={key}
               label={trans(label)}
               component={Link}
-              to={link}
+              to={Array.isArray(link) ? link[0] : link}
               icon={<Icon/>}
               className={classes.tab}
             />  

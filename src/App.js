@@ -128,6 +128,9 @@ function App() {
             <Route
               path='/reset-password'
               component={ResetPassword} />
+            <Route
+              path='/inv'
+              component={MainFrame} />
 
             <Route
               path='/verify-email'
