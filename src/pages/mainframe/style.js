@@ -78,6 +78,10 @@ export default makeStyles(theme => ({
     paddingTop: appbarHeight,
     paddingLeft: drawWidthCollapse,
 
+    '&>div': {
+      height: '100%'
+    },
+
     '&.expand': {
       paddingLeft: drawerWidthExpand,
 
