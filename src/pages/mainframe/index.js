@@ -7,6 +7,7 @@ import { findIndex } from 'lodash'
 import AppBar from '@material-ui/core/AppBar';
 import Fab from '@material-ui/core/Fab';
 import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import Grow from '@material-ui/core/Grow';
 import Avatar from '@material-ui/core/Avatar';
 import Paper from '@material-ui/core/Paper';
@@ -224,6 +225,15 @@ function MainFrame(props) {
         </Toolbar>
       </AppBar>
 
+      <Box className={cx(
+        classes.content,
+        { expand: expandLeftMenu }
+      )}>
+        <Box p={3}>
+          {props.children}
+        </Box>
+      </Box>
+
       <ClickAwayListener onClickAway={() => showPopup('notifyMenu', false)}>
         <Grow in={!!notifyMenu}>
           <Paper className={classes.notifyMenu}>
@@ -327,6 +337,7 @@ function MainFrame(props) {
           ))}
         </List>
       </Drawer>
+
       <SwipeableDrawer
         anchor="right"
         open={!!sidebar}
@@ -376,6 +387,7 @@ function MainFrame(props) {
           </List>
         </div>
       </SwipeableDrawer>
+      
       <div
         className={classes.bottomNavigator}
         onClick={sidebar ? () => showPopup('sidebar', false) : undefined}
@@ -405,6 +417,7 @@ function MainFrame(props) {
           />
         </Tabs>
       </div>
+      
       <SwitchAccount
         data={accounts}
         open={!!accountDialog}

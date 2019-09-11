@@ -70,6 +70,28 @@ export default makeStyles(theme => ({
     }
   },
 
+  content: {
+    position: 'absolute',
+    width: '100%',
+    left: 0,
+    paddingTop: appbarHeight,
+    paddingLeft: drawWidthCollapse,
+
+    '&.expand': {
+      paddingLeft: drawerWidthExpand,
+
+      [theme.breakpoints.only('xs')]: {
+        paddingLeft: 0
+      }
+    },
+
+    [theme.breakpoints.only('xs')]: {
+      paddingTop: appbarMobileHeight,
+      paddingBottom: bottomNavHeight,
+      paddingLeft: 0
+    }
+  },
+
   notifyMenu: {
     zIndex: 3000,
     position: 'absolute',

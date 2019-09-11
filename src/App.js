@@ -13,6 +13,7 @@ import VerifyEmail from 'pages/login/verify-mail'
 
 import SetupBusiness from 'pages/login/setup-business'
 import SetupBusinessStart from 'pages/login/setup-business/start'
+import Invoice from 'pages/Sales/Invoice'
 import MainFrame from 'pages/mainframe'
 
 import { restoreSession } from './redux/session'
@@ -21,7 +22,7 @@ import { initialSetupSelector } from 'redux/account/selectors'
 import en from 'localization/en.json'
 import es from 'localization/es.json'
 import fr from 'localization/fr.json'
-import './App.css'
+import './App.scss'
 
 
 const languages = { en, es, fr };
@@ -54,7 +55,7 @@ function App() {
     return <Login {...props} />;
   }
 
-  const passAuthentication = Page => props => {
+  const passAuthentication = (Page, Subview) => props => {
     const auth = localStorage.getItem('auth');
     const page = props.match.params.page;
     const pages = [
@@ -108,7 +109,11 @@ function App() {
       default:
     }
 
-    return <Page {...props} />
+    return (
+      <Page {...props}>
+        <Subview {...props} />
+      </Page>
+    )
   }
 
   return (
@@ -130,7 +135,11 @@ function App() {
               component={ResetPassword} />
             <Route
               path='/inv'
-              component={MainFrame} />
+              render={props => (
+                <MainFrame {...props}>
+                  <Invoice {...props} />
+                </MainFrame>
+              )} />
 
             <Route
               path='/verify-email'
@@ -144,7 +153,8 @@ function App() {
               
             <Route
               path="/:page?"
-              render={passAuthentication(MainFrame)}/>
+              view={Invoice}
+              render={passAuthentication(MainFrame, Invoice)} />
           </Switch>
         </BrowserRouter>
       </Container>
