@@ -20,7 +20,12 @@ const colors = {
     primary: '#2D74DA',
     dark: '#264678',
     light: '#F9F9F9',
+    lightBlue: '#EFF4FA',
     modal: '#00000020'
+  },
+
+  snackbar: {
+    info: '#D7F0FF'
   },
 
   input: {

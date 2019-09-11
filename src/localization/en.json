@@ -265,5 +265,8 @@
   "mainframe.sign_out":
     "Sign out",
   "mainframe.more":
-    "More"
+    "More",
+
+  "sales.get_invoice_snack_message":
+    "Hey {name}, Welcome to {account}'s Home Page, here is your invoice"
 }

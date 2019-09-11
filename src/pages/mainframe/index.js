@@ -139,7 +139,8 @@ function MainFrame(props) {
   const [ expandLeftMenu, setExpandLeftMenu ] = useState(true);
   const [ account, setAccount ] = useState(0);
 
-  const path = props.match.url;
+  const url = props.match.url
+  const path = url.slice(-1) === '/' ? url.slice(0, url.length - 1) : url;
   const pageIndex = findIndex(menubarContent, ({ link }) =>
     Array.isArray(link) ? link.includes(path) : link === path);
 
@@ -230,9 +231,7 @@ function MainFrame(props) {
         classes.content,
         { expand: expandLeftMenu }
       )}>
-        <Box p={3}>
-          <ViewLoader {...props} subview={props.subview} />
-        </Box>
+        <ViewLoader {...props} subview={props.subview} />
       </Box>
 
       <ClickAwayListener onClickAway={() => showPopup('notifyMenu', false)}>

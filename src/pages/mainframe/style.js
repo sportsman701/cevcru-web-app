@@ -77,10 +77,7 @@ export default makeStyles(theme => ({
     height: '100%',
     paddingTop: appbarHeight,
     paddingLeft: drawWidthCollapse,
-
-    '&>div': {
-      height: '100%'
-    },
+    backgroundColor: colors.background.lightBlue,
 
     '&.expand': {
       paddingLeft: drawerWidthExpand,
@@ -91,6 +88,7 @@ export default makeStyles(theme => ({
     },
 
     [theme.breakpoints.only('xs')]: {
+      backgroundColor: colors.background.white,
       paddingTop: appbarMobileHeight,
       paddingBottom: bottomNavHeight,
       paddingLeft: 0

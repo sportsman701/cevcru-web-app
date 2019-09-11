@@ -3,12 +3,16 @@ import { useDispatch } from 'react-redux';
 
 import qs from 'qs';
 import { capitalize } from 'lodash'
+import { FormattedMessage } from 'react-intl'
 import { getInvoice, getAllPayment } from 'redux/sales/actions';
+
+import SnackBar from 'components/snackbar';
 
 
 function Invoice(props) {
   const dispatch = useDispatch();
   const [invoiceData, setInvoiceData] = useState();
+  const [showSnack, setShowSnack] = useState(true);
 
   const { token, invoiceid, businessid } =
     qs.parse(props.location.search, { ignoreQueryPrefix: true });
@@ -56,9 +60,22 @@ function Invoice(props) {
   if (!invoiceData) {
     return undefined;
   }
-  
+
   return (
-    <div>invoice</div>
+    <>
+      <SnackBar
+        show={showSnack}
+        onClose={() => setShowSnack(false)}
+      >
+        <FormattedMessage
+          id='sales.get_invoice_snack_message'
+          values={{
+            name: <b>{invoiceData.invoice.client.firstname}</b>,
+            account: <b>La Rochelle Bakery</b>
+          }}
+        />
+      </SnackBar>
+    </>
   )
 }
 

@@ -13,5 +13,19 @@ export default makeStyles(theme => ({
 
   statusContainer: {
     margin: 'auto'
+  },
+
+  viewContainer: {
+    height: '100%',
+    padding: '1.5em 3em',
+    display: 'none',
+
+    '&.show': {
+      display: 'block'
+    },
+
+    [theme.breakpoints.only('xs')]: {
+      padding: '0.7em'
+    }
   }
 }));

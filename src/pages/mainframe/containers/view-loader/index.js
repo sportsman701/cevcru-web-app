@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import Box from '@material-ui/core/Box';
+import cx from 'classnames';
+
 import Typography from '@material-ui/core/Typography';
 
 import BarLoader from 'components/loader';
@@ -46,13 +47,15 @@ function ViewLoader(props) {
         </div>
       )}
       {SubView && (
-        <Box display={{ xs: apiState === apiStates.success ? 'block' : 'none' }}>
+        <div className={cx(
+          classes.viewContainer, {'show': apiState === apiStates.success}
+        )}>
           <SubView
             {...subprops}
             onApiSuccess={handleApiSuccess}
             onApiFail={handleApiFail}
           />
-        </Box>
+        </div>
       )}
     </>
   )
