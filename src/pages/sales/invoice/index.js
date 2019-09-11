@@ -7,12 +7,20 @@ import { FormattedMessage } from 'react-intl'
 import { getInvoice, getAllPayment } from 'redux/sales/actions';
 
 import SnackBar from 'components/snackbar';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+
+import useGlobalStyles from 'hooks/styles';
+import useStyles from './style';
 
 
 function Invoice(props) {
   const dispatch = useDispatch();
   const [invoiceData, setInvoiceData] = useState();
   const [showSnack, setShowSnack] = useState(true);
+  
+  const globalClasses = useGlobalStyles();
+  const classes = useStyles();
 
   const { token, invoiceid, businessid } =
     qs.parse(props.location.search, { ignoreQueryPrefix: true });
@@ -75,6 +83,13 @@ function Invoice(props) {
           }}
         />
       </SnackBar>
+
+      <Typography className={classes.title}>
+        Invoice 00000010 for Jane Data
+      </Typography>
+
+      <Box className={globalClasses.section}>
+      </Box>
     </>
   )
 }

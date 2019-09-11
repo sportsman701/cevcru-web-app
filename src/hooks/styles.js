@@ -32,6 +32,13 @@ export default makeStyles(theme => ({
     }
   },
 
+  section: {
+    backgroundColor: colors.background.white,
+    boxShadow: '0px 1.5px 7px #00000007',
+    borderRadius: 5,
+    padding: '1em'
+  },
+
   textTitleFixed: {
     fontSize: '25px',
     fontWeight: 'bold',
