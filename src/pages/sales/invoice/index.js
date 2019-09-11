@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import qs from 'qs';
@@ -8,6 +8,8 @@ import { getInvoice, getAllPayment } from 'redux/sales/actions';
 
 function Invoice(props) {
   const dispatch = useDispatch();
+  const [invoiceData, setInvoiceData] = useState();
+
   const { token, invoiceid, businessid } =
     qs.parse(props.location.search, { ignoreQueryPrefix: true });
 
@@ -19,7 +21,7 @@ function Invoice(props) {
           invoiceid,
           userId: token
         },
-        onSuccess: () => resolve(),
+        onSuccess: data => resolve(data),
         onFail: (status, data) => reject(capitalize(data.Message))
       }));
     });
@@ -38,18 +40,26 @@ function Invoice(props) {
           todate: '',
           filter: ''
         },
-        onSuccess: () => resolve(),
+        onSuccess: data => resolve(data),
         onFaile: (status, data) => reject(capitalize(data.Message))
       }));
     });
 
     Promise.all([getInvoiceRequest, getAllPaymentRequest])
-      .then(props.onApiSuccess)
+      .then(values => {
+        setInvoiceData({ invoice: values[0], payment: values[1] });
+        props.onApiSuccess();
+      })
       .catch(error => props.onApiFail(error));
   }, []);
-    // props.onApiSuccess()
   
-  return <div>Invoice</div>
+  if (!invoiceData) {
+    return undefined;
+  }
+  
+  return (
+    <div>invoice</div>
+  )
 }
 
 export default React.memo(Invoice);
