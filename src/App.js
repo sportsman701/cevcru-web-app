@@ -13,7 +13,7 @@ import VerifyEmail from 'pages/login/verify-mail'
 
 import SetupBusiness from 'pages/login/setup-business'
 import SetupBusinessStart from 'pages/login/setup-business/start'
-import Invoice from 'pages/Sales/Invoice'
+import Invoice from 'pages/sales/invoice'
 import MainFrame from 'pages/mainframe'
 
 import { restoreSession } from './redux/session'
