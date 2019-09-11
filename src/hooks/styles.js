@@ -39,6 +39,10 @@ export default makeStyles(theme => ({
     padding: '1em'
   },
 
+  hbar: {
+    border: `1px solid ${colors.primary.normal}`
+  },
+
   textTitleFixed: {
     fontSize: '25px',
     fontWeight: 'bold',

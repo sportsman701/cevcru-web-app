@@ -268,5 +268,55 @@
     "More",
 
   "sales.get_invoice_snack_message":
-    "Hey {name}, Welcome to {account}'s Home Page, here is your invoice"
+    "Hey {name}, Welcome to {account}'s Home Page, here is your invoice",
+  "sales.billed_to":
+    "Billed To",
+  "sales.invoice_number":
+    "Invoice Number",
+  "sales.date_of_issue":
+    "Date of Issue",
+  "sales.due_date":
+    "Due Date",
+  "sales.item":
+    "Item",
+  "sales.description":
+    "Description",
+  "sales.price":
+    "Price",
+  "sales.qty":
+    "Qty",
+  "sales.amount":
+    "Amount",
+  "sals.subtotal":
+    "Subtotal",
+  "sales.discount":
+    "Discount",
+  "sales.tax":
+    "Tax",
+  "sales.amount_due":
+    "Amount Due",
+  "sales.deposit":
+    "Deposit",
+  "sales.amount_paid":
+    "Amount Paid",
+  "sales.payment_instructions":
+    "Payment Instructions",
+  "sales.direct_bank_transfer":
+    "Direct Bank Transfer",
+  "sales.bank_name":
+    "Bank Name",
+  "sales.account_number":
+    "Account Number",
+  "sales.account_name":
+    "Account Name",
+  "sales.online_bank_or_card_payment":
+    "Online Bank or Card payment",
+  "sales.pay_now":
+    "PAY NOW",
+  "sales.notes_and_terms":
+    "Notes and Terms",
+  "sales.thank_you_for_your_order":
+    "Thank you for your order. All amounts are in Naira. Please make the 50% payment within 15 days from the issue of date of this invoice. Your order will be completed in 3 weeks.",
+  "sales.track_your_business_profits":
+    "Track your business profits, store your clients information, manage your inventory, send invoices, get paid - all on Vencru"
 }

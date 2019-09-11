@@ -8,9 +8,14 @@ import { getInvoice, getAllPayment } from 'redux/sales/actions';
 
 import SnackBar from 'components/snackbar';
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 
 import useGlobalStyles from 'hooks/styles';
+import accountLogo from 'resources/sale/larochelle.png'
+import stampFullyPaid from 'resources/sale/invoice-fully-paid.svg'
+import stampOverdue from 'resources/sale/invoice-over-due.svg'
+import stampDeposit from 'resources/sale/invoice-deposit-paid.svg'
 import useStyles from './style';
 
 
@@ -89,6 +94,23 @@ function Invoice(props) {
       </Typography>
 
       <Box className={globalClasses.section}>
+        <Grid container>
+          <Grid item>
+            <img
+              src={accountLogo}
+              className={classes.accountLogo}
+              alt=''
+            />
+            <b></b>
+          </Grid>
+          <Grid item>
+            <img src={stampFullyPaid} alt='' />
+          </Grid>
+          <Grid item>
+
+          </Grid>
+        </Grid>
+        <hr className={globalClasses.hbar}/>
       </Box>
     </>
   )
