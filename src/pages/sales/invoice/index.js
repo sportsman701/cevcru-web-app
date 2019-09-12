@@ -404,6 +404,13 @@ function Invoice(props) {
           <span>{trans('sales.powered_by')}</span>
           <img src={vencru} alt='' />
         </Box>
+
+        <p className={cx(
+          globalClasses.textNormal,
+          classes.footerDesc
+        )}>
+          <i><small>{trans('sales.track_your_business_profits')}</small></i>
+        </p>
       </Box>
     </>
   )

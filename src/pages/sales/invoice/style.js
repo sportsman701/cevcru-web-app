@@ -141,6 +141,10 @@ export default makeStyles(theme => ({
     }
   },
 
+  footerDesc: {
+    lineHeight: '1.2em'
+  },
+
   hbarThin: {
     margin: '0.3em 0'
   }
