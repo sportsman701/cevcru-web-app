@@ -36,8 +36,14 @@ export default makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'flex-end',
 
-    '&>div:nth-child(2)': {
-      width: 100
+    [theme.breakpoints.up('sm')]: {
+      '&>div:nth-child(2)': {
+        width: 100
+      }
+    },
+
+    [theme.breakpoints.only('xs')]: {
+      display: 'block'
     }
   }
 }));

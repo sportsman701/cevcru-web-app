@@ -8,7 +8,6 @@ import { FormattedMessage } from 'react-intl'
 import { getInvoice, getAllPayment } from 'redux/sales/actions';
 
 import SnackBar from 'components/snackbar';
-import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 
@@ -18,6 +17,7 @@ import stampFullyPaid from 'resources/sale/invoice-fully-paid.svg'
 import stampOverdue from 'resources/sale/invoice-over-due.svg'
 import stampDeposit from 'resources/sale/invoice-deposit-paid.svg'
 
+import { media, useMediaUp } from 'hooks/media';
 import useIntl from 'hooks/intl';
 import useStyles from './style';
 
@@ -27,6 +27,7 @@ function Invoice(props) {
   const [invoiceData, setInvoiceData] = useState();
   const [showSnack, setShowSnack] = useState(true);
   const trans = useIntl();
+  const mediaUp = useMediaUp();
   
   const globalClasses = useGlobalStyles();
   const classes = useStyles();
@@ -128,36 +129,38 @@ function Invoice(props) {
           </Grid>
 
           <Grid item xs className={classes.overviewRight}>
-            <Box mb={2} className={globalClasses.textPrimary}>
-              <b>La Rochelle sweets</b>
-            </Box>
-            <div>No 7 ajah estate, lagos</div>
-            {/* <div>{invoice.client.street}, {invoice.client.city}, {invoice.client.country}</div> */}
-            <div>{invoice.client.phonenumber}</div>
-            <div>{invoice.email}</div>
+            { mediaUp(media.sm) && (
+              <Box mb={4}>
+                <Box mb={2} className={globalClasses.textPrimary}>
+                  <b>La Rochelle sweets</b>
+                </Box>
+                <div>No 7 ajah estate, lagos</div>
+                {/* <div>{invoice.client.street}, {invoice.client.city}, {invoice.client.country}</div> */}
+                <div>{invoice.client.phonenumber}</div>
+                <div>{invoice.email}</div>
+              </Box>
+            )}
 
-            <Box mt={4}>
-              <div className={classes.overviewMeta}>
-                <div className={globalClasses.textPrimary}>
-                  <b>{trans('sales.invoice_number')}</b>
-                </div>
-                <div>{invoice.invoicenumber}</div>
+            <div className={classes.overviewMeta}>
+              <div className={globalClasses.textPrimary}>
+                <b>{trans('sales.invoice_number')}</b>
               </div>
+              <div>{invoice.invoicenumber}</div>
+            </div>
 
-              <div className={classes.overviewMeta}>
-                <div className={globalClasses.textPrimary}>
-                  <b>{trans('sales.date_of_issue')}</b>
-                </div>
-                <div>31/07/2019</div>
+            <div className={classes.overviewMeta}>
+              <div className={globalClasses.textPrimary}>
+                <b>{trans('sales.date_of_issue')}</b>
               </div>
+              <div>31/07/2019</div>
+            </div>
 
-              <div className={classes.overviewMeta}>
-                <div className={globalClasses.textPrimary}>
-                  <b>{trans('sales.due_date')}</b>
-                </div>
-                <div>31/08/2019</div>
+            <div className={classes.overviewMeta}>
+              <div className={globalClasses.textPrimary}>
+                <b>{trans('sales.due_date')}</b>
               </div>
-            </Box>
+              <div>31/08/2019</div>
+            </div>
           </Grid>
         </Grid>
         <hr className={globalClasses.hbar}/>
