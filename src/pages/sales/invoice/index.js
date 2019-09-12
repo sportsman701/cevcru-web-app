@@ -24,8 +24,11 @@ import vencru from 'resources/logo/vencru-horizontal-mobile.svg'
 
 import { media, useMediaUp } from 'hooks/media';
 import useIntl from 'hooks/intl';
+import { commafy } from 'helpers/validate';
 import useStyles from './style';
 
+
+const formatNumber = num => commafy(parseFloat(Math.round(num * 100) / 100).toFixed(2));
 
 function Invoice(props) {
   const dispatch = useDispatch();
@@ -232,15 +235,15 @@ function Invoice(props) {
                       {description}
                     </i>
                   </td>
-                  <td>${ price }</td>
+                  <td>${ formatNumber(price) }</td>
                   <td>{ quantity }</td>
-                  <td className={classes.alignRight}>${ amount }</td>
+                  <td className={classes.alignRight}>${ formatNumber(amount) }</td>
                 </tr>
               ))}
               <tr className={classes.alignRight}>
                 <td colSpan={2} rowSpan={7}></td>
                 <td>{trans('sales.subtotal')}</td>
-                <td>${ invoice.subtotal }</td>
+                <td>${ formatNumber(invoice.subtotal) }</td>
               </tr>
               <tr className={classes.alignRight}>
                 <td>
@@ -248,15 +251,15 @@ function Invoice(props) {
                   &nbsp;
                   {trans('sales.discount')}
                 </td>
-                <td>${ invoice.discount }</td>
+                <td>${ formatNumber(invoice.discount) }</td>
               </tr>
               <tr className={classes.alignRight}>
                 <td>
-                  {(invoice.amountdue - invoice.subtotal + invoice.discount) * 100 / invoice.subtotal}%
+                  {(invoice.amountdue - invoice.subtotal + invoice.discount) * 100 / (invoice.subtotal - invoice.discount)}%
                   &nbsp;
                   {trans('sales.tax')}
                 </td>
-                <td>${invoice.amountdue - invoice.subtotal + invoice.discount}</td>
+                <td>${formatNumber(invoice.amountdue - invoice.subtotal + invoice.discount)}</td>
               </tr>
               <tr>
                 <td colSpan={2}>
@@ -270,7 +273,7 @@ function Invoice(props) {
                 <td className={globalClasses.textPrimary}>
                   <b>{trans('sales.amount_due')}</b>
                 </td>
-                <td>${ invoice.amountdue }</td>
+                <td>${ formatNumber(invoice.amountdue) }</td>
               </tr>
               <tr className={classes.alignRight}>
                 <td>
@@ -278,7 +281,7 @@ function Invoice(props) {
                   &nbsp;
                   {trans('sales.deposit')}
                 </td>
-                <td>${ invoice.deposit }</td>
+                <td>${ formatNumber(invoice.deposit) }</td>
               </tr>
               <tr className={cx(
                 classes.alignRight,
@@ -287,7 +290,7 @@ function Invoice(props) {
                 <td className={globalClasses.textGreen}>
                   <b>{trans('sales.amount_paid')} (USD)</b>
                 </td>
-                <td>${invoice.amountpaid}</td>
+                <td>${formatNumber(invoice.amountpaid)}</td>
               </tr>
             </tbody>
           </table>
@@ -315,18 +318,18 @@ function Invoice(props) {
                     <span className={classes.itemDescription}>
                       <FormattedMessage
                         id='sales.qty_price_unit'
-                        values={{ qty: quantity, price: `$${price}` }}
+                        values={{ qty: quantity, price: `$${formatNumber(price)}` }}
                       />
                     </span>
                   </td>
                   <td className={classes.alignRight}>
-                    ${amount}
+                    ${formatNumber(amount)}
                   </td>
                 </tr>
               ))}
               <tr className={classes.alignRight}>
                 <td>{trans('sales.subtotal')}</td>
-                <td>${invoice.subtotal}</td>
+                <td>${formatNumber(invoice.subtotal)}</td>
               </tr>
               <tr className={classes.alignRight}>
                 <td>
@@ -334,15 +337,15 @@ function Invoice(props) {
                   &nbsp;
                   {trans('sales.discount')}
                 </td>
-                <td>${invoice.discount}</td>
+                <td>${formatNumber(invoice.discount)}</td>
               </tr>
               <tr className={classes.alignRight}>
                 <td>
-                  {(invoice.amountdue - invoice.subtotal + invoice.discount) * 100 / invoice.subtotal}%
+                  {(invoice.amountdue - invoice.subtotal + invoice.discount) * 100 / (invoice.subtotal - invoice.discount)}%
                   &nbsp;
                   {trans('sales.tax')}
                 </td>
-                <td>${invoice.amountdue - invoice.subtotal + invoice.discount}</td>
+                <td>${formatNumber(invoice.amountdue - invoice.subtotal + invoice.discount)}</td>
               </tr>
               <tr>
                 <td colSpan={2}>
@@ -356,7 +359,7 @@ function Invoice(props) {
                 <td className={globalClasses.textPrimary}>
                   <b>{trans('sales.amount_due')}</b>
                 </td>
-                <td>${invoice.amountdue}</td>
+                <td>${formatNumber(invoice.amountdue)}</td>
               </tr>
               <tr className={classes.alignRight}>
                 <td>
@@ -364,7 +367,7 @@ function Invoice(props) {
                   &nbsp;
                   {trans('sales.deposit')}
                 </td>
-                <td>${invoice.deposit}</td>
+                <td>${formatNumber(invoice.deposit)}</td>
               </tr>
               <tr className={cx(
                 classes.alignRight,
@@ -373,7 +376,7 @@ function Invoice(props) {
                 <td className={globalClasses.textGreen}>
                   <b>{trans('sales.amount_paid')} (USD)</b>
                 </td>
-                <td>${invoice.amountpaid}</td>
+                <td>${formatNumber(invoice.amountpaid)}</td>
               </tr>
             </tbody>
           </table>
