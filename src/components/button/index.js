@@ -6,7 +6,7 @@ import cx from 'classnames';
 function ButtonComponent(props) {
   const classes = useStyles();
   const variant = props.inverse ? 'outlined' : 'contained';
-  const { inverse, grayText, thin, hasIconRight, className, ...other} = props;
+  const { inverse, grayText, green, thin, hasIconRight, className, ...other} = props;
 
   return (
     <Button
@@ -18,6 +18,7 @@ function ButtonComponent(props) {
         classes.root,
         { 'outlined': variant === 'outlined'},
         { 'hasIconRight': !!hasIconRight},
+        { 'green': props.green },
         { [classes.thin]: !!props.thin },
         {
           [classes.inverse]: props.inverse,

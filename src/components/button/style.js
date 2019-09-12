@@ -9,6 +9,10 @@ export default makeStyles({
     boxShadow: 'none',
     color: colors.text.inverse.highlight,
 
+    '&.green': {
+      backgroundColor: colors.green.normal,
+    },
+
     '&:active': {
       boxShadow: 'none'
     },
@@ -31,6 +35,10 @@ export default makeStyles({
 
     '&:hover': {
       backgroundColor: colors.primary.hover
+    },
+
+    '&.green:hover': {
+      backgroundColor: colors.green.hover,
     },
 
     '&:focus': {

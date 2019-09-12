@@ -7,7 +7,11 @@ const colors = {
     hover: '#4684dd',
     active: '#1055b7',
     light: '#79A6F6',
-    green: '#17BF5F',
+  },
+
+  green: {
+    normal: '#17BF5F',
+    hover: '#2fd476'
   },
 
   inverse: {

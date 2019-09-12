@@ -1,4 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
+import colors from 'helpers/colors';
+
 
 export default makeStyles(theme => ({
   logo: {
@@ -16,10 +18,11 @@ export default makeStyles(theme => ({
   },
 
   viewContainer: {
-    height: '100%',
+    minHeight: '100%',
     padding: '1.5em 3em',
     display: 'none',
     fontSize: 14,
+    backgroundColor: colors.background.lightBlue,
 
     '&.show': {
       display: 'block'
@@ -27,7 +30,9 @@ export default makeStyles(theme => ({
 
     [theme.breakpoints.only('xs')]: {
       padding: '0.7em',
-      fontSize: 12
+      fontSize: 12,
+      paddingBottom: 60,
+      backgroundColor: colors.background.white
     }
   }
 }));

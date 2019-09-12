@@ -11,8 +11,11 @@ import SnackBar from 'components/snackbar';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 
+import Button from 'components/button';
+
 import useGlobalStyles from 'hooks/styles';
 import accountLogo from 'resources/sale/larochelle.png'
+import paystack from 'resources/sale/paystack.png'
 import stampFullyPaid from 'resources/sale/invoice-fully-paid.svg'
 import stampOverdue from 'resources/sale/invoice-over-due.svg'
 import stampDeposit from 'resources/sale/invoice-deposit-paid.svg'
@@ -334,6 +337,50 @@ function Invoice(props) {
             </tbody>
           </table>
         )}
+
+        <Grid container className={classes.topSpacing}>
+          <Grid
+            item xs={12} sm={6}
+            className={classes.leftAlign}
+          >
+            <p className={cx(
+              globalClasses.textPrimary,
+              globalClasses.textLarge,
+            )}>
+              {trans('sales.payment_instructions')}
+            </p>
+            <div>
+              {trans('sales.direct_bank_transfer')}
+            </div>
+            <div className={globalClasses.textPrimary}>
+              {trans('sales.bank_name')}: Gtbank - Savings
+            </div>
+            <div className={globalClasses.textPrimary}>
+              {trans('sales.account_number')}: 0012346578
+            </div>
+            <div className={globalClasses.textPrimary}>
+              {trans('sales.account_name')}: Lanray Okemati
+            </div>
+          </Grid>
+          <Grid
+            item xs={12} sm={6}
+            className={cx({[classes.topSpacing]: !mediaUp(media.sm)})}
+          >
+            <p className={cx({[classes.leftAlign]: !mediaUp(media.sm)})}>
+              {trans('sales.online_bank_or_card_payment')}
+            </p>
+            <div className={classes.paynow}>
+              <Button thin green fullWidth>
+                {trans('sales.pay_now')}
+              </Button>
+            </div>
+
+            <div className={classes.paystack}>
+              <small>{trans('sales.secured_by')}</small>
+              <img src={paystack} alt='' />
+            </div>
+          </Grid>
+        </Grid>
       </Box>
     </>
   )

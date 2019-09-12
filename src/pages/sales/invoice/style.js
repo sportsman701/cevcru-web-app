@@ -91,5 +91,41 @@ export default makeStyles(theme => ({
   tableSplit: {
     marginRight: 0,
     width: 230
+  },
+
+  leftAlign: {
+    textAlign: 'left'
+  },
+
+  topSpacing: {
+    marginTop: '1em'
+  },
+
+  paynow: {
+    [theme.breakpoints.up('sm')]: {
+      maxWidth: 300,
+      width: '100%',
+      margin: 'auto'
+    }
+  },
+
+  paystack: {
+    margin: 'auto',
+    marginTop: '1em',
+    padding: '1em 1em .7em',
+    width: 'min-content',
+    border: '1px solid lightgray',
+    borderRadius: '3px',
+    position: 'relative',
+
+    '& small': {
+      transform: 'translate(-50%, -50%)',
+      position: 'absolute',
+      backgroundColor: 'white',
+      padding: '0 5px',
+      width: 'fit-content',
+      top: 0,
+      left: '50%'
+    }
   }
 }));
