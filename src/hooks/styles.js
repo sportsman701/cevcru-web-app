@@ -39,7 +39,8 @@ export default makeStyles(theme => ({
     padding: '2em',
 
     [theme.breakpoints.only('xs')]: {
-      padding: 0
+      padding: 0,
+      boxShadow: 'none',
     }
   },
 
