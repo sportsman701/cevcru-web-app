@@ -82,5 +82,10 @@ export default makeStyles(theme => ({
   alignRight: {
     textAlign: 'right',
     height: '2em'
+  },
+
+  tableSplit: {
+    marginRight: 0,
+    width: 230
   }
 }));

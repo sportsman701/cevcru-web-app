@@ -289,6 +289,10 @@
     "Amount",
   "sales.subtotal":
     "Subtotal",
+  "sales.total_amount":
+    "Total Amount",
+  "sales.qty_price_unit":
+    "{qty}(Qty) at {price} a unit",
   "sales.discount":
     "Discount",
   "sales.tax":
