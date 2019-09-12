@@ -103,7 +103,6 @@ function Invoice(props) {
       <Box className={globalClasses.section}>
         <Grid
           justify='space-between'
-          alignItems='center'
           className={classes.overview}
           container
         >
@@ -119,9 +118,15 @@ function Invoice(props) {
             )}>
               <b>{trans('sales.billed_to')}</b>
             </p>
-            <div>{invoice.client.firstname} {invoice.client.lastname}</div>
-            <div className={globalClasses.textPrimary}>{invoice.client.email}</div>
-            <div>+{invoice.client.phonenumber}</div>
+            <div>
+              {invoice.client.firstname} {invoice.client.lastname}
+            </div>
+            <div className={globalClasses.textPrimary}>
+              {invoice.client.companyemail}
+            </div>
+            <div>
+              +{invoice.client.phonenumber}
+            </div>
           </Grid>
 
           <Grid item xs className={classes.overviewStamp}>
@@ -130,15 +135,22 @@ function Invoice(props) {
 
           <Grid item xs className={classes.overviewRight}>
             { mediaUp(media.sm) && (
-              <Box mb={4}>
-                <Box mb={2} className={globalClasses.textPrimary}>
+              <>
+                <div className={cx(
+                  globalClasses.textPrimary,
+                  classes.overviewSpace
+                )}>
                   <b>La Rochelle sweets</b>
-                </Box>
+                </div>
                 <div>No 7 ajah estate, lagos</div>
                 {/* <div>{invoice.client.street}, {invoice.client.city}, {invoice.client.country}</div> */}
-                <div>{invoice.client.phonenumber}</div>
-                <div>{invoice.email}</div>
-              </Box>
+                <div>
+                  {invoice.client.phonenumber}
+                </div>
+                <div className={classes.overviewSpace}>
+                  {invoice.email}
+                </div>
+              </>
             )}
 
             <div className={classes.overviewMeta}>

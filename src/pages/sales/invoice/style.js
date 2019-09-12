@@ -20,11 +20,19 @@ export default makeStyles(theme => ({
   },
 
   overviewRight: {
-    textAlign: 'right'
+    textAlign: 'right',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between'
+  },
+
+  overviewSpace: {
+    marginBottom: '1.5em'
   },
 
   overviewStamp: {
     maxWidth: 200,
+    minWidth: 50,
     marginTop: '2em',
 
     '& img': {
@@ -36,9 +44,12 @@ export default makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'flex-end',
 
-    [theme.breakpoints.up('sm')]: {
-      '&>div:nth-child(2)': {
-        width: 100
+    '&>div:nth-child(2)': {
+      width: 100,
+
+      [theme.breakpoints.only('xs')]: {
+        width: 'auto',
+        marginTop: '1em'
       }
     },
 
