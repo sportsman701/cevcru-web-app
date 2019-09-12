@@ -102,12 +102,15 @@ function Invoice(props) {
 
       <p className={cx(
         classes.title,
-        globalClasses.textSubTitle
+        globalClasses.textXLarge
       )}>
         Invoice {invoice.invoicenumber} for {invoice.client.firstname} {invoice.client.lastname}
       </p>
 
-      <Box className={globalClasses.section}>
+      <Box className={cx(
+        globalClasses.section,
+        classes.invoiceSection
+      )}>
         <Grid
           justify='space-between'
           className={classes.overview}
@@ -344,7 +347,7 @@ function Invoice(props) {
 
         <Grid container className={classes.topSpacing}>
           <Grid
-            item xs={12} sm={6}
+            item xs={12}
             className={classes.leftAlign}
           >
             <p className={cx(
@@ -405,13 +408,24 @@ function Invoice(props) {
           <img src={vencru} alt='' />
         </Box>
 
-        <p className={cx(
-          globalClasses.textNormal,
-          classes.footerDesc
-        )}>
-          <i><small>{trans('sales.track_your_business_profits')}</small></i>
-        </p>
+        {mediaUp(media.sm) && (
+          <p className={cx(
+            globalClasses.textNormal,
+            classes.footerDesc
+          )}>
+            <i><small>{trans('sales.track_your_business_profits')}</small></i>
+          </p>
+        )}
       </Box>
+
+      <p className={cx(
+        classes.leftAlign,
+        globalClasses.textXLarge
+      )}>
+        {trans('sales.all_payments_for_invoice')}
+        &nbsp;
+        {invoice.invoicenumber}
+      </p>
     </>
   )
 }

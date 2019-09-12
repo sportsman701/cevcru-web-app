@@ -29,7 +29,7 @@ export default makeStyles(theme => ({
     },
 
     [theme.breakpoints.only('xs')]: {
-      padding: '0.7em',
+      padding: '1.5em',
       fontSize: 12,
       paddingBottom: 60,
       backgroundColor: colors.background.white

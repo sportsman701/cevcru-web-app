@@ -36,7 +36,11 @@ export default makeStyles(theme => ({
     backgroundColor: colors.background.white,
     boxShadow: '0px 1.5px 7px #00000007',
     borderRadius: 5,
-    padding: '1em'
+    padding: '2em',
+
+    [theme.breakpoints.only('xs')]: {
+      padding: 0
+    }
   },
 
   hbar: {
@@ -68,6 +72,10 @@ export default makeStyles(theme => ({
 
   textSizeD: {
     fontSize: '20px',
+  },
+
+  textXLarge: {
+    fontSize: '1.5em'
   },
 
   textLarge: {

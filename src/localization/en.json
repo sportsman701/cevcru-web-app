@@ -326,5 +326,7 @@
   "sales.thank_you_for_your_order":
     "Thank you for your order. All amounts are in Naira. Please make the 50% payment within 15 days from the issue of date of this invoice. Your order will be completed in 3 weeks.",
   "sales.track_your_business_profits":
-    "Track your business profits, store your clients information, manage your inventory, send invoices, get paid - all on Vencru"
+    "Track your business profits, store your clients information, manage your inventory, send invoices, get paid - all on Vencru",
+  "sales.all_payments_for_invoice":
+    "All Payments for Invoice"
 }

@@ -4,13 +4,13 @@ import colors from 'helpers/colors';
 
 export default makeStyles(theme => ({
   title: {
-    margin: '1em 0',
-    fontWeight: 'normal'
+    margin: '1em 0'
   },
 
   accountLogo: {
     border: '1px dotted lightgray',
     borderRadius: 5,
+    width: 90,
 
     [theme.breakpoints.down('sm')]: {
       width: 50
@@ -22,7 +22,10 @@ export default makeStyles(theme => ({
   },
 
   overviewLeft: {
-    textAlign: 'left'
+    textAlign: 'left',
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'column'
   },
 
   overviewRight: {
@@ -147,5 +150,15 @@ export default makeStyles(theme => ({
 
   hbarThin: {
     margin: '0.3em 0'
+  },
+
+  invoiceSection: {
+    maxWidth: 900,
+    margin: 'auto',
+    width: '100%'
+  },
+
+  historyTitle: {
+    
   }
 }));
