@@ -40,6 +40,8 @@ function Invoice(props) {
   const { token, invoiceid, businessid } =
     qs.parse(props.location.search, { ignoreQueryPrefix: true });
 
+  document.title = 'Vencru - Invoice';
+  
   useEffect(() => {
     const getInvoiceRequest = new Promise((resolve, reject) => {
       dispatch(getInvoice({

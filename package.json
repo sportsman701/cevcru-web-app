@@ -34,10 +34,12 @@
     "redux-persist": "^5.10.0",
     "redux-saga": "^1.0.3",
     "reselect": "^4.0.0",
+    "serve": "^11.1.0",
     "webpack-cli": "^3.3.8"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "dev": "react-scripts start",
+    "start": "serve -s build",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
