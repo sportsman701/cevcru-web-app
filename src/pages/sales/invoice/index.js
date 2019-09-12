@@ -141,7 +141,14 @@ function Invoice(props) {
           </Grid>
 
           <Grid item xs className={classes.overviewStamp}>
-            <img src={stampFullyPaid} alt='' />
+            {invoice.invoicestatus !== 'not paid' && (
+                <img
+                  alt=''
+                  src={ invoice.invoicestatus === 'deposit paid' ? stampDeposit
+                     : invoice.invoicestatus === 'fully paid' ? stampFullyPaid
+                     : stampOverdue  }
+                />
+            )}
           </Grid>
 
           <Grid item xs className={classes.overviewRight}>
