@@ -251,8 +251,12 @@ function Invoice(props) {
                 <td>${ invoice.discount }</td>
               </tr>
               <tr className={classes.alignRight}>
-                <td>10% {trans('sales.tax')}</td>
-                <td>$70.00</td>
+                <td>
+                  {(invoice.amountdue - invoice.subtotal + invoice.discount) * 100 / invoice.subtotal}%
+                  &nbsp;
+                  {trans('sales.tax')}
+                </td>
+                <td>${invoice.amountdue - invoice.subtotal + invoice.discount}</td>
               </tr>
               <tr>
                 <td colSpan={2}>
@@ -333,8 +337,12 @@ function Invoice(props) {
                 <td>${invoice.discount}</td>
               </tr>
               <tr className={classes.alignRight}>
-                <td>10% {trans('sales.tax')}</td>
-                <td>$70.00</td>
+                <td>
+                  {(invoice.amountdue - invoice.subtotal + invoice.discount) * 100 / invoice.subtotal}%
+                  &nbsp;
+                  {trans('sales.tax')}
+                </td>
+                <td>${invoice.amountdue - invoice.subtotal + invoice.discount}</td>
               </tr>
               <tr>
                 <td colSpan={2}>
