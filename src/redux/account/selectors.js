@@ -1,4 +1,4 @@
-import { mapKeys, findIndex } from 'lodash'
+import { mapKeys, findIndex, isEmpty } from 'lodash'
 
 const fields = {
   "userid":               "userId",
@@ -36,6 +36,10 @@ const fields = {
 }
 
 export default ({ account }) => {
+  if (isEmpty(account)) {
+    return undefined;
+  }
+
   const root = mapKeys(account, (value, key) => fields[key]);
   root.userPlan = mapKeys(root.userPlan, (value, key) => fields[key]);
   return root;

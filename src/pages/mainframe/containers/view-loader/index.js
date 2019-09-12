@@ -7,6 +7,7 @@ import BarLoader from 'components/loader';
 
 import { ReactComponent as Logo } from 'resources/logo/vencru.svg';
 
+import useAuth from 'hooks/auth';
 import useStyles from './style';
 
 const apiStates = {
@@ -19,7 +20,8 @@ function ViewLoader(props) {
   const {subview: SubView, ...subprops} = props;
   const initState = {apiState: apiStates.fetching, message: undefined};
   const [{ apiState, message }, setViewState] = useState(initState);
-  const classes = useStyles();
+  const auth = useAuth();
+  const classes = useStyles({ auth: !!auth() });
 
   function handleApiSuccess() {
     setViewState({ apiState: apiStates.success });

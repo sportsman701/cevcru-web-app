@@ -31,6 +31,7 @@ import ViewLoader from './containers/view-loader';
 import Button from 'components/button';
 import { useMediaUp, media } from 'hooks/media';
 import useIntl from 'hooks/intl';
+import useAuth from 'hooks/auth';
 
 import { ReactComponent as ToggleLeftMenuIcon } from 'resources/mainframe/toggle-left-menu.svg';
 import { ReactComponent as NotificationIcon } from 'resources/mainframe/notification.svg';
@@ -129,7 +130,8 @@ function MainFrame(props) {
   const globalClasses = useGlobalStyles();
   const trans = useIntl();
   const mediaUp = useMediaUp();
-  const classes = useStyles();
+  const auth = useAuth();
+  const classes = useStyles({ auth: !!auth() });
   const [{
     sidebar,
     accountDialog,
@@ -160,72 +162,91 @@ function MainFrame(props) {
 
   return (
     <>
-      <AppBar className={cx(
-        classes.appbar,
-        { expand: expandLeftMenu }
-      )}>
-        <Toolbar className={classes.toolbar}>
-          { mediaUp(media.sm) ? (
-            <>
-              <div className={classes.accountSelector}>
-                <Button onClick={() => showPopup('accountDialog', !accountDialog)}>
-                  <BusinessIcon />
-                    {accounts[account].name}
-                  <ExpandMoreIcon/>
-                </Button>
-              </div>
-
-              <Grid container spacing={2}>
-                {mediaUp(media.md) && (
-                  <Grid item>
-                    <Button thin inverse>
-                      <SendIcon/>
-                      {trans('mainframe.invite')}
-                    </Button>
-                  </Grid>
-                )}
-                <Grid item>
-                  <Button thin hasIconRight className={classes.createNew}>
-                    {trans('mainframe.create_new')}
+      {( auth() || mediaUp(media.sm)) && (
+        <AppBar className={cx(
+          classes.appbar,
+          { expand: expandLeftMenu }
+        )}>
+          <Toolbar className={classes.toolbar}>
+            { mediaUp(media.sm) ? (
+              <>
+                <div className={classes.accountSelector}>
+                  <Button onClick={() => showPopup('accountDialog', !accountDialog)}>
+                    <BusinessIcon />
+                      {accounts[account].name}
                     <ExpandMoreIcon/>
                   </Button>
+                </div>
+
+                <Grid container spacing={2}>
+                  {auth() ? (
+                    <>
+                      {mediaUp(media.md) && (
+                        <Grid item>
+                          <Button thin inverse>
+                            <SendIcon/>
+                            {trans('mainframe.invite')}
+                          </Button>
+                        </Grid>
+                      )}
+                      <Grid item>
+                        <Button thin hasIconRight className={classes.createNew}>
+                          {trans('mainframe.create_new')}
+                          <ExpandMoreIcon/>
+                        </Button>
+                      </Grid>
+                      <Grid item>
+                        <Badge variant='dot' className={classes.notification}>
+                          <NotificationIcon onClick={() => showPopup('notifyMenu', !notifyMenu)} />
+                        </Badge>
+                      </Grid>
+                      <Grid item>
+                        <AccountInitial
+                          initial={initial}
+                          onClick={() => showPopup('avatarMenu', !avatarMenu)}
+                        />
+                      </Grid>
+                    </>
+                  ) : (
+                    <>
+                      <Grid item>
+                        <Button thin inverse>
+                          {trans('login.log_in')}
+                        </Button>
+                      </Grid>
+                      <Grid item>
+                        <Button thin>
+                          {trans('login.sign_up')}
+                        </Button>
+                      </Grid>
+                    </>
+                  )}
                 </Grid>
-                <Grid item>
+              </>
+            ) : (
+              <Grid className={classes.mobileHeader} container>
+                <Grid item xs={4}>
+                  <Fab size='small'>
+                    <AddIcon />
+                  </Fab>
+                </Grid>
+                <Grid item xs={4} className={globalClasses.textSizeD}>
+                  Home
+                </Grid>
+                <Grid item xs={4}>
                   <Badge variant='dot' className={classes.notification}>
-                    <NotificationIcon onClick={() => showPopup('notifyMenu', !notifyMenu)} />
+                    <NotificationIcon onClick={() => showPopup('notifyMenu', !notifyMenu)}/>
                   </Badge>
-                </Grid>
-                <Grid item>
                   <AccountInitial
                     initial={initial}
                     onClick={() => showPopup('avatarMenu', !avatarMenu)}
                   />
                 </Grid>
               </Grid>
-            </>
-          ) : (
-            <Grid className={classes.mobileHeader} container>
-              <Grid item xs={4}>
-                <Fab size='small'>
-                  <AddIcon />
-                </Fab>
-              </Grid>
-              <Grid item xs={4} className={globalClasses.textSizeD}>
-                Home
-              </Grid>
-              <Grid item xs={4}>
-                <Badge variant='dot' className={classes.notification}>
-                  <NotificationIcon onClick={() => showPopup('notifyMenu', !notifyMenu)}/>
-                </Badge>
-                <AccountInitial
-                  initial={initial}
-                  onClick={() => showPopup('avatarMenu', !avatarMenu)}
-                />
-              </Grid>
-            </Grid>
-          )}
-        </Toolbar>
-      </AppBar>
+            )}
+          </Toolbar>
+        </AppBar>
+      )}
 
       <Box className={cx(
         classes.content,
@@ -234,197 +255,201 @@ function MainFrame(props) {
         <ViewLoader {...props} subview={props.subview} />
       </Box>
 
-      <ClickAwayListener onClickAway={() => showPopup('notifyMenu', false)}>
-        <Grow in={!!notifyMenu}>
-          <Paper className={classes.notifyMenu}>
-            <List component='nav'>
-              <ListItem button onClick={() => showPopup('notifyMenu', false)}>
-                <ListItemIcon>
-                  <div className={classes.notifyMenuIcon}>
-                    <ExpenseIcon/>
-                  </div>
-                </ListItemIcon>
-                <ListItemText
-                  primary='You have X paid invoices and Y overdue invoices'
-                  secondary='1h 57min ago'
-                />
-              </ListItem>
-              <ListItem button onClick={() => showPopup('notifyMenu', false)}>
-                <ListItemIcon>
-                  <div className={classes.notifyMenuIcon}>
-                    <ExpenseIcon/>
-                  </div>
-                </ListItemIcon>
-                <ListItemText
-                  primary='You have not uploaded your expenses in 30 days'
-                  secondary='23min ago'
-                />
-              </ListItem>
-            </List>
-          </Paper>
-        </Grow>
-      </ClickAwayListener>
-      
-      <ClickAwayListener onClickAway={() => showPopup('avatarMenu', false)}>
-        <Grow in={!!avatarMenu}>
-          <Paper className={classes.avatarMenu}>
-            <List component='nav'>
-              <ListItem
-                button
-                component={Link}
-                to='/settings'
-                onClick={() => showPopup('avatarMenu', false)}
-              >
-                <ListItemIcon>
-                  <SettingIcon/>
-                </ListItemIcon>
-                <ListItemText primary={trans('mainframe.account_settings')} />
-              </ListItem>
-              <ListItem button onClick={() => showPopup('avatarMenu', false)}>
-                <ListItemIcon>
-                  <SignoutIcon/>
-                </ListItemIcon>
-                <ListItemText primary={trans('mainframe.sign_out')}/>
-              </ListItem>
-            </List>
-          </Paper>
-        </Grow>
-      </ClickAwayListener>
+      {auth() && (
+        <>
+          <ClickAwayListener onClickAway={() => showPopup('notifyMenu', false)}>
+            <Grow in={!!notifyMenu}>
+              <Paper className={classes.notifyMenu}>
+                <List component='nav'>
+                  <ListItem button onClick={() => showPopup('notifyMenu', false)}>
+                    <ListItemIcon>
+                      <div className={classes.notifyMenuIcon}>
+                        <ExpenseIcon/>
+                      </div>
+                    </ListItemIcon>
+                    <ListItemText
+                      primary='You have X paid invoices and Y overdue invoices'
+                      secondary='1h 57min ago'
+                    />
+                  </ListItem>
+                  <ListItem button onClick={() => showPopup('notifyMenu', false)}>
+                    <ListItemIcon>
+                      <div className={classes.notifyMenuIcon}>
+                        <ExpenseIcon/>
+                      </div>
+                    </ListItemIcon>
+                    <ListItemText
+                      primary='You have not uploaded your expenses in 30 days'
+                      secondary='23min ago'
+                    />
+                  </ListItem>
+                </List>
+              </Paper>
+            </Grow>
+          </ClickAwayListener>
+          
+          <ClickAwayListener onClickAway={() => showPopup('avatarMenu', false)}>
+            <Grow in={!!avatarMenu}>
+              <Paper className={classes.avatarMenu}>
+                <List component='nav'>
+                  <ListItem
+                    button
+                    component={Link}
+                    to='/settings'
+                    onClick={() => showPopup('avatarMenu', false)}
+                  >
+                    <ListItemIcon>
+                      <SettingIcon/>
+                    </ListItemIcon>
+                    <ListItemText primary={trans('mainframe.account_settings')} />
+                  </ListItem>
+                  <ListItem button onClick={() => showPopup('avatarMenu', false)}>
+                    <ListItemIcon>
+                      <SignoutIcon/>
+                    </ListItemIcon>
+                    <ListItemText primary={trans('mainframe.sign_out')}/>
+                  </ListItem>
+                </List>
+              </Paper>
+            </Grow>
+          </ClickAwayListener>
 
-      <Drawer
-        variant="permanent"
-        classes={{paper: cx(
-          classes.drawerPaper,
-          { expand: expandLeftMenu }
-        )}}
-      >
-        <div className={classes.leftMenuToggleBar}>
-          <Button
-            hasIconRight
-            className={classes.toggleMenu}
-            onClick={handleToggleLeftMenuClick}
+          <Drawer
+            variant="permanent"
+            classes={{paper: cx(
+              classes.drawerPaper,
+              { expand: expandLeftMenu }
+            )}}
           >
-            <ToggleLeftMenuIcon/>
-          </Button>
-          <div></div>
-        </div>
-        <Divider/>
-        <List>
-          {menubarContent.map(({ icon: Icon, label, link}, key) => (
-            <ListItem
-              button
-              component={Link}
-              to={Array.isArray(link) ? link[0] : link}
-              key={key}
-              className={cx(
-                classes.menubarItem,
-                { expand: expandLeftMenu }
-              )}
-            >
-              <ListItemIcon>
-                <Icon className={cx(
-                  classes.menubarIcon,
-                  { active: key === pageIndex }
-                )}/>
-              </ListItemIcon>
-              {expandLeftMenu && (
-                <ListItemText
-                  primary={trans(label)}
-                  className={globalClasses.textContrast}
-                />
-              )}
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
-
-      <SwipeableDrawer
-        anchor="right"
-        open={!!sidebar}
-        className={classes.sideDrawer}
-        onOpen={() => showPopup('sidebar')}
-        onClose={() => showPopup('sidebar', false)}
-      >
-        <div
-          role="presentation"
-          className={classes.sidebar}
-          onClick={() => showPopup('sidebar', false)}
-          onKeyDown={() => showPopup('sidebar', false)}
-        >
-          <div className={classes.sidebarAvatar}>
-            <Button fullWidth onClick={() => showPopup('accountDialog')}>
-              <div className={globalClasses.textInverseHighlight}>
-                <p>{ accounts[account].name }</p>
-                <p>{ accounts[account].email }</p>
-              </div>
-              <AccountInitial initial={initial} />
-            </Button>
-          </div>
-          <List>
-            {sidebarContent.map(({ icon: Icon, label, link}, key) =>
-              label ? (
+            <div className={classes.leftMenuToggleBar}>
+              <Button
+                hasIconRight
+                className={classes.toggleMenu}
+                onClick={handleToggleLeftMenuClick}
+              >
+                <ToggleLeftMenuIcon/>
+              </Button>
+              <div></div>
+            </div>
+            <Divider/>
+            <List>
+              {menubarContent.map(({ icon: Icon, label, link}, key) => (
                 <ListItem
                   button
+                  component={Link}
                   to={Array.isArray(link) ? link[0] : link}
                   key={key}
-                  component={link && Link}
-                  className={classes.sidebarItem}
+                  className={cx(
+                    classes.menubarItem,
+                    { expand: expandLeftMenu }
+                  )}
                 >
-                  <ListItemIcon className={classes.sidebarIcon}>
-                    <Icon className={cx({active:
-                      Array.isArray(link)
-                        ? link.includes(path)
-                        : link === path
-                    })}/>
+                  <ListItemIcon>
+                    <Icon className={cx(
+                      classes.menubarIcon,
+                      { active: key === pageIndex }
+                    )}/>
                   </ListItemIcon>
-                  <ListItemText
-                    primary={trans(label)}
-                    className={globalClasses.textNormal}
-                  />
+                  {expandLeftMenu && (
+                    <ListItemText
+                      primary={trans(label)}
+                      className={globalClasses.textContrast}
+                    />
+                  )}
                 </ListItem>
-              ) : <Divider key={key} />
-            )}
-          </List>
-        </div>
-      </SwipeableDrawer>
+              ))}
+            </List>
+          </Drawer>
+
+          <SwipeableDrawer
+            anchor="right"
+            open={!!sidebar}
+            className={classes.sideDrawer}
+            onOpen={() => showPopup('sidebar')}
+            onClose={() => showPopup('sidebar', false)}
+          >
+            <div
+              role="presentation"
+              className={classes.sidebar}
+              onClick={() => showPopup('sidebar', false)}
+              onKeyDown={() => showPopup('sidebar', false)}
+            >
+              <div className={classes.sidebarAvatar}>
+                <Button fullWidth onClick={() => showPopup('accountDialog')}>
+                  <div className={globalClasses.textInverseHighlight}>
+                    <p>{ accounts[account].name }</p>
+                    <p>{ accounts[account].email }</p>
+                  </div>
+                  <AccountInitial initial={initial} />
+                </Button>
+              </div>
+              <List>
+                {sidebarContent.map(({ icon: Icon, label, link}, key) =>
+                  label ? (
+                    <ListItem
+                      button
+                      to={Array.isArray(link) ? link[0] : link}
+                      key={key}
+                      component={link && Link}
+                      className={classes.sidebarItem}
+                    >
+                      <ListItemIcon className={classes.sidebarIcon}>
+                        <Icon className={cx({active:
+                          Array.isArray(link)
+                            ? link.includes(path)
+                            : link === path
+                        })}/>
+                      </ListItemIcon>
+                      <ListItemText
+                        primary={trans(label)}
+                        className={globalClasses.textNormal}
+                      />
+                    </ListItem>
+                  ) : <Divider key={key} />
+                )}
+              </List>
+            </div>
+          </SwipeableDrawer>
+
+          <div
+            className={classes.bottomNavigator}
+            onClick={sidebar ? () => showPopup('sidebar', false) : undefined}
+          >
+            <Tabs
+              value={pageIndex < 4 ? pageIndex : undefined}
+              variant="scrollable"
+              scrollButtons="off"
+              indicatorColor="primary"
+              textColor="primary"
+            >
+              {menubarContent.slice(0, 4).map(({ icon: Icon, label, link}, key) => (
+                <Tab
+                  key={key}
+                  label={trans(label)}
+                  component={Link}
+                  to={Array.isArray(link) ? link[0] : link}
+                  icon={<Icon/>}
+                  className={classes.tab}
+                />  
+              ))}
+              <Tab
+                onClick={() => showPopup('sidebar')}
+                label={trans('mainframe.more')}
+                icon={<MoreIcon />}
+                className={classes.tab}
+              />
+            </Tabs>
+          </div>
       
-      <div
-        className={classes.bottomNavigator}
-        onClick={sidebar ? () => showPopup('sidebar', false) : undefined}
-      >
-        <Tabs
-          value={pageIndex < 4 ? pageIndex : undefined}
-          variant="scrollable"
-          scrollButtons="off"
-          indicatorColor="primary"
-          textColor="primary"
-        >
-          {menubarContent.slice(0, 4).map(({ icon: Icon, label, link}, key) => (
-            <Tab
-              key={key}
-              label={trans(label)}
-              component={Link}
-              to={Array.isArray(link) ? link[0] : link}
-              icon={<Icon/>}
-              className={classes.tab}
-            />  
-          ))}
-          <Tab
-            onClick={() => showPopup('sidebar')}
-            label={trans('mainframe.more')}
-            icon={<MoreIcon />}
-            className={classes.tab}
+          <SwitchAccount
+            data={accounts}
+            open={!!accountDialog}
+            selected={account}
+            onClose={handleAccountDialogClose}
+            menuExpand={expandLeftMenu}
           />
-        </Tabs>
-      </div>
-      
-      <SwitchAccount
-        data={accounts}
-        open={!!accountDialog}
-        selected={account}
-        onClose={handleAccountDialogClose}
-        menuExpand={expandLeftMenu}
-      />
+        </>
+      )}
     </>
   )
 }

@@ -20,12 +20,12 @@ export default makeStyles(theme => ({
     zIndex: '1201',
 
     '&.expand': {
-      width: `calc(100% - ${drawerWidthExpand}px)`
+      width: ({ auth }) => `calc(100% - ${auth ? drawerWidthExpand : 0}px)`
     },
 
     [theme.breakpoints.only('xs')]: {
       backgroundColor: colors.primary.normal,
-      minHeight: appbarMobileHeight,
+      minHeight: ({ auth }) => auth ? appbarMobileHeight : 0,
       width: '100% !important',
       boxShadow: 'none'
     }
@@ -80,17 +80,17 @@ export default makeStyles(theme => ({
     backgroundColor: colors.background.lightBlue,
 
     '&.expand': {
-      paddingLeft: drawerWidthExpand,
+      paddingLeft: ({ auth }) => auth ? drawerWidthExpand : 0,
 
       [theme.breakpoints.only('xs')]: {
-        paddingLeft: 0
+        paddingLeft: '0 !important'
       }
     },
 
     [theme.breakpoints.only('xs')]: {
       backgroundColor: colors.background.white,
-      paddingTop: appbarMobileHeight,
-      paddingBottom: bottomNavHeight,
+      paddingTop: ({ auth }) => auth ? appbarMobileHeight : 0,
+      paddingBottom: ({ auth }) => auth ? bottomNavHeight : 0,
       paddingLeft: 0
     }
   },
@@ -227,7 +227,7 @@ export default makeStyles(theme => ({
   },
 
   sidebarAvatar: {
-    height: appbarMobileHeight,
+    height: ({ auth }) => auth ? appbarMobileHeight : 0,
     backgroundColor: colors.primary.normal,
 
     '& button': {
@@ -275,7 +275,7 @@ export default makeStyles(theme => ({
     },
 
     [theme.breakpoints.only('xs')]: {
-      minHeight: appbarMobileHeight,
+      minHeight: ({ auth }) => auth ? appbarMobileHeight : 0,
     }
   },
 
@@ -331,7 +331,7 @@ export default makeStyles(theme => ({
     boxShadow: '4px 0 20px rgba(21, 58, 112, 0.1)',
 
     '&.expand': {
-      width: drawerWidthExpand
+      width: ({ auth }) => auth ? drawerWidthExpand : 0
     },
 
     '& .MuiList-root': {
@@ -377,7 +377,7 @@ export default makeStyles(theme => ({
 
     '& .MuiList-root': {
       overflowY: 'auto',
-      height: `calc(100vh - ${bottomNavHeight + appbarMobileHeight}px)`
+      height: ({ auth }) => `calc(100vh - ${bottomNavHeight + (auth ? appbarMobileHeight : 0)}px)`
     }
   },
 
