@@ -184,14 +184,14 @@ function Invoice(props) {
               <div className={globalClasses.textPrimary}>
                 <b>{trans('sales.date_of_issue')}</b>
               </div>
-              <div>31/07/2019</div>
+              <div>{invoice.issue_date.slice(0, 10)}</div>
             </div>
 
             <div className={classes.overviewMeta}>
               <div className={globalClasses.textPrimary}>
                 <b>{trans('sales.due_date')}</b>
               </div>
-              <div>31/08/2019</div>
+              <div>{invoice.due_date.slice(0, 10)}</div>
             </div>
           </Grid>
         </Grid>
@@ -223,26 +223,32 @@ function Invoice(props) {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>
-                  Red Velvet Cake with Strawberry toppings
-                  <br/>
-                  <i className={classes.itemDescription}>
-                    A cake with red toppings sand strawberry toppings dipped in sauce
-                  </i>
-                </td>
-                <td>$500.00</td>
-                <td>2</td>
-                <td className={classes.alignRight}>$1,000.00</td>
-              </tr>
+              {invoice.items.map(({ id, price, quantity, description, amount, productname }) => (
+                <tr key={id}>
+                  <td>
+                    { productname || description }
+                    <br/>
+                    <i className={classes.itemDescription}>
+                      {description}
+                    </i>
+                  </td>
+                  <td>${ price }</td>
+                  <td>{ quantity }</td>
+                  <td className={classes.alignRight}>${ amount }</td>
+                </tr>
+              ))}
               <tr className={classes.alignRight}>
                 <td colSpan={2} rowSpan={7}></td>
                 <td>{trans('sales.subtotal')}</td>
-                <td>$1,000.00</td>
+                <td>${ invoice.subtotal }</td>
               </tr>
               <tr className={classes.alignRight}>
-                <td>10% {trans('sales.discount')}</td>
-                <td>$100.00</td>
+                <td>
+                  {Math.round(invoice.discount * 100 / invoice.subtotal)}%
+                  &nbsp;
+                  {trans('sales.discount')}
+                </td>
+                <td>${ invoice.discount }</td>
               </tr>
               <tr className={classes.alignRight}>
                 <td>10% {trans('sales.tax')}</td>
@@ -260,11 +266,15 @@ function Invoice(props) {
                 <td className={globalClasses.textPrimary}>
                   <b>{trans('sales.amount_due')}</b>
                 </td>
-                <td>$970.00</td>
+                <td>${ invoice.amountdue }</td>
               </tr>
               <tr className={classes.alignRight}>
-                <td>30% {trans('sales.deposit')}</td>
-                <td>$300.00</td>
+                <td>
+                  {Math.round(invoice.deposit * 100 / invoice.subtotal)}%
+                  &nbsp;
+                  {trans('sales.deposit')}
+                </td>
+                <td>${ invoice.deposit }</td>
               </tr>
               <tr className={cx(
                 classes.alignRight,
@@ -273,7 +283,7 @@ function Invoice(props) {
                 <td className={globalClasses.textGreen}>
                   <b>{trans('sales.amount_paid')} (USD)</b>
                 </td>
-                <td>$100.00</td>
+                <td>${invoice.amountpaid}</td>
               </tr>
             </tbody>
           </table>
@@ -293,26 +303,34 @@ function Invoice(props) {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>
-                  Red Velvet Cake with Strawberry toppings
-                  <br/>
-                  <span className={classes.itemDescription}>
-                    <FormattedMessage
-                      id='sales.qty_price_unit'
-                      values={{ qty: 2, price: '$500.00' }}
-                    />
-                  </span>
-                </td>
-                <td className={classes.alignRight}>$1000.00</td>
-              </tr>
+              {invoice.items.map(({ id, price, quantity, description, amount, productname }) => (
+                <tr key={id}>
+                  <td>
+                    { productname || description }
+                    <br/>
+                    <span className={classes.itemDescription}>
+                      <FormattedMessage
+                        id='sales.qty_price_unit'
+                        values={{ qty: quantity, price: `$${price}` }}
+                      />
+                    </span>
+                  </td>
+                  <td className={classes.alignRight}>
+                    ${amount}
+                  </td>
+                </tr>
+              ))}
               <tr className={classes.alignRight}>
                 <td>{trans('sales.subtotal')}</td>
-                <td>$1,000.00</td>
+                <td>${invoice.subtotal}</td>
               </tr>
               <tr className={classes.alignRight}>
-                <td>10% {trans('sales.discount')}</td>
-                <td>$100.00</td>
+                <td>
+                  {Math.round(invoice.discount * 100 / invoice.subtotal)}%
+                  &nbsp;
+                  {trans('sales.discount')}
+                </td>
+                <td>${invoice.discount}</td>
               </tr>
               <tr className={classes.alignRight}>
                 <td>10% {trans('sales.tax')}</td>
@@ -330,11 +348,15 @@ function Invoice(props) {
                 <td className={globalClasses.textPrimary}>
                   <b>{trans('sales.amount_due')}</b>
                 </td>
-                <td>$970.00</td>
+                <td>${invoice.amountdue}</td>
               </tr>
               <tr className={classes.alignRight}>
-                <td>30% {trans('sales.deposit')}</td>
-                <td>$300.00</td>
+                <td>
+                  {Math.round(invoice.deposit * 100 / invoice.subtotal)}%
+                  &nbsp;
+                  {trans('sales.deposit')}
+                </td>
+                <td>${invoice.deposit}</td>
               </tr>
               <tr className={cx(
                 classes.alignRight,
@@ -343,7 +365,7 @@ function Invoice(props) {
                 <td className={globalClasses.textGreen}>
                   <b>{trans('sales.amount_paid')} (USD)</b>
                 </td>
-                <td>$100.00</td>
+                <td>${invoice.amountpaid}</td>
               </tr>
             </tbody>
           </table>
@@ -364,13 +386,13 @@ function Invoice(props) {
               {trans('sales.direct_bank_transfer')}
             </div>
             <div className={globalClasses.textPrimary}>
-              {trans('sales.bank_name')}: Gtbank - Savings
+              {trans('sales.bank_name')}: {invoice.bankname || 'N/A'}
             </div>
             <div className={globalClasses.textPrimary}>
-              {trans('sales.account_number')}: 0012346578
+              {trans('sales.account_number')}: {invoice.accountnumber || 'N/A'}
             </div>
             <div className={globalClasses.textPrimary}>
-              {trans('sales.account_name')}: Lanray Okemati
+              {trans('sales.account_name')}: {invoice.accountname || 'N/A'}
             </div>
           </Grid>
           {/* <Grid
