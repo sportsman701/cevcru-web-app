@@ -15,7 +15,6 @@ import Box from '@material-ui/core/Box';
 import Button from 'components/button';
 
 import useGlobalStyles from 'hooks/styles';
-import accountLogo from 'resources/sale/larochelle.png'
 import paystack from 'resources/sale/paystack.png'
 import stampFullyPaid from 'resources/sale/invoice-fully-paid.svg'
 import stampOverdue from 'resources/sale/invoice-over-due.svg'
@@ -123,11 +122,11 @@ function Invoice(props) {
           container
         >
           <Grid item xs className={classes.overviewLeft}>
-            <img
-              src={accountLogo}
+            {/* <img
+              src={invoice.business.logourl}
               className={classes.accountLogo}
               alt=''
-            />
+            /> */}
             <p className={cx(
               globalClasses.textPrimary,
               globalClasses.textLarge
@@ -141,7 +140,7 @@ function Invoice(props) {
               {invoice.client.companyemail}
             </div>
             <div>
-              +{invoice.client.phonenumber}
+              {invoice.client.phonenumber}
             </div>
           </Grid>
 
@@ -163,12 +162,11 @@ function Invoice(props) {
                   globalClasses.textPrimary,
                   classes.overviewSpace
                 )}>
-                  <b>La Rochelle sweets</b>
+                  <b>{invoice.business.companyname}</b>
                 </div>
-                <div>No 7 ajah estate, lagos</div>
-                {/* <div>{invoice.client.street}, {invoice.client.city}, {invoice.client.country}</div> */}
+                <div>{invoice.business.address}, {invoice.business.state}, {invoice.business.country}</div>
                 <div>
-                  {invoice.client.phonenumber}
+                  {invoice.business.phonenumber}
                 </div>
                 <div className={classes.overviewSpace}>
                   {invoice.email}
@@ -434,7 +432,7 @@ function Invoice(props) {
             {trans('sales.notes_and_terms')}
           </p>
           <div>
-            {trans('sales.thank_you_for_your_order')}
+            {invoice.notes}
           </div>
         </Box>
 
@@ -455,7 +453,7 @@ function Invoice(props) {
         )}
       </Box>
 
-      <div className={classes.historySection}>
+      {/* <div className={classes.historySection}>
         <p className={cx(
           classes.leftAlign,
           classes.historyTitle,
@@ -537,7 +535,7 @@ function Invoice(props) {
             </tbody>
           </table>
         )}
-      </div>
+      </div> */}
     </>
   )
 }
