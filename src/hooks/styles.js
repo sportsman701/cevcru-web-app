@@ -43,9 +43,12 @@ export default makeStyles(theme => ({
     }
   },
 
-  hbar: {
-    border: `1px solid ${colors.primary.normal}`,
-    margin: '1.5em 0'
+  miniSection: {
+    backgroundColor: colors.background.white,
+    boxShadow: '0px 1.5px 7px #00000007',
+    borderRadius: 5,
+    padding: '1em',
+    margin: '1em 0'
   },
 
   textTitleFixed: {

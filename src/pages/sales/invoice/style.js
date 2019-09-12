@@ -92,7 +92,6 @@ export default makeStyles(theme => ({
   },
 
   tableSplit: {
-    margin: '0.3em 0',
     marginLeft: 'auto',
     maxWidth: 230,
     width: '100%'
@@ -148,17 +147,34 @@ export default makeStyles(theme => ({
     lineHeight: '1.2em'
   },
 
-  hbarThin: {
-    margin: '0.3em 0'
-  },
-
   invoiceSection: {
     maxWidth: 900,
     margin: 'auto',
     width: '100%'
   },
 
+  historySection: {
+    maxWidth: 1100,
+    margin: 'auto',
+    width: '100%',
+    textAlign: 'left'
+  },
+
   historyTitle: {
-    
+    marginTop: '2em',
+    marginLeft: '10%',
+
+    [theme.breakpoints.only('xs')]: {
+      marginLeft: 0
+    }
+  },
+
+  historyTableHeader: {
+    padding: '1em',
+    paddingBottom: 0
+  },
+
+  historyTable: {
+    width: '100%'
   }
 }));

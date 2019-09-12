@@ -277,6 +277,18 @@
     "Date of Issue",
   "sales.due_date":
     "Due Date",
+  "sales.date":
+    "Date",
+  "sales.type":
+    "Type",
+  "sales.payment_made":
+    "Payment Made",
+  "sales.basic_info":
+    "Basic Info",
+  "sales.cache":
+    "Cache",
+  "sales.online_payment":
+    "Online Payment",
   "sales.item":
     "Item",
   "sales.description":

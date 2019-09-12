@@ -31,7 +31,7 @@ export default makeStyles(theme => ({
     [theme.breakpoints.only('xs')]: {
       padding: '1.5em',
       fontSize: 12,
-      paddingBottom: 60,
+      paddingBottom: 'calc(1.5em + 60px)',
       backgroundColor: colors.background.white
     }
   }

@@ -8,6 +8,7 @@ import { FormattedMessage } from 'react-intl'
 import { getInvoice, getAllPayment } from 'redux/sales/actions';
 
 import SnackBar from 'components/snackbar';
+import Split from 'components/split';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 
@@ -186,7 +187,7 @@ function Invoice(props) {
           </Grid>
         </Grid>
         
-        <hr className={globalClasses.hbar}/>
+        <Split/>
 
         {mediaUp(media.md) ? (
           <table className={classes.invoiceTable}>
@@ -240,10 +241,7 @@ function Invoice(props) {
               </tr>
               <tr>
                 <td colSpan={2}>
-                  <hr className={cx(
-                    globalClasses.hbar,
-                    classes.hbarThin
-                  )}/>
+                  <Split thin />
                 </td>
               </tr>
               <tr className={cx(
@@ -313,10 +311,7 @@ function Invoice(props) {
               </tr>
               <tr>
                 <td colSpan={2}>
-                  <hr align='right' className={cx(
-                    globalClasses.hbar,
-                    classes.tableSplit
-                  )}/>
+                  <Split thin className={classes.tableSplit}/>
                 </td>
               </tr>
               <tr className={cx(
@@ -401,7 +396,7 @@ function Invoice(props) {
           </div>
         </Box>
 
-        <hr className={globalClasses.hbar}/>
+        <Split />
 
         <Box className={classes.footer}>
           <span>{trans('sales.powered_by')}</span>
@@ -418,14 +413,89 @@ function Invoice(props) {
         )}
       </Box>
 
-      <p className={cx(
-        classes.leftAlign,
-        globalClasses.textXLarge
-      )}>
-        {trans('sales.all_payments_for_invoice')}
-        &nbsp;
-        {invoice.invoicenumber}
-      </p>
+      <div className={classes.historySection}>
+        <p className={cx(
+          classes.leftAlign,
+          classes.historyTitle,
+          globalClasses.textXLarge
+        )}>
+          {trans('sales.all_payments_for_invoice')}
+          &nbsp;
+          {invoice.invoicenumber}
+        </p>
+
+        {mediaUp(media.sm) ? (
+          <>
+            <Grid container className={classes.historyTableHeader}>
+              <Grid item sm={1} />
+              <Grid item sm={3} md={2}>
+                {trans('sales.date')}
+              </Grid>
+              <Grid item sm={3} md={2}>
+                {trans('sales.type')}
+              </Grid>
+              <Grid item sm={5} md={7}>
+                {trans('sales.payment_made')}
+              </Grid>
+            </Grid>
+            {Array(5).fill(0).map((item, key) => (
+              <Grid
+                container
+                key={key}
+                className={globalClasses.miniSection}
+              >
+                <Grid item sm={1} />
+                <Grid item sm={3} md={2}>
+                  30/08/2018
+                </Grid>
+                <Grid item sm={3} md={2}>
+                  {trans('sales.cache')}
+                </Grid>
+                <Grid item sm={5} md={7}>
+                  $2,500
+                </Grid>
+              </Grid>
+            ))}
+          </>
+        ) : (
+          <table className={classes.historyTable}>
+            <thead>
+              <tr>
+                <th>{trans('sales.basic_info')}</th>
+                <th className={classes.alignRight}>
+                  {trans('sales.payment_made')}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {Array(5).fill(0).map((item, key) => (
+                <React.Fragment key={key}>
+                  <tr>
+                    <td colSpan={2}>
+                      <Split thin light={key > 0} />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      25/08/2019
+                      <br/>
+                      <small className={globalClasses.textNormal}>
+                        {trans('sales.cache')}
+                      </small>
+                    </td>
+                    <td className={cx(
+                      globalClasses.textPrimary,
+                      classes.alignRight
+                    )}>
+                      $2,500.00
+                    </td>
+                  </tr>
+                </React.Fragment>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
     </>
   )
 }
