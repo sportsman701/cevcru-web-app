@@ -40,7 +40,8 @@ export default makeStyles(theme => ({
   },
 
   hbar: {
-    border: `1px solid ${colors.primary.normal}`
+    border: `1px solid ${colors.primary.normal}`,
+    margin: '1.5em 0'
   },
 
   textTitleFixed: {

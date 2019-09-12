@@ -89,8 +89,10 @@ export default makeStyles(theme => ({
   },
 
   tableSplit: {
-    marginRight: 0,
-    width: 230
+    margin: '0.3em 0',
+    marginLeft: 'auto',
+    maxWidth: 230,
+    width: '100%'
   },
 
   leftAlign: {
@@ -127,5 +129,19 @@ export default makeStyles(theme => ({
       top: 0,
       left: '50%'
     }
+  },
+
+  footer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    '& span': {
+      marginRight: '2em'
+    }
+  },
+
+  hbarThin: {
+    margin: '0.3em 0'
   }
 }));

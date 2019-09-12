@@ -19,6 +19,7 @@ import paystack from 'resources/sale/paystack.png'
 import stampFullyPaid from 'resources/sale/invoice-fully-paid.svg'
 import stampOverdue from 'resources/sale/invoice-over-due.svg'
 import stampDeposit from 'resources/sale/invoice-deposit-paid.svg'
+import vencru from 'resources/logo/vencru-horizontal-mobile.svg'
 
 import { media, useMediaUp } from 'hooks/media';
 import useIntl from 'hooks/intl';
@@ -236,7 +237,10 @@ function Invoice(props) {
               </tr>
               <tr>
                 <td colSpan={2}>
-                  <hr className={globalClasses.hbar}/>
+                  <hr className={cx(
+                    globalClasses.hbar,
+                    classes.hbarThin
+                  )}/>
                 </td>
               </tr>
               <tr className={cx(
@@ -306,7 +310,7 @@ function Invoice(props) {
               </tr>
               <tr>
                 <td colSpan={2}>
-                  <hr className={cx(
+                  <hr align='right' className={cx(
                     globalClasses.hbar,
                     classes.tableSplit
                   )}/>
@@ -362,7 +366,7 @@ function Invoice(props) {
               {trans('sales.account_name')}: Lanray Okemati
             </div>
           </Grid>
-          <Grid
+          {/* <Grid
             item xs={12} sm={6}
             className={cx({[classes.topSpacing]: !mediaUp(media.sm)})}
           >
@@ -379,8 +383,27 @@ function Invoice(props) {
               <small>{trans('sales.secured_by')}</small>
               <img src={paystack} alt='' />
             </div>
-          </Grid>
+          </Grid>*/}
         </Grid>
+
+        <Box className={classes.leftAlign}>
+          <p className={cx(
+            globalClasses.textPrimary,
+            globalClasses.textLarge,
+          )}>
+            {trans('sales.notes_and_terms')}
+          </p>
+          <div>
+            {trans('sales.thank_you_for_your_order')}
+          </div>
+        </Box>
+
+        <hr className={globalClasses.hbar}/>
+
+        <Box className={classes.footer}>
+          <span>{trans('sales.powered_by')}</span>
+          <img src={vencru} alt='' />
+        </Box>
       </Box>
     </>
   )
