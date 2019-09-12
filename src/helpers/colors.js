@@ -6,7 +6,8 @@ const colors = {
     normal: '#2D74DA',
     hover: '#4684dd',
     active: '#1055b7',
-    light: '#79A6F6'
+    light: '#79A6F6',
+    green: '#17BF5F',
   },
 
   inverse: {
@@ -42,6 +43,7 @@ const colors = {
       light: '#ECF0F3',
       gray: '#777',
       contrast: '#5a5a5a',
+      green: '#17BF5F',
       placeholder: '#DFDFDF',
     },
     

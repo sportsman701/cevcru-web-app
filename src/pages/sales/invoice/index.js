@@ -175,7 +175,87 @@ function Invoice(props) {
             </div>
           </Grid>
         </Grid>
+        
         <hr className={globalClasses.hbar}/>
+
+        <table className={classes.invoiceTable}>
+          <thead>
+            <tr>
+              <th className={globalClasses.textPrimary}>
+                {trans('sales.item')}
+                <div className={classes.itemDescription}>
+                  {trans('sales.description')}
+                </div>
+              </th>
+              <th className={globalClasses.textPrimary}>
+                {trans('sales.price')}
+              </th>
+              <th className={globalClasses.textPrimary}>
+                {trans('sales.qty')}
+              </th>
+              <th className={cx(
+                globalClasses.textPrimary,
+                classes.alignRight
+              )}>
+                {trans('sales.amount')}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                Red Velvet Cake with Strawberry toppings
+                <br/>
+                <i className={classes.itemDescription}>
+                  A cake with red toppings sand strawberry toppings dipped in sauce
+                </i>
+              </td>
+              <td>$500.00</td>
+              <td>2</td>
+              <td className={classes.alignRight}>$1,000.00</td>
+            </tr>
+            <tr className={classes.alignRight}>
+              <td colspan={2} rowspan={7}></td>
+              <td>{trans('sales.subtotal')}</td>
+              <td>$1,000.00</td>
+            </tr>
+            <tr className={classes.alignRight}>
+              <td>10% {trans('sales.discount')}</td>
+              <td>$100.00</td>
+            </tr>
+            <tr className={classes.alignRight}>
+              <td>10% {trans('sales.tax')}</td>
+              <td>$70.00</td>
+            </tr>
+            <tr>
+              <td colspan={2}>
+                <hr className={globalClasses.hbar}/>
+              </td>
+            </tr>
+            <tr className={cx(
+              classes.alignRight,
+              globalClasses.textLarge
+            )}>
+              <td className={globalClasses.textPrimary}>
+                <b>{trans('sales.amount_due')}</b>
+              </td>
+              <td>$970.00</td>
+            </tr>
+            <tr className={classes.alignRight}>
+              <td>30% {trans('sales.deposit')}</td>
+              <td>$300.00</td>
+            </tr>
+            <tr className={cx(
+              classes.alignRight,
+              globalClasses.textLarge
+            )}>
+              <td className={globalClasses.textGreen}>
+                <b>{trans('sales.amount_paid')} (USD)</b>
+              </td>
+              <td>$100.00</td>
+            </tr>
+          </tbody>
+        </table>
       </Box>
     </>
   )

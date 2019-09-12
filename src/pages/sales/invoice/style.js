@@ -1,4 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
+import colors from 'helpers/colors';
+
 
 export default makeStyles(theme => ({
   title: {
@@ -56,5 +58,29 @@ export default makeStyles(theme => ({
     [theme.breakpoints.only('xs')]: {
       display: 'block'
     }
+  },
+
+  invoiceTable: {
+    width: '100%',
+    textAlign: 'left',
+
+    '& thead': {
+      marginBottom: '1em',
+
+      '& th': {
+        borderBottom: '1em solid white'
+      }
+    }
+  },
+
+  itemDescription: {
+    color: colors.text.primary.normal,
+    fontWeight: 'normal',
+    fontSize: 'smaller'
+  },
+
+  alignRight: {
+    textAlign: 'right',
+    height: '2em'
   }
 }));

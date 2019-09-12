@@ -97,6 +97,10 @@ export default makeStyles(theme => ({
     color: colors.text.primary.gray
   },
 
+  textGreen: {
+    color: colors.text.primary.green
+  },
+
   textInverseNormal: {
     color: colors.text.inverse.normal
   },
