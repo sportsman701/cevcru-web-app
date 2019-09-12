@@ -137,7 +137,7 @@ function Invoice(props) {
           </Grid>
 
           <Grid item xs className={classes.overviewRight}>
-            { mediaUp(media.sm) && (
+            { mediaUp(media.md) && (
               <>
                 <div className={cx(
                   globalClasses.textPrimary,

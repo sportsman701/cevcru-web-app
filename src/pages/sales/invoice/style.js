@@ -10,7 +10,11 @@ export default makeStyles(theme => ({
 
   accountLogo: {
     border: '1px dotted lightgray',
-    borderRadius: 5
+    borderRadius: 5,
+
+    [theme.breakpoints.down('sm')]: {
+      width: 50
+    }
   },
 
   overview: {
@@ -49,13 +53,13 @@ export default makeStyles(theme => ({
     '&>div:nth-child(2)': {
       width: 100,
 
-      [theme.breakpoints.only('xs')]: {
+      [theme.breakpoints.down('sm')]: {
         width: 'auto',
         marginTop: '1em'
       }
     },
 
-    [theme.breakpoints.only('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       display: 'block'
     }
   },
